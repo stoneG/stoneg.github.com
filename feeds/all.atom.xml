@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>the architect</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-01-06T18:00:00-08:00</updated><entry><title>On to better things</title><link href="http://blog.sitongpeng.com/posts/on-to-better-things.html" rel="alternate"></link><updated>2013-01-06T18:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-06:posts/on-to-better-things.html</id><summary type="html">&lt;p&gt;Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, &lt;em&gt;&lt;a href="http://blog.sitongpeng.com"&gt;here it is&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;I'm now running on the static site generator, &lt;a href="http://docs.getpelican.com/"&gt;Pelican&lt;/a&gt;. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (&lt;em&gt;not Ruby&lt;/em&gt;). Anyways, things I'm most excited about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Writing all my posts in Markdown&lt;/li&gt;
+&lt;li&gt;Being hosted on Github Pages&lt;/li&gt;
+&lt;li&gt;Having all my posts saved on my Dropbox&lt;/li&gt;
+&lt;li&gt;New syntax highlighting color scheme&lt;/li&gt;
+&lt;li&gt;Actually using my own domain&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.&lt;/p&gt;
+&lt;p&gt;(find old posts on my &lt;a href="hellositong.tumblr.com"&gt;tumblr&lt;/a&gt;)&lt;/p&gt;</summary><category term="pelican"></category><category term="new"></category><category term="github pages"></category><category term="jinja2"></category><category term="python"></category><category term="tumblr"></category></entry><entry><title>Programming Resolutions</title><link href="http://blog.sitongpeng.com/posts/programming-resolutions.html" rel="alternate"></link><updated>2013-01-02T19:23:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-02:posts/programming-resolutions.html</id><summary type="html">&lt;p&gt;Last year was the first year in a long time that I did not make any
+resolutions over the year. I’d like to get back to it this year, with a
+few that I should be able to keep.&lt;/p&gt;
+&lt;/p&gt;&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Articulation: 100 posts about programming things I’ve encountered and want to share.&lt;/li&gt;
+&lt;li&gt;Get involved: Contribute a couple patches or a bug fix to an open source project.&lt;/li&gt;
+&lt;li&gt;Push myself: Do a weekend project and get it on the front page of HN.&lt;/li&gt;
+&lt;li&gt;Read more books: I need to expand my knowledge beyond just reading the news and blogs.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/p&gt;&lt;p&gt;Here’s to a great 2013!&lt;/p&gt;
+&lt;/p&gt;</summary><category term="resolutions"></category><category term="2013"></category><category term="2012"></category><category term="programming"></category><category term="open source"></category><category term="blog"></category><category term="weekend project"></category><category term="hacker news"></category></entry></feed>
