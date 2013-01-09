@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
                 <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="the architect Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Droid+Sans+Mono|Linden+Hill' rel='stylesheet' type='text/css'>
+                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
@@ -40,11 +40,76 @@
     <section id="main">
             
                 <header>
+            <h1><a href="./posts/trying-out-the-static-blog-thing.html" rel="bookmark"
+                   title="Permalink to Trying out the static blog thing">Trying out the static blog thing</a></h1>
+        <p class="date">Monday, January 07, 2013</p>        </header>
+        <article>
+            <p>Since I started actively programming a few months ago, I've learned much about what technology I take for granted. In order to help me appreciate the many abstractions that our lives are built upon, I've made it my goal to be more technologically self-sufficent. The first step was to revamp my <a href="http://www.sitongpeng.com">personal website</a>. Next up was to move my code blog from Tumblr to my own domain, and then rebuild it on top of a static site/blog generator. That way, I would have complete ownership and control over my own posts.</p>
+<h2>Static what nots?</h2>
+<p>Static site generators do what they advertise. They take some content you provide, then generate a pre-determined set of static html pages that are web ready. The idea here is that once you finish setting up the styling and format of your site, you can simply focus on <strong><em>writing content</em></strong>. Of course, they have boiler plate templates ready for you too, if you'd rather jump right into writing.</p>
+<h2>Getting set up</h2>
+<p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
+<p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
+<p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
+<div class="codehilite"><pre><span class="n">AUTHOR</span> <span class="p">=</span> <span class="s">&#39;YOUR NAME&#39;</span>
+<span class="n">SITENAME</span> <span class="p">=</span> <span class="s">&#39;YOUR SITE NAME&#39;</span>
+<span class="n">SITEURL</span> <span class="p">=</span> <span class="s">&#39;http://your-site.com&#39;</span>
+</pre></div>
+
+
+<p>For the purposes of setting up a blog on Pelican, you will want to set <code>DEFAULT_PAGINATION</code> to be the (number of posts)/page and <code>DEFAULT_ORPHANS</code> as the largest remainder of posts you'll allow on your last page. For my setup, I selected 5 posts/page, and no more than 3 posts on the last page (so up to 8 posts on the last page).</p>
+<p>You can browse over all my selected settings <a href="https://github.com/stoneG/blarg/blob/master/settings.py">here</a>.</p>
+<h2>Making it yours</h2>
+<p>Now, you can certainly use the <a href="https://github.com/getpelican/pelican-themes/blob/master/notmyidea-cms-fr/screenshot.png">default theme</a> provided by Pelican, or one of their other <a href="https://github.com/getpelican/pelican-themes/blob/master/waterspill/screenshot.png">sample themes</a>, but I prefer to make a theme that suits my own tastes. Reading the Pelican documentation and working through the quickstart guide took up half of my weekend, which means I spent the other half on designing my theme.</p>
+<p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
+<p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
+<p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
+<div class="codehilite"><pre><span class="n">categories</span><span class="p">.</span><span class="n">html</span>
+<span class="n">category</span><span class="p">.</span><span class="n">html</span>
+<span class="n">author</span><span class="p">.</span><span class="n">html</span>
+<span class="n">authors</span><span class="p">.</span><span class="n">html</span>
+</pre></div>
+
+
+<p>Pelican is smart enough to just use it's base templates from the Simple theme if you don't provide all the desired html templates.</p>
+<p>You will, however, want to make the basic html frame for your blog and save it as <code>base.html</code>, as all other html templates will inherit from it. Otherwise, use the default theme's templates as a guide for building your custom templates.</p>
+<p>Once you have your html templates set, you'll want to work on the CSS, which you will save in <code>static/css</code> folder.</p>
+<p>The theme for this blog is <a href="https://github.com/stoneG/blarg/tree/master/themes/sitong">here</a>. Please give me a shoutout in the footer if you want to use it ;).</p>
+<h2>Workflow</h2>
+<p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
+<p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
+<div class="codehilite"><pre><span class="n">content</span><span class="o">/</span>2013<span class="o">/</span><span class="n">trying</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">thing</span><span class="p">.</span><span class="n">md</span>
+</pre></div>
+
+
+<p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
+<div class="codehilite"><pre>$ <span class="n">pelican</span> <span class="n">content</span><span class="o">/</span>2013<span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>The new static pages will be placed in</p>
+<div class="codehilite"><pre><span class="n">output</span><span class="o">/</span>
+</pre></div>
+
+
+<p>but you can always change that path in your <code>settings.py</code>.</p>
+<p>Then I simply <code>$ git add .</code> in my output folder, throw on a commit message, then push it to Github.</p>
+<h2>Final thoughts</h2>
+<p>The entire set up process takes a bit of time, especially if you're making your own theme, but it's always nice to have ownership over your own content. That's just something you don't get on Tumblr or other browser based blogs. Pelican is an awesome option for anyone looking for a static blog generator and wants to work in Python, I heartily recommend it.</p>
+                <p class="comments">
+        <a href="./posts/trying-out-the-static-blog-thing.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="./tag/in-progress.html">[in progress]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="./posts/on-to-better-things.html" rel="bookmark"
                    title="Permalink to On to better things">On to better things</a></h1>
         <p class="date">Sunday, January 06, 2013</p>        </header>
         <article>
-            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.</p>
+            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.  </p>
 <p>I'm now running on the static site generator, <a href="http://docs.getpelican.com/">Pelican</a>. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to <a href="http://jekyllrb.com/">Jekyll</a>. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (<em>not Ruby</em>). Anyways, things I'm most excited about:</p>
 <ul>
 <li>Writing all my posts in Markdown</li>
