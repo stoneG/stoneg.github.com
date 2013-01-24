@@ -85,6 +85,8 @@
 
 
 <p>Randomness restored.</p>
+<p><span id="update">Update</span><br />
+My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
 <p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
         <p class="tags">
                     <a href="../tag/random.html">[random]</a>

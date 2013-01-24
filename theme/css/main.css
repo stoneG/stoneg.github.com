@@ -254,3 +254,8 @@ span#note {
     font-size: 0.9em;
     color: #909090;
 }
+
+span#update {
+    font-style: italic;
+    color: red;
+}
