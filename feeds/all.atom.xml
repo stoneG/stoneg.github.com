@@ -1,5 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-01-23T20:20:00-08:00</updated><entry><title>Unexpected random number generation</title><link href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="alternate"></link><updated>2013-01-23T20:20:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-23:posts/unexpected-random-number-generation.html</id><summary type="html">&lt;p&gt;So, last month, I was working on building test applications for &lt;a href="https://github.com/stoneG/whiskey"&gt;Whiskey&lt;/a&gt;, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-01-28T21:45:00-08:00</updated><entry><title>The case for base cases</title><link href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="alternate"></link><updated>2013-01-28T21:45:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-28:posts/the-case-for-base-cases.html</id><summary type="html">&lt;p&gt;You have a complicated problem to solve. How do you start tackling it?&lt;/p&gt;
+&lt;p&gt;One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?&lt;/p&gt;
+&lt;h2&gt;Tower of Hanoi&lt;/h2&gt;
+&lt;p&gt;I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the &lt;a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi"&gt;Tower of Hanoi&lt;/a&gt; is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /&gt;&lt;/p&gt;
+&lt;p&gt;There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Only one disk may be moved at a time.  &lt;/li&gt;
+&lt;li&gt;Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  &lt;/li&gt;
+&lt;li&gt;No disk may be placed on top of a disk smaller than it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Seems straightforward enough, but let's solve this for N disks. How should we start?&lt;/p&gt;
+&lt;h2&gt;Let's start with the base cases&lt;/h2&gt;
+&lt;p&gt;N=1&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+1&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;So&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt; &lt;span class="n"&gt;solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;1 &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;one&lt;/span&gt; &lt;span class="n"&gt;move&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;N=2&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+1&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="o"&gt;-------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;      &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="o"&gt;========&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+2&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="o"&gt;----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+3&lt;span class="p"&gt;.&lt;/span&gt;            &lt;span class="o"&gt;-------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Let&lt;/span&gt;&lt;span class="o"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;take&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;closer&lt;/span&gt; &lt;span class="n"&gt;look&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;these&lt;/span&gt; &lt;span class="n"&gt;moves&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+1&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Exactly&lt;/span&gt; &lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="n"&gt;solving&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="n"&gt;instead&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+2&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="n"&gt;places&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;largest&lt;/span&gt; &lt;span class="n"&gt;disc&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;base&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+3&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Also&lt;/span&gt; &lt;span class="n"&gt;solves&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;instead&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Let&lt;/span&gt;&lt;span class="o"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;rewrite&lt;/span&gt; &lt;span class="n"&gt;our&lt;/span&gt; &lt;span class="n"&gt;steps&lt;/span&gt; &lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+1&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;
+2&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Move&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+3&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;N=3&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+ &lt;span class="o"&gt;---|---&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    A         B         C
+
+&lt;span class="m"&gt;1.&lt;/span&gt;  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="m"&gt;2.&lt;/span&gt;  &lt;span class="o"&gt;------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+&lt;span class="m"&gt;3.&lt;/span&gt;           &lt;span class="o"&gt;-|-&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-------&lt;/span&gt;
+
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;        &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;
+ &lt;span class="o"&gt;---|---&lt;/span&gt;    &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    A         B         C
+
+&lt;span class="m"&gt;4.&lt;/span&gt;  &lt;span class="o"&gt;---------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;---|---&lt;/span&gt;
+&lt;span class="m"&gt;5.&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-------&lt;/span&gt;
+&lt;span class="m"&gt;6.&lt;/span&gt;            &lt;span class="o"&gt;------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+&lt;span class="m"&gt;7.&lt;/span&gt;  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+Done.
+
+Notice how steps &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt; solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; and places it at B. Rewrite?
+&lt;span class="m"&gt;1.&lt;/span&gt; Solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; except A&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;B
+&lt;span class="m"&gt;2.&lt;/span&gt; Move &lt;span class="o"&gt;---|---&lt;/span&gt; from A&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;C
+&lt;span class="m"&gt;3.&lt;/span&gt; Solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; except B&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;C
+Done.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Interesting. Looks like we have a formula.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;
+1&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;1&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;
+2&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Move&lt;/span&gt; &lt;span class="n"&gt;largest&lt;/span&gt; &lt;span class="n"&gt;disc&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+3&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;=(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;1&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;
+    &lt;span class="n"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+    &lt;span class="n"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The trick is to redefine the rods for each recursive &lt;code&gt;n-1&lt;/code&gt; call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.&lt;/p&gt;
+&lt;p&gt;I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!&lt;/p&gt;
+&lt;iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary><category term="base case"></category><category term="python"></category><category term="tower of hanoi"></category><category term="algorithms"></category><category term="recursion"></category><category term="youtube"></category></entry><entry><title>Unexpected random number generation</title><link href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="alternate"></link><updated>2013-01-23T20:20:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-23:posts/unexpected-random-number-generation.html</id><summary type="html">&lt;p&gt;So, last month, I was working on building test applications for &lt;a href="https://github.com/stoneG/whiskey"&gt;Whiskey&lt;/a&gt;, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.&lt;/p&gt;
 &lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
 
