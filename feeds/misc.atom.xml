@@ -1,5 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/misc.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-01-28T21:45:00-08:00</updated><entry><title>The case for base cases</title><link href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="alternate"></link><updated>2013-01-28T21:45:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-28:posts/the-case-for-base-cases.html</id><summary type="html">&lt;p&gt;You have a complicated problem to solve. How do you start tackling it?&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/misc.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-01-30T22:00:00-08:00</updated><entry><title>Bit manipulation fun</title><link href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="alternate"></link><updated>2013-01-30T22:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-30:posts/bit-manipulation-fun.html</id><summary type="html">&lt;p&gt;So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.&lt;/p&gt;
+&lt;h2&gt;Simple stuff first&lt;/h2&gt;
+&lt;p&gt;The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.&lt;/p&gt;
+&lt;p&gt;When you write out a integer in a binary representation, 5 as &lt;code&gt;0101&lt;/code&gt; for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;0101 &lt;span class="n"&gt;is&lt;/span&gt; 0&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;2^3&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; 1&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;2^2&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; 0&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;2^1&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; 1&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;2^0&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="n"&gt;or&lt;/span&gt; 0&lt;span class="o"&gt;*&lt;/span&gt;8 &lt;span class="o"&gt;+&lt;/span&gt; 1&lt;span class="o"&gt;*&lt;/span&gt;4 &lt;span class="o"&gt;+&lt;/span&gt; 0&lt;span class="o"&gt;*&lt;/span&gt;2 &lt;span class="o"&gt;+&lt;/span&gt; 1&lt;span class="o"&gt;*&lt;/span&gt;1
+     &lt;span class="n"&gt;or&lt;/span&gt; 5
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Anyone can write a simple function that tests if a given integer &lt;code&gt;x&lt;/code&gt; is even. Usually it will involve checking to see if &lt;code&gt;x&lt;/code&gt; mod 2 is 0.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_even&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But, given that least significant bit of a binary value represents odd or even, we can write that same &lt;code&gt;is_even&lt;/code&gt; function using the &lt;code&gt;AND&lt;/code&gt; bit operation. &lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_even&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For example 6 &amp;amp; 1 is 0.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;  &lt;span class="m"&gt;0110&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="m"&gt;0001&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="o"&gt;======&lt;/span&gt;
+  &lt;span class="m"&gt;0000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This ends up being the same amount of typing but it's interesting that we have this second option of writing the &lt;code&gt;is_even&lt;/code&gt; function.&lt;/p&gt;
+&lt;h2&gt;Powerful twos&lt;/h2&gt;
+&lt;p&gt;If you work on &lt;a href="http://projecteuler.net/"&gt;Project Euler&lt;/a&gt; problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if &lt;code&gt;x&lt;/code&gt; is a power of two.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_power_of_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_power_of_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's see this in action with &lt;code&gt;x&lt;/code&gt; as some random binary number:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;  &lt;span class="m"&gt;010110000&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x
+&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="m"&gt;000000001&lt;/span&gt;
+&lt;span class="o"&gt;===========&lt;/span&gt;
+  &lt;span class="m"&gt;010101111&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="m"&gt;010110000&lt;/span&gt;
+&lt;span class="o"&gt;===========&lt;/span&gt;
+  &lt;span class="m"&gt;010100000&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+So&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; just removed the left&lt;span class="o"&gt;-&lt;/span&gt;most bit that was equal to &lt;span class="m"&gt;1.&lt;/span&gt; But then&lt;span class="p"&gt;,&lt;/span&gt; when might &lt;span class="p"&gt;(&lt;/span&gt;x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; be &lt;span class="m"&gt;0&lt;/span&gt;? That would only happen when x has only one &lt;span class="m"&gt;1&lt;/span&gt; bit&lt;span class="p"&gt;,&lt;/span&gt; which means that x must be a power of &lt;span class="m"&gt;2.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Swapping in place&lt;/h2&gt;
+&lt;p&gt;Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Behind the scenes, Python accesses the values of &lt;code&gt;y&lt;/code&gt; and &lt;code&gt;x&lt;/code&gt;, then rotates them as it unpacks and assigns to &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;. Here's what that looks like when run through the Python disassembler:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;dis&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="n"&gt;dis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;3&lt;/span&gt;           &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;              &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;4&lt;/span&gt;           &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;              &lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;5&lt;/span&gt;          &lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;15&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;18&lt;/span&gt; &lt;span class="n"&gt;ROT_TWO&lt;/span&gt;             
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;22&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;6&lt;/span&gt;          &lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;28&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;31&lt;/span&gt; &lt;span class="n"&gt;ROT_TWO&lt;/span&gt;             
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;32&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;35&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;38&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;41&lt;/span&gt; &lt;span class="n"&gt;RETURN_VALUE&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But, did you know we can actually swap without a temporary variable using &lt;code&gt;XOR&lt;/code&gt; too.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;x&lt;/span&gt; ^&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; ^&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; ^&lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To understand what's happening, you should recall that &lt;code&gt;XOR&lt;/code&gt; is commutative, &lt;code&gt;x^x&lt;/code&gt; is 0, and &lt;code&gt;x^0&lt;/code&gt; is &lt;code&gt;x&lt;/code&gt;. Let's break down the &lt;a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm"&gt;XOR Swap Algorithm&lt;/a&gt; again.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="gh"&gt;start   -&amp;gt;  breaking down  -&amp;gt;  commuting      -&amp;gt;  cancelling -&amp;gt;  removing 0&amp;#39;s&lt;/span&gt;
+&lt;span class="gh"&gt;=============================================================================&lt;/span&gt;
+x ^= y  -&amp;gt;  x = x^y
+y ^= x  -&amp;gt;  y = y^x^y      -&amp;gt;  y = x^y^y      -&amp;gt;  y = x^0    -&amp;gt;  y = x
+x ^= y  -&amp;gt;  x = x^y^y^x^y  -&amp;gt;  x = x^x^y^y^y  -&amp;gt;  x = 0^y^0  -&amp;gt;  x = y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.&lt;/p&gt;
+&lt;p&gt;Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of &lt;a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice"&gt;these&lt;/a&gt; buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.&lt;/p&gt;
+&lt;p&gt;&lt;span id="note"&gt;Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.&lt;/span&gt;&lt;/p&gt;</summary><category term="bit manipulation"></category><category term="binary"></category><category term="tricks"></category><category term="python"></category></entry><entry><title>The case for base cases</title><link href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="alternate"></link><updated>2013-01-28T21:45:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-28:posts/the-case-for-base-cases.html</id><summary type="html">&lt;p&gt;You have a complicated problem to solve. How do you start tackling it?&lt;/p&gt;
 &lt;p&gt;One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?&lt;/p&gt;
 &lt;h2&gt;Tower of Hanoi&lt;/h2&gt;
 &lt;p&gt;I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the &lt;a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi"&gt;Tower of Hanoi&lt;/a&gt; is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:&lt;/p&gt;
