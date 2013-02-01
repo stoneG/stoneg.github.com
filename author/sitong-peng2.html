@@ -179,10 +179,11 @@ Done.
 <p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
 <h2>Finding a "short" path</h2>
 <p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
-<p>Here it is:<br />
-1. Starting at A, traverse through each node and make note of which path is the shortest.
-2. Take the shortest path (let's say to B) and mark A visited.
-3. Repeat step 1 and 2 until all nodes are visited.</p>
+<ol>
+<li>Starting at A, traverse through each node and make note of which path is the shortest.</li>
+<li>Take the shortest path (let's say to B) and mark A visited.</li>
+<li>Repeat step 1 and 2 until all nodes are visited.</li>
+</ol>
 <p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
 <div class="codehilite"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
 </pre></div>
