@@ -40,6 +40,70 @@
     <section id="main">
             
                 <header>
+            <h1><a href="./posts/unexpected-random-number-generation.html" rel="bookmark"
+                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
+        <p class="date">Wednesday, January 23, 2013</p>        </header>
+        <article>
+            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># if we are in the child process</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>A little background</h2>
+<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
+<h2>Result</h2>
+<div class="codehilite"><pre><span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+</pre></div>
+
+
+<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
+<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
+<h2>Solution</h2>
+<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>                      <span class="c">##### ADDED THIS LINE ######</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c">##### ADDED THIS LINE ######</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Randomness restored.</p>
+<p><span id="update">Update</span><br />
+My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
+<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
+                <p class="comments">
+        <a href="./posts/unexpected-random-number-generation.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="./tag/random.html">[random]</a>
+                    <a href="./tag/random-numbers.html">[random numbers]</a>
+                    <a href="./tag/processes.html">[processes]</a>
+                    <a href="./tag/forking.html">[forking]</a>
+                    <a href="./tag/python.html">[python]</a>
+                    <a href="./tag/whiskey.html">[whiskey]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="./posts/play-sweeper.html" rel="bookmark"
                    title="Permalink to Play sweeper">Play sweeper</a></h1>
         <p class="date">Thursday, January 17, 2013</p>        </header>

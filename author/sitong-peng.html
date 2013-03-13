@@ -225,6 +225,63 @@ leads to awkward and hard to read paragraphs!
         </article>
             
                 <header>
+            <h1><a href="../posts/no-man-is-an-island.html" rel="bookmark"
+                   title="Permalink to No man is an island: Collaboration with git">No man is an island: Collaboration with git</a></h1>
+        <p class="date">Tuesday, March 12, 2013</p>        </header>
+        <article>
+            <p>I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily <code>git</code> is forgiving while I'm expanding my terminology past <code>add</code>, <code>commit</code>, <code>push</code>, <code>status</code>, <code>diff</code>, and <code>clone</code>. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear <a href="http://git-scm.com/book">Pro Git</a> text if you have the time.</p>
+<h2>Version control for the masses</h2>
+<p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
+<h2>Growing a forest from a single tree</h2>
+<p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
+<p>To actually move branches, you'll want to run this command:</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Then you can either <code>git branch</code> or <code>git status</code> to see where you are.</p>
+<h2>Finding your way back home</h2>
+<p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
+<p>Generally there's two ways about this.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
+<p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
+<h2>Knowing where your keys are</h2>
+<p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">remote</span>
+</pre></div>
+
+
+<p>This lists all saved remote locations. Your list may contain <code>origin</code> (Github/Bitbucket), <code>heroku</code> (Heroku), or the name for your own private server.</p>
+<p>Anyways, that's essentially the foundation you need for version control. Stay tuned to a later post for more advanced <code>git</code> control.</p>
+                <p class="comments">
+        <a href="../posts/no-man-is-an-island.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/git.html">[git]</a>
+                    <a href="../tag/version-control.html">[version control]</a>
+                    <a href="../tag/crash-course.html">[crash course]</a>
+                    <a href="../tag/rebase.html">[rebase]</a>
+                    <a href="../tag/github.html">[github]</a>
+                    <a href="../tag/heroku.html">[heroku]</a>
+                    <a href="../tag/bitbucket.html">[bitbucket]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="../posts/on-to-better-things.html" rel="bookmark"
                    title="Permalink to On to better things">On to better things</a></h1>
         <p class="date">Sunday, January 06, 2013</p>        </header>
@@ -268,37 +325,6 @@ leads to awkward and hard to read paragraphs!
                     <a href="../tag/programming-challenge.html">[programming challenge]</a>
                     <a href="../tag/game.html">[game]</a>
                     <a href="../tag/minesweeper.html">[minesweeper]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/programming-resolutions.html" rel="bookmark"
-                   title="Permalink to Programming Resolutions">Programming Resolutions</a></h1>
-        <p class="date">Wednesday, January 02, 2013</p>        </header>
-        <article>
-            <p>Last year was the first year in a long time that I did not make any
-resolutions over the year. I’d like to get back to it this year, with a
-few that I should be able to keep.</p>
-</p><ol class="arabic simple">
-<li>Articulation: 100 posts about programming things I’ve encountered and want to share.</li>
-<li>Get involved: Contribute a couple patches or a bug fix to an open source project.</li>
-<li>Push myself: Do a weekend project and get it on the front page of HN.</li>
-<li>Read more books: I need to expand my knowledge beyond just reading the news and blogs.</li>
-</ol>
-</p><p>Here’s to a great 2013!</p>
-</p>
-                <p class="comments">
-        <a href="../posts/programming-resolutions.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/resolutions.html">[resolutions]</a>
-                    <a href="../tag/2013.html">[2013]</a>
-                    <a href="../tag/2012.html">[2012]</a>
-                    <a href="../tag/programming.html">[programming]</a>
-                    <a href="../tag/open-source.html">[open source]</a>
-                    <a href="../tag/blog.html">[blog]</a>
-                    <a href="../tag/weekend-project.html">[weekend project]</a>
-                    <a href="../tag/hacker-news.html">[hacker news]</a>
             </p>
         </article>
                                     <p class="paginator">
