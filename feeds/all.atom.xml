@@ -1,5 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-03-20T23:59:00-07:00</updated><entry><title>Sustained momentum</title><link href="http://blog.sitongpeng.com/posts/sustained-momentum.html" rel="alternate"></link><updated>2013-03-20T23:59:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-03-20:posts/sustained-momentum.html</id><summary type="html">&lt;p&gt;In the next couple months, I'm planning on writing more about &lt;code&gt;Javascript&lt;/code&gt; as I pick it up in work and from my own reading. Towards the end of &lt;a href="https://www.hackerschool.com"&gt;Hacker School&lt;/a&gt;, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-04-07T16:00:00-07:00</updated><entry><title>Objects, attributes, functions, and methods</title><link href="http://blog.sitongpeng.com/posts/objects-attributes-functions-and-methods.html" rel="alternate"></link><updated>2013-04-07T16:00:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-04-07:posts/objects-attributes-functions-and-methods.html</id><summary type="html">&lt;p&gt;I set some time out to open the box on some &lt;a href="https://www.python.org"&gt;Python&lt;/a&gt; fundamentals this weekend. I have a few topics to write about but, for today, let's talk a little about objects.&lt;/p&gt;
+&lt;h2&gt;Objects&lt;/h2&gt;
+&lt;p&gt;Objects are a big deal in Python. And rightfully so, as most developers use Python in an object oriented manner, though you can certainly write imperatively or pseudo-functionally too. In fact, some people subscribe to the thought that &lt;a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html"&gt;everything in Python is an object&lt;/a&gt;. I'm not going to argue about whether that's true or not so we'll just tip-toe around it and state that there are an &lt;strong&gt;awful lot of objects&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So what is an object? Let's use &lt;a href="http://en.wikipedia.org/wiki/Object_(computer_science)#Properties_of_an_object"&gt;Wikipedia&lt;/a&gt;'s definition. Objects are characterized by these properties:&lt;/p&gt;
+&lt;h4&gt;Identity (Objects are unique from each other)&lt;/h4&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+
+&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff_obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 25851216&lt;/span&gt;
+&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff_obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 26133840&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;State (Can store data in object)&lt;/h4&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt; &lt;span class="c"&gt;# modules are objects&lt;/span&gt;
+&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;arbitrary&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_data&lt;/span&gt; &lt;span class="c"&gt;# arbitrary&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Behavior (Can manipulate the object)&lt;/h4&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;strings&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;are&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;objects&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;with&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;methods&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="c"&gt;# strings are objects with methods&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Attributes and Methods&lt;/h2&gt;
+&lt;p&gt;You're probably familiar with setting object attributes to static data or writing simple methods if you've worked with objects in the past.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Lannister&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{} says: &amp;quot;Hear Me Roar!&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Lannister&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister&lt;/span&gt;
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;Hear Me Roar!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But you're actually not limited to such trivial behavior. For instance, since functions are first class objects in Python, you could easily do the following too.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;A Lannister Always Pays His Debts.&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;say_common_motto&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# A Lannister Always Pays His Debts.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, we've set the &lt;code&gt;.say_common_motto&lt;/code&gt; attribute to the function object &lt;code&gt;say_common_motto&lt;/code&gt;, then invoked the attribute.&lt;/p&gt;
+&lt;p&gt;Before we continue, we should make a distinction between &lt;code&gt;.say_common_motto&lt;/code&gt; and &lt;code&gt;.say_family_motto&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# &amp;lt;type &amp;#39;function&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# &amp;lt;type &amp;#39;instancemethod&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Python resolves the type of &lt;code&gt;.say_common_motto&lt;/code&gt; to a function object and &lt;code&gt;.say_family_motto&lt;/code&gt; to an instance method object. What's the difference?&lt;/p&gt;
+&lt;p&gt;You can think of a method as a function with a unique difference. A method always takes the object it's associated with as it's first argument. You don't have a choice on the matter.&lt;/p&gt;
+&lt;p&gt;Under the hood, when Python sees &lt;code&gt;tyrion.say_family_motto()&lt;/code&gt;, it first looks for a &lt;code&gt;.say_family_motto&lt;/code&gt; attribute in &lt;code&gt;tyrion&lt;/code&gt; (this means you can override an object method by writing to an object attribute with the same name). When it doesn't find that, the interpreter will jump up to the class level and look for &lt;code&gt;say_family_motto&lt;/code&gt; function defined at the class level. Once found, it will invoke the function as a method - namely, by attaching the &lt;code&gt;tyrion&lt;/code&gt; object to the head of the argument list. That's also why a method definition always includes a positional argument placeholder first (traditionally called &lt;code&gt;self&lt;/code&gt; in Python).&lt;/p&gt;
+&lt;p&gt;Methods are really just a shortcut though. You can actually just define your own function with an argument placeholder for an object and attach the function to the object attribute. An example makes this clearer. Suppose we rewrote the &lt;code&gt;say_common_motto&lt;/code&gt; function to make it equivalent to a method.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{} says: &amp;quot;A Lannister Always Pays His Debts.&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;say_common_motto&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;A Lannister Always Pays His Debts.&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;Hear Me Roar!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, defining a method in the class is a lot cleaner than attaching a function to the instance object. But both styles get you to the same resolution eventually. &lt;/p&gt;
+&lt;p&gt;Anyways, hopefully you know a little more about Python objects now.&lt;/p&gt;</summary><category term="objects"></category><category term="python"></category><category term="functions"></category></entry><entry><title>Sustained momentum</title><link href="http://blog.sitongpeng.com/posts/sustained-momentum.html" rel="alternate"></link><updated>2013-03-20T23:59:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-03-20:posts/sustained-momentum.html</id><summary type="html">&lt;p&gt;In the next couple months, I'm planning on writing more about &lt;code&gt;Javascript&lt;/code&gt; as I pick it up in work and from my own reading. Towards the end of &lt;a href="https://www.hackerschool.com"&gt;Hacker School&lt;/a&gt;, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.&lt;/p&gt;
 &lt;p&gt;However, this doesn't mean I will stop developing in &lt;code&gt;Python&lt;/code&gt;. Aside from &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt; exposure at work, I'm planning to continue building web applications for myself - and hopefully with more robust front-end UI.&lt;/p&gt;
 &lt;p&gt;But, that's not quite good enough. If there was one thing I took away from Hacker School, it was the idea that I should always be pushing myself to become a better programmer. Web development is fun and lets me exercise my creative side, but I want to step outside my comfort zone and pursue other avenues of technology too. I'm not entirely sure what direction I'll look but I think my best bet is to attach myself to an open source project and develop a deep understanding of that problem space.&lt;/p&gt;
 &lt;p&gt;Anyways, I'll think on that and come back with my decision within the next month. Hold me to it!&lt;/p&gt;</summary><category term="future"></category><category term="javascript"></category><category term="python"></category><category term="django"></category><category term="open source"></category><category term="hacker school"></category></entry><entry><title>No man is an island: Collaboration with git</title><link href="http://blog.sitongpeng.com/posts/no-man-is-an-island.html" rel="alternate"></link><updated>2013-03-12T20:55:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-03-12:posts/no-man-is-an-island.html</id><summary type="html">&lt;p&gt;I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily &lt;code&gt;git&lt;/code&gt; is forgiving while I'm expanding my terminology past &lt;code&gt;add&lt;/code&gt;, &lt;code&gt;commit&lt;/code&gt;, &lt;code&gt;push&lt;/code&gt;, &lt;code&gt;status&lt;/code&gt;, &lt;code&gt;diff&lt;/code&gt;, and &lt;code&gt;clone&lt;/code&gt;. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear &lt;a href="http://git-scm.com/book"&gt;Pro Git&lt;/a&gt; text if you have the time.&lt;/p&gt;
