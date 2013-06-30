@@ -225,6 +225,50 @@ leads to awkward and hard to read paragraphs!
         </article>
             
                 <header>
+            <h1><a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="bookmark"
+                   title="Permalink to I moved your stuff but don't freak out cuz I left behind a symlink">I moved your stuff but don't freak out cuz I left behind a symlink</a></h1>
+        <p class="date">Saturday, June 29, 2013</p>        </header>
+        <article>
+            <p><span id="note">Learning new <em>nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about </em>nix-craft.</span></p>
+<p>I'm not sure when I first heard of <a href="http://en.wikipedia.org/wiki/Symbolic_link">symlinking</a>, but the first time it hit me as "something I should get acquainted with" was while I was reading <a href="http://dotfiles.github.io/">dotfiles.github.io</a>. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.</p>
+<p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
+<h2>Leaving a note</h2>
+<p>To create a symlink, you'd type this into your terminal:</p>
+<div class="codehilite"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">target</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">link</span>
+</pre></div>
+
+
+<p>In English, this reads as:
+Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/target</code>.</p>
+<h2>Reading the note</h2>
+<p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
+<p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
+<div class="codehilite"><pre><span class="o">-</span><span class="n">rw</span><span class="o">-------</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>    28054 <span class="n">Jun</span> 29 17<span class="p">:</span>52 <span class="p">.</span><span class="n">viminfo</span>
+<span class="n">lrwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>       33 <span class="n">Jun</span> 29 16<span class="p">:</span>57 <span class="p">.</span><span class="n">vimrc</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sitong</span><span class="o">/</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
+<h2>Removing the note</h2>
+<p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
+<div class="codehilite"><pre><span class="n">rm</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<h2>A little bonus</h2>
+<p>So we saw that <code>ln -s</code> is the command for symlinks but what if you passed a naked <code>ln</code> command to your terminal?</p>
+<p>You would actually be creating a <a href="http://en.wikipedia.org/wiki/Hard_link">hard link</a>. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!</p>
+                <p class="comments">
+        <a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/nix-craft.html">[*nix-craft]</a>
+                    <a href="../tag/dotfiles.html">[dotfiles]</a>
+                    <a href="../tag/shellscript.html">[shellscript]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="../posts/no-man-is-an-island.html" rel="bookmark"
                    title="Permalink to No man is an island: Collaboration with git">No man is an island: Collaboration with git</a></h1>
         <p class="date">Tuesday, March 12, 2013</p>        </header>
@@ -380,37 +424,8 @@ leads to awkward and hard to read paragraphs!
                     <a href="../tag/functions.html">[functions]</a>
             </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/on-to-better-things.html" rel="bookmark"
-                   title="Permalink to On to better things">On to better things</a></h1>
-        <p class="date">Sunday, January 06, 2013</p>        </header>
-        <article>
-            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.  </p>
-<p>I'm now running on the static site generator, <a href="http://docs.getpelican.com/">Pelican</a>. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to <a href="http://jekyllrb.com/">Jekyll</a>. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (<em>not Ruby</em>). Anyways, things I'm most excited about:</p>
-<ul>
-<li>Writing all my posts in Markdown</li>
-<li>Being hosted on Github Pages</li>
-<li>Having all my posts saved on my Dropbox</li>
-<li>New syntax highlighting color scheme</li>
-<li>Actually using my own domain</li>
-</ul>
-<p>I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.</p>
-<p>(find old posts on my <a href="http://hellositong.tumblr.com">tumblr</a>)</p>
-                <p class="comments">
-        <a href="../posts/on-to-better-things.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/pelican.html">[pelican]</a>
-                    <a href="../tag/new.html">[new]</a>
-                    <a href="../tag/github-pages.html">[github pages]</a>
-                    <a href="../tag/jinja2.html">[jinja2]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/tumblr.html">[tumblr]</a>
-            </p>
-        </article>
                                     <p class="paginator">
-        Page 1 / 2
+        Page 1 / 3
             <a href="../author/sitong-peng2.html">&gt;&gt;</a>
     </p>
                                 <footer>

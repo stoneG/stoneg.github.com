@@ -40,6 +40,50 @@
     <section id="main">
             
                 <header>
+            <h1><a href="./posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="bookmark"
+                   title="Permalink to I moved your stuff but don't freak out cuz I left behind a symlink">I moved your stuff but don't freak out cuz I left behind a symlink</a></h1>
+        <p class="date">Saturday, June 29, 2013</p>        </header>
+        <article>
+            <p><span id="note">Learning new <em>nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about </em>nix-craft.</span></p>
+<p>I'm not sure when I first heard of <a href="http://en.wikipedia.org/wiki/Symbolic_link">symlinking</a>, but the first time it hit me as "something I should get acquainted with" was while I was reading <a href="http://dotfiles.github.io/">dotfiles.github.io</a>. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.</p>
+<p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
+<h2>Leaving a note</h2>
+<p>To create a symlink, you'd type this into your terminal:</p>
+<div class="codehilite"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">target</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">link</span>
+</pre></div>
+
+
+<p>In English, this reads as:
+Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/target</code>.</p>
+<h2>Reading the note</h2>
+<p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
+<p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
+<div class="codehilite"><pre><span class="o">-</span><span class="n">rw</span><span class="o">-------</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>    28054 <span class="n">Jun</span> 29 17<span class="p">:</span>52 <span class="p">.</span><span class="n">viminfo</span>
+<span class="n">lrwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>       33 <span class="n">Jun</span> 29 16<span class="p">:</span>57 <span class="p">.</span><span class="n">vimrc</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sitong</span><span class="o">/</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
+<h2>Removing the note</h2>
+<p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
+<div class="codehilite"><pre><span class="n">rm</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<h2>A little bonus</h2>
+<p>So we saw that <code>ln -s</code> is the command for symlinks but what if you passed a naked <code>ln</code> command to your terminal?</p>
+<p>You would actually be creating a <a href="http://en.wikipedia.org/wiki/Hard_link">hard link</a>. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!</p>
+                <p class="comments">
+        <a href="./posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="./tag/nix-craft.html">[*nix-craft]</a>
+                    <a href="./tag/dotfiles.html">[dotfiles]</a>
+                    <a href="./tag/shellscript.html">[shellscript]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="./posts/objects-attributes-functions-and-methods.html" rel="bookmark"
                    title="Permalink to Objects, attributes, functions, and methods">Objects, attributes, functions, and methods</a></h1>
         <p class="date">Sunday, April 07, 2013</p>        </header>
@@ -346,59 +390,8 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
                     <a href="./tag/python.html">[python]</a>
             </p>
         </article>
-            
-                <header>
-            <h1><a href="./posts/travelling-salesman.html" rel="bookmark"
-                   title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
-        <p class="date">Friday, February 01, 2013</p>        </header>
-        <article>
-            <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
-<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
-<p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
-<h2>Finding a "short" path</h2>
-<p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
-<ol>
-<li>Starting at A, traverse through each node and make note of which path is the shortest.</li>
-<li>Take the shortest path (let's say to B) and mark A visited.</li>
-<li>Repeat step 1 and 2 until all nodes are visited.</li>
-</ol>
-<p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
-<p>When might this be a long path? Try the following:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
-</pre></div>
-
-
-<p>In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.</p>
-<p>The problem with this "short" path algorithm is that we are considering too few paths.</p>
-<h2>Exhaustive search</h2>
-<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
-<p>Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.</p>
-<ol>
-<li>Starting at A, move to next unvisited node, note distance and mark A as visited.</li>
-<li>Repeat step 1 until all nodes visited, then you should have some array of all distances travelled. That is your distance path.</li>
-<li>Now traverse back up your path until you have the option of visiting a different node. Visit that and dig deeper down until you also have that path complete. (in this case, traversing back up the path is done by finishing the innermost loop and moving on to the next node of the immediate outer loop)</li>
-<li>Eventually you will visit every path and document the distances.</li>
-</ol>
-<p>We end up with <code>(N-1)!</code> paths which is pretty terrible in terms of computation time (Note this is not <code>N!</code> because we are actually only visiting <code>N-1</code> nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!</p>
-<h2>So what about large N?</h2>
-<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
-<p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
-                <p class="comments">
-        <a href="./posts/travelling-salesman.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="./tag/algorithms.html">[algorithms]</a>
-                    <a href="./tag/graph.html">[graph]</a>
-                    <a href="./tag/shortest-path.html">[shortest path]</a>
-            </p>
-        </article>
                                     <p class="paginator">
-        Page 1 / 2
+        Page 1 / 3
             <a href="./index2.html">&gt;&gt;</a>
     </p>
                                 <footer>

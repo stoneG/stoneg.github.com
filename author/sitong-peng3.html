@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead</title>
+        <title>spearhead - Articles by Sitong Peng</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
                 <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
@@ -40,225 +40,122 @@
     <section id="main">
             
                 <header>
-            <h1><a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="bookmark"
-                   title="Permalink to I moved your stuff but don't freak out cuz I left behind a symlink">I moved your stuff but don't freak out cuz I left behind a symlink</a></h1>
-        <p class="date">Saturday, June 29, 2013</p>        </header>
+            <h1><a href="../posts/travelling-salesman.html" rel="bookmark"
+                   title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
+        <p class="date">Friday, February 01, 2013</p>        </header>
         <article>
-            <p><span id="note">Learning new <em>nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about </em>nix-craft.</span></p>
-<p>I'm not sure when I first heard of <a href="http://en.wikipedia.org/wiki/Symbolic_link">symlinking</a>, but the first time it hit me as "something I should get acquainted with" was while I was reading <a href="http://dotfiles.github.io/">dotfiles.github.io</a>. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.</p>
-<p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
-<h2>Leaving a note</h2>
-<p>To create a symlink, you'd type this into your terminal:</p>
-<div class="codehilite"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">target</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">link</span>
+            <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
+<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
+<p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
+<h2>Finding a "short" path</h2>
+<p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
+<ol>
+<li>Starting at A, traverse through each node and make note of which path is the shortest.</li>
+<li>Take the shortest path (let's say to B) and mark A visited.</li>
+<li>Repeat step 1 and 2 until all nodes are visited.</li>
+</ol>
+<p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
 </pre></div>
 
 
-<p>In English, this reads as:
-Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/target</code>.</p>
-<h2>Reading the note</h2>
-<p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
-<p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
-<div class="codehilite"><pre><span class="o">-</span><span class="n">rw</span><span class="o">-------</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>    28054 <span class="n">Jun</span> 29 17<span class="p">:</span>52 <span class="p">.</span><span class="n">viminfo</span>
-<span class="n">lrwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>       33 <span class="n">Jun</span> 29 16<span class="p">:</span>57 <span class="p">.</span><span class="n">vimrc</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sitong</span><span class="o">/</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="p">.</span><span class="n">vimrc</span>
+<p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
+<p>When might this be a long path? Try the following:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
 </pre></div>
 
 
-<p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
-<h2>Removing the note</h2>
-<p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
-<div class="codehilite"><pre><span class="n">rm</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
-</pre></div>
-
-
-<h2>A little bonus</h2>
-<p>So we saw that <code>ln -s</code> is the command for symlinks but what if you passed a naked <code>ln</code> command to your terminal?</p>
-<p>You would actually be creating a <a href="http://en.wikipedia.org/wiki/Hard_link">hard link</a>. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!</p>
+<p>In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.</p>
+<p>The problem with this "short" path algorithm is that we are considering too few paths.</p>
+<h2>Exhaustive search</h2>
+<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
+<p>Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.</p>
+<ol>
+<li>Starting at A, move to next unvisited node, note distance and mark A as visited.</li>
+<li>Repeat step 1 until all nodes visited, then you should have some array of all distances travelled. That is your distance path.</li>
+<li>Now traverse back up your path until you have the option of visiting a different node. Visit that and dig deeper down until you also have that path complete. (in this case, traversing back up the path is done by finishing the innermost loop and moving on to the next node of the immediate outer loop)</li>
+<li>Eventually you will visit every path and document the distances.</li>
+</ol>
+<p>We end up with <code>(N-1)!</code> paths which is pretty terrible in terms of computation time (Note this is not <code>N!</code> because we are actually only visiting <code>N-1</code> nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!</p>
+<h2>So what about large N?</h2>
+<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
+<p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
                 <p class="comments">
-        <a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html#disqus_thread"></a>.
+        <a href="../posts/travelling-salesman.html#disqus_thread"></a>.
     </p>
                 <p class="tags">
-                    <a href="../tag/nix-craft.html">[*nix-craft]</a>
-                    <a href="../tag/dotfiles.html">[dotfiles]</a>
-                    <a href="../tag/shellscript.html">[shellscript]</a>
+                    <a href="../tag/algorithms.html">[algorithms]</a>
+                    <a href="../tag/graph.html">[graph]</a>
+                    <a href="../tag/shortest-path.html">[shortest path]</a>
             </p>
         </article>
             
                 <header>
-            <h1><a href="../posts/objects-attributes-functions-and-methods.html" rel="bookmark"
-                   title="Permalink to Objects, attributes, functions, and methods">Objects, attributes, functions, and methods</a></h1>
-        <p class="date">Sunday, April 07, 2013</p>        </header>
+            <h1><a href="../posts/trying-out-the-static-blog-thing.html" rel="bookmark"
+                   title="Permalink to Trying out the static blog thing">Trying out the static blog thing</a></h1>
+        <p class="date">Tuesday, January 08, 2013</p>        </header>
         <article>
-            <p>I set some time out to open the box on some <a href="http://www.python.org">Python</a> fundamentals this weekend. I have a few topics to write about but, for today, let's talk a little about objects.</p>
-<h2>Objects</h2>
-<p>Objects are a big deal in Python. And rightfully so, as most developers use Python in an object oriented manner, though you can certainly write imperatively or pseudo-functionally too. In fact, some people subscribe to the thought that <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html">everything in Python is an object</a>. I'm not going to argue about whether that's true or not so we'll just tip-toe around it and state that there are an <strong>awful lot of objects</strong>.</p>
-<p>So what is an object? Let's use <a href="http://en.wikipedia.org/wiki/Object_(computer_science)#Properties_of_an_object">Wikipedia</a>'s definition. Objects are characterized by these properties:</p>
-<h4>Identity (Objects are unique from each other)</h4>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Trivial</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span>
-
-<span class="n">obj</span><span class="p">,</span> <span class="n">diff_obj</span> <span class="o">=</span> <span class="n">Trivial</span><span class="p">(),</span> <span class="n">Trivial</span><span class="p">()</span>
-
-<span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c"># 25851216</span>
-<span class="nb">id</span><span class="p">(</span><span class="n">diff_obj</span><span class="p">)</span> <span class="c"># 26133840</span>
+            <p>Since I started actively programming a few months ago, I've learned much about what technology I take for granted. In order to help me appreciate the many abstractions that our lives are built upon, I've made it my goal to be more technologically self-sufficent. The first step was to revamp my <a href="http://www.sitongpeng.com">personal website</a>. Next up was to move my code blog from Tumblr to my own domain, and then rebuild it on top of a static site/blog generator. That way, I would have complete ownership and control over my own posts.</p>
+<h2>Static what nots?</h2>
+<p>Static site generators do what they advertise. They take some content you provide, then generate a pre-determined set of static html pages that are web ready. The idea here is that once you finish setting up the styling and format of your site, you can simply focus on <strong><em>writing content</em></strong>. Of course, they have boiler plate templates ready for you too, if you'd rather jump right into writing.</p>
+<h2>Getting set up</h2>
+<p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
+<p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
+<p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
+<div class="codehilite"><pre><span class="n">AUTHOR</span> <span class="p">=</span> <span class="s">&#39;YOUR NAME&#39;</span>
+<span class="n">SITENAME</span> <span class="p">=</span> <span class="s">&#39;YOUR SITE NAME&#39;</span>
+<span class="n">SITEURL</span> <span class="p">=</span> <span class="s">&#39;http://your-site.com&#39;</span>
 </pre></div>
 
 
-<h4>State (Can store data in object)</h4>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span> <span class="c"># modules are objects</span>
-<span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="o">=</span> <span class="s">&#39;arbitrary&#39;</span>
-<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="c"># arbitrary</span>
+<p>For the purposes of setting up a blog on Pelican, you will want to set <code>DEFAULT_PAGINATION</code> to be the (number of posts)/page and <code>DEFAULT_ORPHANS</code> as the largest remainder of posts you'll allow on your last page. For my setup, I selected 5 posts/page, and no more than 3 posts on the last page (so up to 8 posts on the last page).</p>
+<p>You can browse over all my selected settings <a href="https://github.com/stoneG/blarg/blob/master/settings.py">here</a>.</p>
+<h2>Making it yours</h2>
+<p>Now, you can certainly use the <a href="https://github.com/getpelican/pelican-themes/blob/master/notmyidea-cms-fr/screenshot.png">default theme</a> provided by Pelican, or one of their other <a href="https://github.com/getpelican/pelican-themes/blob/master/waterspill/screenshot.png">sample themes</a>, but I prefer to make a theme that suits my own tastes. Reading the Pelican documentation and working through the quickstart guide took up half of my weekend, which means I spent the other half on designing my theme.</p>
+<p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
+<p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
+<p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
+<div class="codehilite"><pre><span class="n">categories</span><span class="p">.</span><span class="n">html</span>
+<span class="n">category</span><span class="p">.</span><span class="n">html</span>
+<span class="n">author</span><span class="p">.</span><span class="n">html</span>
+<span class="n">authors</span><span class="p">.</span><span class="n">html</span>
 </pre></div>
 
 
-<h4>Behavior (Can manipulate the object)</h4>
-<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;strings&#39;</span><span class="p">,</span> <span class="s">&#39;are&#39;</span><span class="p">,</span> <span class="s">&#39;objects&#39;</span><span class="p">,</span> <span class="s">&#39;with&#39;</span><span class="p">,</span> <span class="s">&#39;methods&#39;</span><span class="p">])</span>
-<span class="c"># strings are objects with methods</span>
+<p>Pelican is smart enough to just use it's base templates from the Simple theme if you don't provide all the desired html templates.</p>
+<p>You will, however, want to make the basic html frame for your blog and save it as <code>base.html</code>, as all other html templates will inherit from it. Otherwise, use the default theme's templates as a guide for building your custom templates.</p>
+<p>Once you have your html templates set, you'll want to work on the CSS, which you will save in <code>static/css</code> folder.</p>
+<p>The theme for this blog is <a href="https://github.com/stoneG/blarg/tree/master/themes/sitong">here</a>. Please give me a shoutout in the footer if you want to use it ;).</p>
+<h2>Workflow</h2>
+<p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
+<p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
+<div class="codehilite"><pre><span class="n">content</span><span class="o">/</span>2013<span class="o">/</span><span class="n">trying</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">thing</span><span class="p">.</span><span class="n">md</span>
 </pre></div>
 
 
-<h2>Attributes and Methods</h2>
-<p>You're probably familiar with setting object attributes to static data or writing simple methods if you've worked with objects in the past.</p>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Lannister</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-    <span class="k">def</span> <span class="nf">say_family_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&#39;{} says: &quot;Hear Me Roar!&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="n">tyrion</span> <span class="o">=</span> <span class="n">Lannister</span><span class="p">()</span>
-
-<span class="k">print</span> <span class="n">tyrion</span><span class="o">.</span><span class="n">name</span>
-<span class="c"># Tyrion Lannister</span>
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
+<p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
+<div class="codehilite"><pre>$ <span class="n">pelican</span> <span class="n">content</span><span class="o">/</span>2013<span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 
 
-<p>But you're actually not limited to such trivial behavior. For instance, since functions are first class objects in Python, you could easily do the following too.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">():</span>
-    <span class="k">print</span> <span class="s">&#39;A Lannister Always Pays His Debts.&#39;</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">()</span>
-<span class="c"># A Lannister Always Pays His Debts.</span>
+<p>The new static pages will be placed in</p>
+<div class="codehilite"><pre><span class="n">output</span><span class="o">/</span>
 </pre></div>
 
 
-<p>As you can see, we've set the <code>.say_common_motto</code> attribute to the function object <code>say_common_motto</code>, then invoked the attribute.</p>
-<p>Before we continue, we should make a distinction between <code>.say_common_motto</code> and <code>.say_family_motto</code>.</p>
-<div class="codehilite"><pre><span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;function&#39;&gt;</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;instancemethod&#39;&gt;</span>
-</pre></div>
-
-
-<p>Python resolves the type of <code>.say_common_motto</code> to a function object and <code>.say_family_motto</code> to an instance method object. What's the difference?</p>
-<p>You can think of a method as a function with a unique difference. A method always takes the object it's associated with as it's first argument. You don't have a choice on the matter.</p>
-<p>Under the hood, when Python sees <code>tyrion.say_family_motto()</code>, it first looks for a <code>.say_family_motto</code> attribute in <code>tyrion</code> (this means you can override an object method by writing to an object attribute with the same name). When it doesn't find that, the interpreter will jump up to the class level and look for <code>say_family_motto</code> function defined at the class level. Once found, it will invoke the function as a method - namely, by attaching the <code>tyrion</code> object to the head of the argument list. That's also why a method definition always includes a positional argument placeholder first (traditionally called <code>self</code> in Python).</p>
-<p>Methods are really just a shortcut though. You can actually just define your own function with an argument placeholder for an object and attach the function to the object attribute. An example makes this clearer. Suppose we rewrote the <code>say_common_motto</code> function to make it equivalent to a method.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s">&#39;{} says: &quot;A Lannister Always Pays His Debts.&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">(</span><span class="n">tyrion</span><span class="p">)</span>
-<span class="c"># Tyrion Lannister says: &quot;A Lannister Always Pays His Debts.&quot;</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
-</pre></div>
-
-
-<p>As you can see, defining a method in the class is a lot cleaner than attaching a function to the instance object. But both styles get you to the same resolution eventually. </p>
-<p>Anyways, hopefully you know a little more about Python objects now.</p>
+<p>but you can always change that path in your <code>settings.py</code>.</p>
+<p>Then I simply <code>$ git add .</code> in my output folder, throw on a commit message, then push it to Github.</p>
+<h2>Final thoughts</h2>
+<p>The entire set up process takes a bit of time, especially if you're making your own theme, but it's always nice to have ownership over your own content. That's just something you don't get on Tumblr or other browser based blogs. Pelican is an awesome option for anyone looking for a static blog generator and wanting to work in Python, I heartily recommend it.</p>
                 <p class="comments">
-        <a href="../posts/objects-attributes-functions-and-methods.html#disqus_thread"></a>.
+        <a href="../posts/trying-out-the-static-blog-thing.html#disqus_thread"></a>.
     </p>
                 <p class="tags">
-                    <a href="../tag/objects.html">[objects]</a>
+                    <a href="../tag/static-blog.html">[static blog]</a>
+                    <a href="../tag/pelican.html">[pelican]</a>
                     <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/functions.html">[functions]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/sustained-momentum.html" rel="bookmark"
-                   title="Permalink to Sustained momentum">Sustained momentum</a></h1>
-        <p class="date">Wednesday, March 20, 2013</p>        </header>
-        <article>
-            <p>In the next couple months, I'm planning on writing more about <code>Javascript</code> as I pick it up in work and from my own reading. Towards the end of <a href="https://www.hackerschool.com">Hacker School</a>, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.</p>
-<p>However, this doesn't mean I will stop developing in <code>Python</code>. Aside from <a href="https://www.djangoproject.com/">Django</a> exposure at work, I'm planning to continue building web applications for myself - and hopefully with more robust front-end UI.</p>
-<p>But, that's not quite good enough. If there was one thing I took away from Hacker School, it was the idea that I should always be pushing myself to become a better programmer. Web development is fun and lets me exercise my creative side, but I want to step outside my comfort zone and pursue other avenues of technology too. I'm not entirely sure what direction I'll look but I think my best bet is to attach myself to an open source project and develop a deep understanding of that problem space.</p>
-<p>Anyways, I'll think on that and come back with my decision within the next month. Hold me to it!</p>
-                <p class="comments">
-        <a href="../posts/sustained-momentum.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/future.html">[future]</a>
-                    <a href="../tag/javascript.html">[javascript]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/django.html">[django]</a>
-                    <a href="../tag/open-source.html">[open source]</a>
-                    <a href="../tag/hacker-school.html">[hacker school]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/no-man-is-an-island.html" rel="bookmark"
-                   title="Permalink to No man is an island: Collaboration with git">No man is an island: Collaboration with git</a></h1>
-        <p class="date">Tuesday, March 12, 2013</p>        </header>
-        <article>
-            <p>I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily <code>git</code> is forgiving while I'm expanding my terminology past <code>add</code>, <code>commit</code>, <code>push</code>, <code>status</code>, <code>diff</code>, and <code>clone</code>. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear <a href="http://git-scm.com/book">Pro Git</a> text if you have the time.</p>
-<h2>Version control for the masses</h2>
-<p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
-<h2>Growing a forest from a single tree</h2>
-<p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
-<p>To actually move branches, you'll want to run this command:</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>Then you can either <code>git branch</code> or <code>git status</code> to see where you are.</p>
-<h2>Finding your way back home</h2>
-<p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
-<p>Generally there's two ways about this.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
-<p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
-<h2>Knowing where your keys are</h2>
-<p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">remote</span>
-</pre></div>
-
-
-<p>This lists all saved remote locations. Your list may contain <code>origin</code> (Github/Bitbucket), <code>heroku</code> (Heroku), or the name for your own private server.</p>
-<p>Anyways, that's essentially the foundation you need for version control. Stay tuned to a later post for more advanced <code>git</code> control.</p>
-                <p class="comments">
-        <a href="../posts/no-man-is-an-island.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/git.html">[git]</a>
-                    <a href="../tag/version-control.html">[version control]</a>
-                    <a href="../tag/crash-course.html">[crash course]</a>
-                    <a href="../tag/rebase.html">[rebase]</a>
-                    <a href="../tag/github.html">[github]</a>
-                    <a href="../tag/heroku.html">[heroku]</a>
-                    <a href="../tag/bitbucket.html">[bitbucket]</a>
+                    <a href="../tag/the-architect.html">[the architect]</a>
+                    <a href="../tag/jinja2.html">[jinja2]</a>
             </p>
         </article>
             
@@ -390,9 +287,73 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
                     <a href="../tag/python.html">[python]</a>
             </p>
         </article>
+            
+                <header>
+            <h1><a href="../posts/unexpected-random-number-generation.html" rel="bookmark"
+                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
+        <p class="date">Wednesday, January 23, 2013</p>        </header>
+        <article>
+            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># if we are in the child process</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>A little background</h2>
+<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
+<h2>Result</h2>
+<div class="codehilite"><pre><span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
+</pre></div>
+
+
+<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
+<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
+<h2>Solution</h2>
+<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>                      <span class="c">##### ADDED THIS LINE ######</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c">##### ADDED THIS LINE ######</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Randomness restored.</p>
+<p><span id="update">Update</span><br />
+My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
+<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
+                <p class="comments">
+        <a href="../posts/unexpected-random-number-generation.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/random.html">[random]</a>
+                    <a href="../tag/random-numbers.html">[random numbers]</a>
+                    <a href="../tag/processes.html">[processes]</a>
+                    <a href="../tag/forking.html">[forking]</a>
+                    <a href="../tag/python.html">[python]</a>
+                    <a href="../tag/whiskey.html">[whiskey]</a>
+            </p>
+        </article>
                                     <p class="paginator">
-        Page 1 / 3
-            <a href="../category/misc2.html">&gt;&gt;</a>
+                        <a href="../author/sitong-peng2.html">&lt;&lt;</a>
+                Page 3 / 3
     </p>
                                 <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
