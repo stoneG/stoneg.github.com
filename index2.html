@@ -24,6 +24,7 @@
 
     <header id="sidebar">
         <div class="bounds">
+            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="http://www.sitongpeng.com/images/face.jpg"></a>
             <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
             <p>writings about code discovery</p>
                 <ul>
@@ -31,6 +32,8 @@
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
                     <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
                     <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
+                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li></li>
                             <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
@@ -40,202 +43,516 @@
     <section id="main">
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/become-a-better-programmer.html" rel="bookmark"
-                   title="Permalink to Become a better programmer">Become a better programmer</a></h1>
-<p class="date">Tuesday, December 04, 2012</p>        </header>
+            <h1><a href="http://blog.sitongpeng.com/posts/understanding-heaps.html" rel="bookmark"
+                   title="Permalink to Understanding heaps">Understanding heaps</a></h1>
+<p class="date">Saturday, February 02, 2013</p>        </header>
         <article>
-            <p><a href="#id1"><span class="problematic" id="id2">`|image0|`_</span></a></p>
-<p>Hacker School <a class="reference external" href="https://www.hackerschool.com/blog/10-winter-2013-applications-open">Winter 2013 applications</a> are open TODAY! If you’re
-interested, I’ll save you the time and say you <strong>SHOULD</strong> apply. Let me
-know if you’re interested and have questions :)</p>
-</p><div class="system-messages section">
-<h2>Docutils System Messages</h2>
-<div class="system-message" id="id1">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">/Users/sitong/Dropbox/Blog/content/2012/become-a-better-programmer.rst</tt>, line 6); <em><a href="#id2">backlink</a></em></p>
-Unknown target name: &quot;|image0|&quot;.</div>
-</div>
+            <p>I'm spending this weekend filling in some of the holes in my programming background, data structures in particular. As part of the learning process, I want to share my new understanding of heaps.</p>
+<h2>What is it?</h2>
+<p>A heap is a type of <a href="http://en.wikipedia.org/wiki/Priority_queue">priority queue</a>, which is just a queue where dequeued elements are primarily selected based on their "priority" and secondarily selected based on the "first in first out" principle. A heap prioritizes by key values of objects it stores, which leads to the two flavors of heaps: the max heap and min heap. The max heap will dequeue the objects with the highest keys first. If there are multiple maxes, the heap will dequeue by order of insertion. As you'd expect, the min heap is the same except it dequeues objects with the lowest keys first.</p>
+<h2>Introducing the max heap</h2>
+<p>Although a heap is technically a priority queue, and although we are going to implement it as an array, heaps are commonly represented as a binary tree. Here is the max heap we're going to work with:</p>
+<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
+<p>There are two conditions that must be met for a binary tree to be a max heap.</p>
+<ol>
+<li>Every parent node must be at least as large as either child nodes. This means the max key will always be at the top of the tree.</li>
+<li>The tree must be complete at all levels except the deepest. The deepest level must be populated from the left. This means if the above tree had another node, it would be the left child of the node 8.</li>
+</ol>
+<p>We're going to implement this heap as an array. This boils down to extracting nodes left to right, top to bottom. Here's what it will look like:</p>
+<div class="highlight"><pre><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
 
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/become-a-better-programmer.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/hacker-school.html">[hacker school]</a>
-            <a href="http://blog.sitongpeng.com/tag/become-a-better-programmer.html">[become a better programmer]</a>
-            <a href="http://blog.sitongpeng.com/tag/language-agnostic.html">[language agnostic]</a>
-            <a href="http://blog.sitongpeng.com/tag/ycombinator.html">[ycombinator]</a>
-            <a href="http://blog.sitongpeng.com/tag/hacker-news.html">[hacker news]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/ruby.html">[ruby]</a>
-            <a href="http://blog.sitongpeng.com/tag/c.html">[c++]</a>
-            <a href="http://blog.sitongpeng.com/tag/erlang.html">[erlang]</a>
-            <a href="http://blog.sitongpeng.com/tag/haskell.html">[haskell]</a>
-            <a href="http://blog.sitongpeng.com/tag/javascript.html">[javascript]</a>
-            <a href="http://blog.sitongpeng.com/tag/java.html">[java]</a>
-            <a href="http://blog.sitongpeng.com/tag/objective-c.html">[objective c]</a>
-    </p>
-        </article>
 
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/removing-punctuation-from-a-text-string.html" rel="bookmark"
-                   title="Permalink to Removing punctuation from a text string">Removing punctuation from a text string</a></h1>
-<p class="date">Monday, December 03, 2012</p>        </header>
-        <article>
-            <p>I was working on a side project last week. It’s called <a class="reference external" href="https://github.com/stoneG/linguist">Linguist</a> and
-one of the components of the project requires me to have a large corpus
-of English word frequencies. After some research, I decided I could
-focus on all the words in the <a class="reference external" href="http://en.wikipedia.org/wiki/Official_Tournament_and_Club_Word_List">Scrabble Official Word List (OWL)</a> and
-wrangle out the word counts using all English books on <a class="reference external" href="http://www.gutenberg.org/">Project
-Gutenberg</a>. This was a bit more strenuous of an undertaking than I had
-anticipated, as Project Gutenberg’s English library is quite sizable.
-So, obviously, I first need a quick way to remove all punctuation from
-these ebooks so I can iterate through them to build my word count
-dictionary.</p>
-<div class="section" id="so-whats-a-fast-way-to-do-that-in-python">
-<h2>So what’s a fast way to do that in Python?</h2>
-</p><p>Let’s consider using: string.replace, sets, regex, and string.translate.
-We’ll use <a class="reference external" href="http://www.gutenberg.org/ebooks/46">A Christmas Carol</a> as our benchmark text, since it’s
-December.</p>
-<p><pre class="literal-block">
-f = open('A_Christmas_Carol.txt', 'r')book = f.read()f.close()
-</pre>
-</p></div>
-<div class="section" id="methods">
-<h2>Methods</h2>
-</p><p><pre class="literal-block">
-# setspunctuation_set = set(string.punctuation)def set_method(book):    return ''.join(char for char in book if char not in punctuation_set)# regexpunctuation_regex = re.compile('[{0}]'.format(re.escape(string.punctuation)))def regex_method(book):    return punctuation_regex.sub('', book)# string.replacedef replace_method(book):    for punctuation in string.punctuation:        book = book.replace(punctuation, '')    return book# string.translatedef translate_method(book):    return book.translate(None, string.punctuation)
-</pre>
-</p></div>
-<div class="section" id="results">
-<h2>Results</h2>
-</p><p><pre class="literal-block">
-sets     : 0.0455198287964 seconds.regex    : 0.0134680271149 seconds.replace  : 0.0041608810424 seconds.translate: 0.0006558895111 seconds.
-</pre>
-</p><p>So, when you’re looking at stripping punctuation from gigabytes of text
-files, it’s safe to say that you should be using string.translate.</p>
-</p></div>
+<p><span id="note">Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.</span></p>
+<p>We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.</p>
+<div class="highlight"><pre>  <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>  <span class="m">5</span>  <span class="o">&lt;--</span> One<span class="o">-</span>indexing
+<span class="p">[</span><span class="m">11</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
+                             EXAMPLE<span class="o">:</span>
+parent<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> floor<span class="p">(</span>i<span class="o">/</span><span class="m">2</span><span class="p">)</span>            parent<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">1</span>
+left_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span>           left_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">4</span>
+right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span>     right_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">5</span>
+</pre></div>
 
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/removing-punctuation-from-a-text-string.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/removing.html">[removing]</a>
-            <a href="http://blog.sitongpeng.com/tag/punctuation.html">[punctuation]</a>
-            <a href="http://blog.sitongpeng.com/tag/from.html">[from]</a>
-            <a href="http://blog.sitongpeng.com/tag/a.html">[a]</a>
-            <a href="http://blog.sitongpeng.com/tag/text.html">[text]</a>
-            <a href="http://blog.sitongpeng.com/tag/string.html">[string]</a>
-            <a href="http://blog.sitongpeng.com/tag/benchmark.html">[benchmark]</a>
-            <a href="http://blog.sitongpeng.com/tag/set.html">[set]</a>
-            <a href="http://blog.sitongpeng.com/tag/regex.html">[regex]</a>
-            <a href="http://blog.sitongpeng.com/tag/translate.html">[translate]</a>
-            <a href="http://blog.sitongpeng.com/tag/replace.html">[replace]</a>
-            <a href="http://blog.sitongpeng.com/tag/linguist.html">[linguist]</a>
-            <a href="http://blog.sitongpeng.com/tag/project-gutenberg.html">[project gutenberg]</a>
-            <a href="http://blog.sitongpeng.com/tag/scrabble.html">[scrabble]</a>
-            <a href="http://blog.sitongpeng.com/tag/a-christmas-carol.html">[a christmas carol]</a>
-    </p>
-        </article>
 
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.html" rel="bookmark"
-                   title="Permalink to "Furthermore HTTP has become quite popular lately and browsers are no longer the only clients that..."">&quot;Furthermore HTTP has become quite popular lately and browsers are no longer the only clients that...&quot;</a></h1>
-<p class="date">Monday, November 26, 2012</p>        </header>
-        <article>
-            <p>“Furthermore HTTP has become quite popular lately and browsers are no
-longer the only clients that are using HTTP. For instance, many revision
-control system use it.”</p>
-<div class="system-message">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">/Users/sitong/Dropbox/Blog/content/2012/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.rst</tt>, line 9)</p>
-Unexpected indentation.</div>
-<blockquote>
-<ul class="simple">
-<li><em>`Flask Quickstart Guide`_</em></li>
+<p>Let's code up what we have. I prefer to have zero-indexing so the math on the parent/children calculation will have to compensate.</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">MaxHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+</pre></div>
+
+
+<p>Now, a heap has two basic operations: insert and extract_max (extract_min). These are guaranteed to run in <code>O(logN)</code> time, or in other words, the height of the binary tree.</p>
+<h2>Insert</h2>
+<p>What does an insert look like in our binary tree model? Following the conditions of a binary heap, we have to insert the new object at the deepest level, moving in from the left. That corresponds to the node marked X below:</p>
+<p><img alt="Insert at X" src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Heap_add_step1.svg/500px-Heap_add_step1.svg.png" /></p>
+<p>It should be pretty obvious that the object we insert could break the heap property of this tree. Whatever key we end up with, we first need to compare it with its parent node. The parent node's key is 8, so if we insert an object with <code>key &lt;= 8</code> then we wouldn't have to do anything further. But what if the key is something higher like 15? Then our insertion would break heap condition #2.</p>
+<p>In this situation, the next step is to swap our inserted node with it's parent node. </p>
+<p><img alt="Swap with parent" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Heap_add_step2.svg/500px-Heap_add_step2.svg.png" /></p>
+<p>Cool. But now when we check 15 against its new parent, the root, we notice we're still in trouble. So we swap again. These swap acts are also known as "bubbling up" or "heapifying up", as the inserted object is promoted levels due to its priority.</p>
+<p><img alt="Promoted to root" src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Heap_add_step3.svg/500px-Heap_add_step3.svg.png" /></p>
+<p>Now that 15 has made it's way up to the root node, we can stop. As you can see, the new tree follows all conditions to be classified as a max heap. Here's the code for the insert operation.</p>
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c"># parent is root</span>
+                <span class="k">break</span>
+</pre></div>
+
+
+<p>As you can see, we first insert to the end of the array, then while the inserted key is larger than its parent, we swap it upward until it finds its place.</p>
+<h2>Extract Max</h2>
+<p>I believe this is also known as Delete Max, but in either case, this operation removes the max from the heap. And because we're working with a heap, we know the max is the root of the tree (or first element of the array), so we certainly don't need to traverse through the entire structure to determine it.</p>
+<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
+<p>Now, as mentioned before, the first step is to remove the root node. That leaves us with a tricky situation. What node will replace the root?</p>
+<p>Let's go through our options.</p>
+<ul>
+<li>Pull up the 5. Well, now we fail both conditions. The root is now less than the right child, and more importantly we have an incomplete binary tree.</li>
+<li>Pull up the 8. Cool, our root is the max, but now we have an entire empty branch on the right. That seems like a big problem and we can't just fix it by pulling from an entirely separate branch.</li>
+<li>Pull up the 3. Breaks the complete tree again.</li>
+<li>Pull up the 4. We still have a complete tree (in terms of a heap at least). We have a bad root but maybe we can shift that node back down.</li>
 </ul>
-</blockquote>
+<p>So the general solution seems to be, promote the last element of the tree/array.</p>
+<p><img alt="Big promotion here" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Heap_remove_step1.svg/500px-Heap_remove_step1.svg.png" /></p>
+<p>So now the new root is no longer the max. We need to swap it with one of its children. If we swap with 5, we'll still have the same problem. We'll need to swap with 8. This should lead us to the realization that we'll always want to swap with the higher of the two children, otherwise we'll just be making more of a mess of things.</p>
+<p><img alt="Back to normalcy" src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Heap_remove_step2.svg/500px-Heap_remove_step2.svg.png" /></p>
+<p>Now we have our max extracted heap!</p>
+<p>Here's the code:</p>
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">extract_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span> <span class="c"># if right exists, so does left</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">left</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="n">right</span>
+                <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c"># we have a heap again</span>
+                <span class="k">return</span>
+        <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+</pre></div>
 
+
+<p><span id="note">I'm not actually returning the max here, but you can build that in pretty easily.</span></p>
+<p><code>extract_max</code> is a bit more complicated than <code>insert</code>. Swapping the new root down takes a few more comparision steps as we have to decide which child to swap with. We're still within <code>O(logN)</code> time though, since we will never need to swap more than the height of the binary tree.</p>
+<h2>So what are heaps good for?</h2>
+<p>In general, when you constantly need to access the min or max of some data, heaps are a logical choice, as you just need to pluck it from the top of the tree/front of the array and do a little rearranging. This means they are useful for tasks like managing bandwith on a router (always send the prioritized traffic first) or handling asynchronous event processing (firing off shortest tasks first).</p>
+<p>Heaps are also useful in speeding up certain algorithms that require multiple min or max computations. One example is Dijkstra's shortest path algorithm, where you are constantly computing the minimum path for each node.</p>
+<p>So, hopefully you've now got a solid understanding of heaps. Next time you're working on something and you find yourself repeatedly taking minimums or maximums, you should give them a try. They will make your life easier.</p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.html#disqus_thread"></a>.
+        <a href="http://blog.sitongpeng.com/posts/understanding-heaps.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/flask.html">[flask]</a>
+            <a href="http://blog.sitongpeng.com/tag/heaps.html">[heaps]</a>
+            <a href="http://blog.sitongpeng.com/tag/data-structures.html">[data structures]</a>
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/http.html">[HTTP]</a>
-            <a href="http://blog.sitongpeng.com/tag/revision-control.html">[revision control]</a>
-            <a href="http://blog.sitongpeng.com/tag/browsers.html">[browsers]</a>
     </p>
         </article>
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/from-constants-import.html" rel="bookmark"
-                   title="Permalink to from constants import *">from constants import *</a></h1>
-<p class="date">Tuesday, November 13, 2012</p>        </header>
+            <h1><a href="http://blog.sitongpeng.com/posts/travelling-salesman.html" rel="bookmark"
+                   title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
+<p class="date">Friday, February 01, 2013</p>        </header>
         <article>
-            <p>Is this pythonic? According to the Python documentation on <strong>`Language
-Constructs You Should Not Use`_</strong>, the following tops the list:</p>
-<p><pre class="literal-block">
-from module import *
-</pre>
-</p><p>However, here’s a problem I’m running into. I want some constants to be
-use-able over a couple different modules, but I don’t want to call
-constants.FOO every time I need to use them. So, what’s a guy to do?</p>
-<p>Well, I’m going to throw “caution” to the wind and just create a
-“constants.py” file and attach a “from constants import *” to the files
-I need these constants in. I feel like this situation falls under
-category 3 of the <strong>`When It Is Just Fine`_</strong> section.</p>
-<p>What do you think?</p>
-</p>
+            <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
+<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
+<p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
+<h2>Finding a "short" path</h2>
+<p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
+<ol>
+<li>Starting at A, traverse through each node and make note of which path is the shortest.</li>
+<li>Take the shortest path (let's say to B) and mark A visited.</li>
+<li>Repeat step 1 and 2 until all nodes are visited.</li>
+</ol>
+<p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
+<p>When might this be a long path? Try the following:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.</p>
+<p>The problem with this "short" path algorithm is that we are considering too few paths.</p>
+<h2>Exhaustive search</h2>
+<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
+<p>Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.</p>
+<ol>
+<li>Starting at A, move to next unvisited node, note distance and mark A as visited.</li>
+<li>Repeat step 1 until all nodes visited, then you should have some array of all distances travelled. That is your distance path.</li>
+<li>Now traverse back up your path until you have the option of visiting a different node. Visit that and dig deeper down until you also have that path complete. (in this case, traversing back up the path is done by finishing the innermost loop and moving on to the next node of the immediate outer loop)</li>
+<li>Eventually you will visit every path and document the distances.</li>
+</ol>
+<p>We end up with <code>(N-1)!</code> paths which is pretty terrible in terms of computation time (Note this is not <code>N!</code> because we are actually only visiting <code>N-1</code> nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!</p>
+<h2>So what about large N?</h2>
+<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
+<p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/from-constants-import.html#disqus_thread"></a>.
+        <a href="http://blog.sitongpeng.com/posts/travelling-salesman.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/from-module-import.html">[from module import *]</a>
-            <a href="http://blog.sitongpeng.com/tag/pythonic.html">[pythonic]</a>
-            <a href="http://blog.sitongpeng.com/tag/constants.html">[constants]</a>
-            <a href="http://blog.sitongpeng.com/tag/python-userssitongdropboxblogcontent2012from-constants-importrst4-warning2-inline-emphasis-start-string-without-end-string.html">[python
-
-/Users/sitong/Dropbox/Blog/content/2012/from-constants-import.rst:4: (WARNING/2) Inline emphasis start-string without end-string.]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/graph.html">[graph]</a>
+            <a href="http://blog.sitongpeng.com/tag/shortest-path.html">[shortest path]</a>
     </p>
         </article>
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/project-euler-3.html" rel="bookmark"
-                   title="Permalink to Project Euler 3">Project Euler 3</a></h1>
-<p class="date">Thursday, November 01, 2012</p>        </header>
+            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
+                   title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
+<p class="date">Wednesday, January 30, 2013</p>        </header>
         <article>
-            <p>I’ve updated the method on this solution after discussing and optimizing
-with <a class="reference external" href="http://www.jamesshieh.com">James</a>. Here is his code in Python:</p>
-<p><pre class="literal-block">
-n = 600851475143pfact = 0i = 2while i &lt; n+1:    while n % i == 0:        n = n/i        pfact = i    i += 1print pfact
-</pre>
-</p><p>The awesome thing about this code (besides that it’s so short), is that
-it naturally pulls out all the prime factors of a number in two while
-loops. It’s pitfall is when you are given large prime number to begin
-with (such as 600851475149), these loops would have to count up to the
-prime number before it found it.</p>
-<p>My solution’s pitfall is if you are given a number that has numerous
-small prime factors, such as 2^32, which only has the prime factor 2.
-However, by merging the ideas of my and James’ solution, we can come up
-with a much more optimal solution that avoids both of our pitfalls:</p>
-<p><pre class="literal-block">
-largestPrimeFactor = function(num) {  i = 2    if(isPrime(num)){        return(num)  }    while(i &lt; num){       while(num % i == 0) { # Used to be if(num % i == 0)                        num = num/i # redefine num by pulling out the lowest prime factor          if(isPrime(num)){                return(num)          }        }        i = i + 1    }}
-</pre>
-</p><p>So, 2^32 and 600581475149 both run instantly instead of never.</p>
-</p>
+            <p>So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.</p>
+<h2>Simple stuff first</h2>
+<p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
+<p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
+<div class="highlight"><pre><span class="mo">0101</span> <span class="n">is</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="p">)</span>
+     <span class="n">or</span> <span class="mi">0</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span>
+     <span class="n">or</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p>Anyone can write a simple function that tests if a given integer <code>x</code> is even. Usually it will involve checking to see if <code>x</code> mod 2 is 0.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>But, given that least significant bit of a binary value represents odd or even, we can write that same <code>is_even</code> function using the <code>AND</code> bit operation. </p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>For example 6 &amp; 1 is 0.</p>
+<div class="highlight"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
+<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
+<span class="o">======</span>
+  <span class="m">0000</span>
+</pre></div>
+
+
+<p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
+<h2>Powerful twos</h2>
+<p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">power_of_two</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">power_of_two</span> <span class="o">==</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Let's see this in action with <code>x</code> as some random binary number:</p>
+<div class="highlight"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
+<span class="o">-</span> <span class="m">000000001</span>
+<span class="o">===========</span>
+  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="m">-1</span>
+<span class="o">&amp;</span> <span class="m">010110000</span>
+<span class="o">===========</span>
+  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">)</span>
+
+So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1</span>. But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> be <span class="m">0</span><span class="o">?</span> That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2</span>.
+</pre></div>
+
+
+<h2>Swapping in place</h2>
+<p>Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.</p>
+<div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>Behind the scenes, Python accesses the values of <code>y</code> and <code>x</code>, then rotates them as it unpacks and assigns to <code>x</code> and <code>y</code>. Here's what that looks like when run through the Python disassembler:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">dis</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">3</span>           <span class="mi">0</span> <span class="n">LOAD_CONST</span>               <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">3</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">4</span>           <span class="mi">6</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">9</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">5</span>          <span class="mi">12</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">15</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">18</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">19</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">22</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">6</span>          <span class="mi">25</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">28</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">31</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">32</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">35</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">38</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">41</span> <span class="n">RETURN_VALUE</span> 
+</pre></div>
+
+
+<p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
+<div class="highlight"><pre><span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+<span class="n">y</span> <span class="o">^=</span> <span class="n">x</span>
+<span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
+<div class="highlight"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
+<span class="gh">=============================================================================</span>
+x ^= y  -&gt;  x = x^y
+y ^= x  -&gt;  y = y^x^y      -&gt;  y = x^y^y      -&gt;  y = x^0    -&gt;  y = x
+x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x = y
+</pre></div>
+
+
+<p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
+<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
+<p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/project-euler-3.html#disqus_thread"></a>.
+        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/project-euler.html">[project euler]</a>
-            <a href="http://blog.sitongpeng.com/tag/pair-programming.html">[pair programming]</a>
+            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
+            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/r.html">[R]</a>
-            <a href="http://blog.sitongpeng.com/tag/prime-factors.html">[prime factors]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+    </p>
+        </article>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
+                   title="Permalink to The case for base cases">The case for base cases</a></h1>
+<p class="date">Monday, January 28, 2013</p>        </header>
+        <article>
+            <p>You have a complicated problem to solve. How do you start tackling it?</p>
+<p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
+<h2>Tower of Hanoi</h2>
+<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
+<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /></p>
+<p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
+<ol>
+<li>Only one disk may be moved at a time.  </li>
+<li>Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  </li>
+<li>No disk may be placed on top of a disk smaller than it.</li>
+</ol>
+<p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
+<h2>Let's start with the base cases</h2>
+<p>N=1</p>
+<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
+<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+
+<span class="mf">1.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
+<span class="n">Done</span><span class="p">.</span>
+
+<span class="n">So</span> <span class="n">we</span> <span class="n">solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span> <span class="n">with</span> <span class="n">one</span> <span class="n">move</span> <span class="n">of</span> <span class="o">-|-</span><span class="p">.</span>
+</pre></div>
+
+
+<p>N=2</p>
+<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
+  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
+<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+
+<span class="mf">1.</span>  <span class="o">-------&gt;</span> <span class="o">-|-</span>
+
+    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+  <span class="o">--|--</span>      <span class="o">-|-</span>        <span class="o">|</span>
+<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+
+<span class="mf">2.</span>  <span class="o">----------------&gt;</span> <span class="o">--|--</span>
+<span class="mf">3.</span>            <span class="o">-------&gt;</span> <span class="o">-|-</span>
+<span class="n">Done</span><span class="p">.</span>
+
+<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">take</span> <span class="n">a</span> <span class="n">closer</span> <span class="n">look</span> <span class="n">at</span> <span class="n">these</span> <span class="n">moves</span><span class="o">:</span>
+<span class="mf">1.</span> <span class="n">Exactly</span> <span class="n">like</span> <span class="n">solving</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
+<span class="mf">2.</span> <span class="n">The</span> <span class="n">second</span> <span class="n">step</span> <span class="n">places</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">at</span> <span class="n">the</span> <span class="n">base</span> <span class="n">of</span> <span class="n">C</span><span class="p">.</span>
+<span class="mf">3.</span> <span class="n">Also</span> <span class="n">solves</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">only</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
+<span class="n">Done</span><span class="p">.</span>
+
+<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">rewrite</span> <span class="n">our</span> <span class="n">steps</span> <span class="n">like</span> <span class="n">this</span><span class="o">:</span>
+<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
+<span class="mf">2.</span> <span class="n">Move</span> <span class="o">--|--</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
+<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
+<span class="n">Done</span><span class="p">.</span>
+</pre></div>
+
+
+<p>N=3</p>
+<div class="highlight"><pre>   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
+  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
+ <span class="o">---|---</span>      <span class="o">|</span>         <span class="o">|</span>
+<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    A         B         C
+
+<span class="m">1</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
+<span class="m">2</span>.  <span class="o">------&gt;</span> <span class="o">--|--</span>
+<span class="m">3</span>.           <span class="o">-|-</span> <span class="o">&lt;-------</span>
+
+    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
+    <span class="o">|</span>        <span class="o">-|-</span>        <span class="o">|</span>
+ <span class="o">---|---</span>    <span class="o">--|--</span>       <span class="o">|</span>
+<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    A         B         C
+
+<span class="m">4</span>.  <span class="o">---------------&gt;</span> <span class="o">---|---</span>
+<span class="m">5</span>. <span class="o">-|-</span> <span class="o">&lt;-------</span>
+<span class="m">6</span>.            <span class="o">------&gt;</span> <span class="o">--|--</span>
+<span class="m">7</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
+Done.
+
+Notice how steps <span class="m">1-3</span> solve N<span class="o">=</span><span class="m">2</span> and places it at B. Rewrite<span class="o">?</span>
+<span class="m">1</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except A<span class="o">-&gt;</span>B
+<span class="m">2</span>. Move <span class="o">---|---</span> from A<span class="o">-&gt;</span>C
+<span class="m">3</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except B<span class="o">-&gt;</span>C
+Done.
+</pre></div>
+
+
+<p>Interesting. Looks like we have a formula.</p>
+<div class="highlight"><pre><span class="n">N</span><span class="o">=</span><span class="n">n</span>
+<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
+<span class="mf">2.</span> <span class="n">Move</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
+<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
+</pre></div>
+
+
+<p>I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
+<p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
+<iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
+            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
+    </p>
+        </article>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="bookmark"
+                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
+<p class="date">Wednesday, January 23, 2013</p>        </header>
+        <article>
+            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># if we are in the child process</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>A little background</h2>
+<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
+<h2>Result</h2>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+</pre></div>
+
+
+<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
+<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
+<h2>Solution</h2>
+<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>                      <span class="c">##### ADDED THIS LINE ######</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c">##### ADDED THIS LINE ######</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Randomness restored.</p>
+<p><span id="update">Update</span><br />
+My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
+<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/random.html">[random]</a>
+            <a href="http://blog.sitongpeng.com/tag/random-numbers.html">[random numbers]</a>
+            <a href="http://blog.sitongpeng.com/tag/processes.html">[processes]</a>
+            <a href="http://blog.sitongpeng.com/tag/forking.html">[forking]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/whiskey.html">[whiskey]</a>
     </p>
         </article>
 <p class="paginator">
             <a href="http://blog.sitongpeng.com/index.html">&lt;&lt;</a>
-    Page 2 / 4
+    Page 2 / 7
         <a href="http://blog.sitongpeng.com/index3.html">&gt;&gt;</a>
 </p>
         <footer>

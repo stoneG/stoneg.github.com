@@ -4,19 +4,19 @@
         <title>spearhead - tricks</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
+                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,50 +24,53 @@
 
     <header id="sidebar">
         <div class="bounds">
-                        <h1><a href="../">spearhead</a></h1>
+            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="http://www.sitongpeng.com/images/face.jpg"></a>
+            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
             <p>writings about code discovery</p>
                 <ul>
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="../archives.html">Archives</a></li>
-                    <li><a href="../tags.html">Tags</a></li>
-                                                                        <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
-                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
-                                                            </ul>
+                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
+                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
+                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li></li>
+                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="https:/github.com/stoneG">Github</a></li>
+                </ul>
         </div>
     </header>
 
     <section id="main">
-            
-                <header>
-            <h1><a href="../posts/bit-manipulation-fun.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
                    title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
-        <p class="date">Wednesday, January 30, 2013</p>        </header>
+<p class="date">Wednesday, January 30, 2013</p>        </header>
         <article>
             <p>So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.</p>
 <h2>Simple stuff first</h2>
 <p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
 <p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
-<div class="codehilite"><pre>0101 <span class="n">is</span> 0<span class="o">*</span><span class="p">(</span>2^3<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^2<span class="p">)</span> <span class="o">+</span> 0<span class="o">*</span><span class="p">(</span>2^1<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^0<span class="p">)</span>
-     <span class="n">or</span> 0<span class="o">*</span>8 <span class="o">+</span> 1<span class="o">*</span>4 <span class="o">+</span> 0<span class="o">*</span>2 <span class="o">+</span> 1<span class="o">*</span>1
-     <span class="n">or</span> 5
+<div class="highlight"><pre><span class="mo">0101</span> <span class="n">is</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="p">)</span>
+     <span class="n">or</span> <span class="mi">0</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span>
+     <span class="n">or</span> <span class="mi">5</span>
 </pre></div>
 
 
 <p>Anyone can write a simple function that tests if a given integer <code>x</code> is even. Usually it will involve checking to see if <code>x</code> mod 2 is 0.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>But, given that least significant bit of a binary value represents odd or even, we can write that same <code>is_even</code> function using the <code>AND</code> bit operation. </p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>For example 6 &amp; 1 is 0.</p>
-<div class="codehilite"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
+<div class="highlight"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
 <span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
 <span class="o">======</span>
   <span class="m">0000</span>
@@ -77,7 +80,7 @@
 <p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
 <h2>Powerful twos</h2>
 <p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
         <span class="n">power_of_two</span> <span class="o">*=</span> <span class="mi">2</span>
@@ -86,32 +89,32 @@
 
 
 <p>That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>Let's see this in action with <code>x</code> as some random binary number:</p>
-<div class="codehilite"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
+<div class="highlight"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
 <span class="o">-</span> <span class="m">000000001</span>
 <span class="o">===========</span>
-  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="o">-</span><span class="m">1</span>
+  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="m">-1</span>
 <span class="o">&amp;</span> <span class="m">010110000</span>
 <span class="o">===========</span>
-  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">)</span>
+  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">)</span>
 
-So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1.</span> But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> be <span class="m">0</span>? That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2.</span>
+So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1</span>. But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> be <span class="m">0</span><span class="o">?</span> That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2</span>.
 </pre></div>
 
 
 <h2>Swapping in place</h2>
 <p>Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.</p>
-<div class="codehilite"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
 </pre></div>
 
 
 <p>Behind the scenes, Python accesses the values of <code>y</code> and <code>x</code>, then rotates them as it unpacks and assigns to <code>x</code> and <code>y</code>. Here's what that looks like when run through the Python disassembler:</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">dis</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">dis</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
@@ -144,14 +147,14 @@ So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span
 
 
 <p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
-<div class="codehilite"><pre><span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
-<span class="n">y</span> ^<span class="p">=</span> <span class="n">x</span>
-<span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
+<div class="highlight"><pre><span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+<span class="n">y</span> <span class="o">^=</span> <span class="n">x</span>
+<span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
 </pre></div>
 
 
 <p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
-<div class="codehilite"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
+<div class="highlight"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
 <span class="gh">=============================================================================</span>
 x ^= y  -&gt;  x = x^y
 y ^= x  -&gt;  y = y^x^y      -&gt;  y = x^y^y      -&gt;  y = x^0    -&gt;  y = x
@@ -162,18 +165,18 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 <p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
 <p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
 <p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
-                <p class="comments">
-        <a href="../posts/bit-manipulation-fun.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/bit-manipulation.html">[bit manipulation]</a>
-                    <a href="../tag/binary.html">[binary]</a>
-                    <a href="../tag/tricks.html">[tricks]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/algorithms.html">[algorithms]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
+            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+    </p>
         </article>
-                                        <footer>
+        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
