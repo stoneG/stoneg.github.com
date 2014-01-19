@@ -4,19 +4,19 @@
         <title>spearhead</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
+                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,377 +24,129 @@
 
     <header id="sidebar">
         <div class="bounds">
-                        <h1><a href="../">spearhead</a></h1>
+            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="http://www.sitongpeng.com/images/face.jpg"></a>
+            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
             <p>writings about code discovery</p>
                 <ul>
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="../archives.html">Archives</a></li>
-                    <li><a href="../tags.html">Tags</a></li>
-                                                                        <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
-                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
-                                                            </ul>
+                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
+                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
+                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li></li>
+                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="https:/github.com/stoneG">Github</a></li>
+                </ul>
         </div>
     </header>
 
     <section id="main">
-            
-                <header>
-            <h1><a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="bookmark"
-                   title="Permalink to I moved your stuff but don't freak out cuz I left behind a symlink">I moved your stuff but don't freak out cuz I left behind a symlink</a></h1>
-        <p class="date">Saturday, June 29, 2013</p>        </header>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/the-self-aware-python-function.html" rel="bookmark"
+                   title="Permalink to The Self Aware Python Function">The Self Aware Python Function</a></h1>
+<p class="date">Saturday, January 18, 2014</p>        </header>
         <article>
-            <p><span id="note">Learning new <em>nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about </em>nix-craft.</span></p>
-<p>I'm not sure when I first heard of <a href="http://en.wikipedia.org/wiki/Symbolic_link">symlinking</a>, but the first time it hit me as "something I should get acquainted with" was while I was reading <a href="http://dotfiles.github.io/">dotfiles.github.io</a>. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.</p>
-<p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
-<h2>Leaving a note</h2>
-<p>To create a symlink, you'd type this into your terminal:</p>
-<div class="codehilite"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">target</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">link</span>
+            <p>I've been using Python for over a year now. It's what I learned to program with. About half a year ago, a fellow coder (friend of a friend) posed the following riddle upon learning that it was my language of choice:</p>
+<p class="quote">"How would you write a function in Python that knows how many times it's been invoked?"</p>
+
+<p>Let's consider this for a moment. A function that knows how many times it has been invoked is one that would need some access to a scope outside of it's own. Functions are generally pretty transient &mdash; they do their thing and then wait until they are told to do it again. There isn't a middling dormant state where they consider how many times they've been told to execute their (probably) menial task.</p>
+<p>As a first stab, we might consider a global counter, as in the following setup:</p>
+<div class="highlight"><pre><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">self_aware_function</span><span class="p">()</span>
 </pre></div>
 
 
-<p>In English, this reads as:
-Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/target</code>.</p>
-<h2>Reading the note</h2>
-<p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
-<p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
-<div class="codehilite"><pre><span class="o">-</span><span class="n">rw</span><span class="o">-------</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>    28054 <span class="n">Jun</span> 29 17<span class="p">:</span>52 <span class="p">.</span><span class="n">viminfo</span>
-<span class="n">lrwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   1 <span class="n">sitong</span>  <span class="n">staff</span>       33 <span class="n">Jun</span> 29 16<span class="p">:</span>57 <span class="p">.</span><span class="n">vimrc</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sitong</span><span class="o">/</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="p">.</span><span class="n">vimrc</span>
+<p>Those familiar with Python are up in arms right now, and rightfully so. Here's what you get when invoking <code>self_aware_function</code>:</p>
+<div class="highlight"><pre><span class="n">UnboundLocalError</span><span class="o">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s1">&#39;count&#39;</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span>
 </pre></div>
 
 
-<p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
-<h2>Removing the note</h2>
-<p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
-<div class="codehilite"><pre><span class="n">rm</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+<p>In Python, when you are in a function and assign a value to an immutable type variable (such as our int <code>count</code>), you end up shadowing the global variable with one local to the function's scope. So when <code>count += 1</code> is evaluated (remember this is expanded to <code>count = count + 1</code>), Python cannot find the value for <code>count</code> in the expression to the right of the <code>=</code>.</p>
+<h2>Okay, local variables won't work, how about we use the <code>global</code> keyword or mutable variables?</h2>
+<div class="highlight"><pre><span class="c"># global keyword</span>
+
+<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">count</span> <span class="c"># Now we force the use of the global count</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c"># ...</span>
 </pre></div>
 
 
-<h2>A little bonus</h2>
-<p>So we saw that <code>ln -s</code> is the command for symlinks but what if you passed a naked <code>ln</code> command to your terminal?</p>
-<p>You would actually be creating a <a href="http://en.wikipedia.org/wiki/Hard_link">hard link</a>. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!</p>
-                <p class="comments">
-        <a href="../posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/nix-craft.html">[*nix-craft]</a>
-                    <a href="../tag/dotfiles.html">[dotfiles]</a>
-                    <a href="../tag/shellscript.html">[shellscript]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/objects-attributes-functions-and-methods.html" rel="bookmark"
-                   title="Permalink to Objects, attributes, functions, and methods">Objects, attributes, functions, and methods</a></h1>
-        <p class="date">Sunday, April 07, 2013</p>        </header>
-        <article>
-            <p>I set some time out to open the box on some <a href="http://www.python.org">Python</a> fundamentals this weekend. I have a few topics to write about but, for today, let's talk a little about objects.</p>
-<h2>Objects</h2>
-<p>Objects are a big deal in Python. And rightfully so, as most developers use Python in an object oriented manner, though you can certainly write imperatively or pseudo-functionally too. In fact, some people subscribe to the thought that <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html">everything in Python is an object</a>. I'm not going to argue about whether that's true or not so we'll just tip-toe around it and state that there are an <strong>awful lot of objects</strong>.</p>
-<p>So what is an object? Let's use <a href="http://en.wikipedia.org/wiki/Object_(computer_science)#Properties_of_an_object">Wikipedia</a>'s definition. Objects are characterized by these properties:</p>
-<h4>Identity (Objects are unique from each other)</h4>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Trivial</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="highlight"><pre><span class="c"># using a list</span>
+<span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="n">obj</span><span class="p">,</span> <span class="n">diff_obj</span> <span class="o">=</span> <span class="n">Trivial</span><span class="p">(),</span> <span class="n">Trivial</span><span class="p">()</span>
-
-<span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c"># 25851216</span>
-<span class="nb">id</span><span class="p">(</span><span class="n">diff_obj</span><span class="p">)</span> <span class="c"># 26133840</span>
+<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
+    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c"># ...</span>
 </pre></div>
 
 
-<h4>State (Can store data in object)</h4>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span> <span class="c"># modules are objects</span>
-<span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="o">=</span> <span class="s">&#39;arbitrary&#39;</span>
-<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="c"># arbitrary</span>
+<p>These both work and globals were my first idea for a solution. However, when I asked if this was acceptable, I was met with opposition.</p>
+<p class="quote">"You are only allowed to write code within the function, not outside of it."</p>
+
+<p>That's rough. How do you become self aware of an outside world/scope that you can't even interact with?</p>
+<p>Turns out, the answer lies within a popular Python <a href="http://effbot.org/zone/default-values.html">gotcha</a>.</p>
+<h2>Self-awareness</h2>
+<p>Here's how you define a default parameter in Python:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">default</span>
 </pre></div>
 
 
-<h4>Behavior (Can manipulate the object)</h4>
-<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;strings&#39;</span><span class="p">,</span> <span class="s">&#39;are&#39;</span><span class="p">,</span> <span class="s">&#39;objects&#39;</span><span class="p">,</span> <span class="s">&#39;with&#39;</span><span class="p">,</span> <span class="s">&#39;methods&#39;</span><span class="p">])</span>
-<span class="c"># strings are objects with methods</span>
+<p>In Python, default parameters are evaluated ONLY once &mdash; when the function is defined. That means the default parameter is "the same" for all invocations of the function. I say "the same" because normally the default parameter will have the same value across multiple function invocations, but if your default parameter is mutable then you change it! And then you can do some really special things.</p>
+<p>Case in point, self-awareness:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
+    <span class="k">elif</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Who are you to tell me what to do???&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">self_aware_function</span><span class="p">()</span>
 </pre></div>
 
 
-<h2>Attributes and Methods</h2>
-<p>You're probably familiar with setting object attributes to static data or writing simple methods if you've worked with objects in the past.</p>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Lannister</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-    <span class="k">def</span> <span class="nf">say_family_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&#39;{} says: &quot;Hear Me Roar!&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="n">tyrion</span> <span class="o">=</span> <span class="n">Lannister</span><span class="p">()</span>
-
-<span class="k">print</span> <span class="n">tyrion</span><span class="o">.</span><span class="n">name</span>
-<span class="c"># Tyrion Lannister</span>
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
-</pre></div>
-
-
-<p>But you're actually not limited to such trivial behavior. For instance, since functions are first class objects in Python, you could easily do the following too.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">():</span>
-    <span class="k">print</span> <span class="s">&#39;A Lannister Always Pays His Debts.&#39;</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">()</span>
-<span class="c"># A Lannister Always Pays His Debts.</span>
-</pre></div>
-
-
-<p>As you can see, we've set the <code>.say_common_motto</code> attribute to the function object <code>say_common_motto</code>, then invoked the attribute.</p>
-<p>Before we continue, we should make a distinction between <code>.say_common_motto</code> and <code>.say_family_motto</code>.</p>
-<div class="codehilite"><pre><span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;function&#39;&gt;</span>
-<span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;instancemethod&#39;&gt;</span>
-</pre></div>
-
-
-<p>Python resolves the type of <code>.say_common_motto</code> to a function object and <code>.say_family_motto</code> to an instance method object. What's the difference?</p>
-<p>You can think of a method as a function with a unique difference. A method always takes the object it's associated with as it's first argument. You don't have a choice on the matter.</p>
-<p>Under the hood, when Python sees <code>tyrion.say_family_motto()</code>, it first looks for a <code>.say_family_motto</code> attribute in <code>tyrion</code> (this means you can override an object method by writing to an object attribute with the same name). When it doesn't find that, the interpreter will jump up to the class level and look for <code>say_family_motto</code> function defined at the class level. Once found, it will invoke the function as a method - namely, by attaching the <code>tyrion</code> object to the head of the argument list. That's also why a method definition always includes a positional argument placeholder first (traditionally called <code>self</code> in Python).</p>
-<p>Methods are really just a shortcut though. You can actually just define your own function with an argument placeholder for an object and attach the function to the object attribute. An example makes this clearer. Suppose we rewrote the <code>say_common_motto</code> function to make it equivalent to a method.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s">&#39;{} says: &quot;A Lannister Always Pays His Debts.&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">(</span><span class="n">tyrion</span><span class="p">)</span>
-<span class="c"># Tyrion Lannister says: &quot;A Lannister Always Pays His Debts.&quot;</span>
-
-<span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
-</pre></div>
-
-
-<p>As you can see, defining a method in the class is a lot cleaner than attaching a function to the instance object. But both styles get you to the same resolution eventually. </p>
-<p>Anyways, hopefully you know a little more about Python objects now.</p>
-                <p class="comments">
-        <a href="../posts/objects-attributes-functions-and-methods.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/objects.html">[objects]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/functions.html">[functions]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/sustained-momentum.html" rel="bookmark"
-                   title="Permalink to Sustained momentum">Sustained momentum</a></h1>
-        <p class="date">Wednesday, March 20, 2013</p>        </header>
-        <article>
-            <p>In the next couple months, I'm planning on writing more about <code>Javascript</code> as I pick it up in work and from my own reading. Towards the end of <a href="https://www.hackerschool.com">Hacker School</a>, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.</p>
-<p>However, this doesn't mean I will stop developing in <code>Python</code>. Aside from <a href="https://www.djangoproject.com/">Django</a> exposure at work, I'm planning to continue building web applications for myself - and hopefully with more robust front-end UI.</p>
-<p>But, that's not quite good enough. If there was one thing I took away from Hacker School, it was the idea that I should always be pushing myself to become a better programmer. Web development is fun and lets me exercise my creative side, but I want to step outside my comfort zone and pursue other avenues of technology too. I'm not entirely sure what direction I'll look but I think my best bet is to attach myself to an open source project and develop a deep understanding of that problem space.</p>
-<p>Anyways, I'll think on that and come back with my decision within the next month. Hold me to it!</p>
-                <p class="comments">
-        <a href="../posts/sustained-momentum.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/future.html">[future]</a>
-                    <a href="../tag/javascript.html">[javascript]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/django.html">[django]</a>
-                    <a href="../tag/open-source.html">[open source]</a>
-                    <a href="../tag/hacker-school.html">[hacker school]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/no-man-is-an-island.html" rel="bookmark"
-                   title="Permalink to No man is an island: Collaboration with git">No man is an island: Collaboration with git</a></h1>
-        <p class="date">Tuesday, March 12, 2013</p>        </header>
-        <article>
-            <p>I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily <code>git</code> is forgiving while I'm expanding my terminology past <code>add</code>, <code>commit</code>, <code>push</code>, <code>status</code>, <code>diff</code>, and <code>clone</code>. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear <a href="http://git-scm.com/book">Pro Git</a> text if you have the time.</p>
-<h2>Version control for the masses</h2>
-<p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
-<h2>Growing a forest from a single tree</h2>
-<p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
-<p>To actually move branches, you'll want to run this command:</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>Then you can either <code>git branch</code> or <code>git status</code> to see where you are.</p>
-<h2>Finding your way back home</h2>
-<p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
-<p>Generally there's two ways about this.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
-<p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
-</pre></div>
-
-
-<p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
-<h2>Knowing where your keys are</h2>
-<p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">remote</span>
-</pre></div>
-
-
-<p>This lists all saved remote locations. Your list may contain <code>origin</code> (Github/Bitbucket), <code>heroku</code> (Heroku), or the name for your own private server.</p>
-<p>Anyways, that's essentially the foundation you need for version control. Stay tuned to a later post for more advanced <code>git</code> control.</p>
-                <p class="comments">
-        <a href="../posts/no-man-is-an-island.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="../tag/git.html">[git]</a>
-                    <a href="../tag/version-control.html">[version control]</a>
-                    <a href="../tag/crash-course.html">[crash course]</a>
-                    <a href="../tag/rebase.html">[rebase]</a>
-                    <a href="../tag/github.html">[github]</a>
-                    <a href="../tag/heroku.html">[heroku]</a>
-                    <a href="../tag/bitbucket.html">[bitbucket]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/understanding-heaps.html" rel="bookmark"
-                   title="Permalink to Understanding heaps">Understanding heaps</a></h1>
-        <p class="date">Saturday, February 02, 2013</p>        </header>
-        <article>
-            <p>I'm spending this weekend filling in some of the holes in my programming background, data structures in particular. As part of the learning process, I want to share my new understanding of heaps.</p>
-<h2>What is it?</h2>
-<p>A heap is a type of <a href="http://en.wikipedia.org/wiki/Priority_queue">priority queue</a>, which is just a queue where dequeued elements are primarily selected based on their "priority" and secondarily selected based on the "first in first out" principle. A heap prioritizes by key values of objects it stores, which leads to the two flavors of heaps: the max heap and min heap. The max heap will dequeue the objects with the highest keys first. If there are multiple maxes, the heap will dequeue by order of insertion. As you'd expect, the min heap is the same except it dequeues objects with the lowest keys first.</p>
-<h2>Introducing the max heap</h2>
-<p>Although a heap is technically a priority queue, and although we are going to implement it as an array, heaps are commonly represented as a binary tree. Here is the max heap we're going to work with:</p>
-<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
-<p>There are two conditions that must be met for a binary tree to be a max heap.</p>
-<ol>
-<li>Every parent node must be at least as large as either child nodes. This means the max key will always be at the top of the tree.</li>
-<li>The tree must be complete at all levels except the deepest. The deepest level must be populated from the left. This means if the above tree had another node, it would be the left child of the node 8.</li>
-</ol>
-<p>We're going to implement this heap as an array. This boils down to extracting nodes left to right, top to bottom. Here's what it will look like:</p>
-<div class="codehilite"><pre><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-</pre></div>
-
-
-<p><span id="note">Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.</span></p>
-<p>We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.</p>
-<div class="codehilite"><pre>  <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>  <span class="m">5</span>  <span class="o">&lt;--</span> One<span class="o">-</span>indexing
-<span class="p">[</span><span class="m">11</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
-                             EXAMPLE:
-parent<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> floor<span class="p">(</span>i<span class="o">/</span><span class="m">2</span><span class="p">)</span>            parent<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">1</span>
-left_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span>           left_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">4</span>
-right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span>     right_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">5</span>
-</pre></div>
-
-
-<p>Let's code up what we have. I prefer to have zero-indexing so the math on the parent/children calculation will have to compensate.</p>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MaxHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
-</pre></div>
-
-
-<p>Now, a heap has two basic operations: insert and extract_max (extract_min). These are guaranteed to run in <code>O(logN)</code> time, or in other words, the height of the binary tree.</p>
-<h2>Insert</h2>
-<p>What does an insert look like in our binary tree model? Following the conditions of a binary heap, we have to insert the new object at the deepest level, moving in from the left. That corresponds to the node marked X below:</p>
-<p><img alt="Insert at X" src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Heap_add_step1.svg/500px-Heap_add_step1.svg.png" /></p>
-<p>It should be pretty obvious that the object we insert could break the heap property of this tree. Whatever key we end up with, we first need to compare it with its parent node. The parent node's key is 8, so if we insert an object with <code>key &lt;= 8</code> then we wouldn't have to do anything further. But what if the key is something higher like 15? Then our insertion would break heap condition #2.</p>
-<p>In this situation, the next step is to swap our inserted node with it's parent node. </p>
-<p><img alt="Swap with parent" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Heap_add_step2.svg/500px-Heap_add_step2.svg.png" /></p>
-<p>Cool. But now when we check 15 against its new parent, the root, we notice we're still in trouble. So we swap again. These swap acts are also known as "bubbling up" or "heapifying up", as the inserted object is promoted levels due to its priority.</p>
-<p><img alt="Promoted to root" src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Heap_add_step3.svg/500px-Heap_add_step3.svg.png" /></p>
-<p>Now that 15 has made it's way up to the root node, we can stop. As you can see, the new tree follows all conditions to be classified as a max heap. Here's the code for the insert operation.</p>
-<div class="codehilite"><pre>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">parent</span><span class="p">:</span>
-                <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span>
-                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span> <span class="c"># parent is root</span>
-                <span class="k">break</span>
-</pre></div>
-
-
-<p>As you can see, we first insert to the end of the array, then while the inserted key is larger than its parent, we swap it upward until it finds its place.</p>
-<h2>Extract Max</h2>
-<p>I believe this is also known as Delete Max, but in either case, this operation removes the max from the heap. And because we're working with a heap, we know the max is the root of the tree (or first element of the array), so we certainly don't need to traverse through the entire structure to determine it.</p>
-<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
-<p>Now, as mentioned before, the first step is to remove the root node. That leaves us with a tricky situation. What node will replace the root?</p>
-<p>Let's go through our options.</p>
 <ul>
-<li>Pull up the 5. Well, now we fail both conditions. The root is now less than the right child, and more importantly we have an incomplete binary tree.</li>
-<li>Pull up the 8. Cool, our root is the max, but now we have an entire empty branch on the right. That seems like a big problem and we can't just fix it by pulling from an entirely separate branch.</li>
-<li>Pull up the 3. Breaks the complete tree again.</li>
-<li>Pull up the 4. We still have a complete tree (in terms of a heap at least). We have a bad root but maybe we can shift that node back down.</li>
+<li><code>count</code> is evaluated at function definition to be a mutable list with one integer element.</li>
+<li>Each invocation of our <code>self_aware_function</code> adds another tick to our mutable <code>count</code> parameter.</li>
 </ul>
-<p>So the general solution seems to be, promote the last element of the tree/array.</p>
-<p><img alt="Big promotion here" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Heap_remove_step1.svg/500px-Heap_remove_step1.svg.png" /></p>
-<p>So now the new root is no longer the max. We need to swap it with one of its children. If we swap with 5, we'll still have the same problem. We'll need to swap with 8. This should lead us to the realization that we'll always want to swap with the higher of the two children, otherwise we'll just be making more of a mess of things.</p>
-<p><img alt="Back to normalcy" src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Heap_remove_step2.svg/500px-Heap_remove_step2.svg.png" /></p>
-<p>Now we have our max extracted heap!</p>
-<p>Here's the code:</p>
-<div class="codehilite"><pre>    <span class="k">def</span> <span class="nf">extract_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span> <span class="c"># if right exists, so does left</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="n">left</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="n">right</span>
-                <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span> <span class="c"># we have a heap again</span>
-                <span class="k">return</span>
-        <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+<p>And we have our cheeky, self aware function!</p>
+<div class="highlight"><pre><span class="nv">$ </span>python aware.py
+This is my first <span class="nb">time </span>doing this
+I have <span class="k">done </span>this 2 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 3 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 4 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 5 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 6 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 7 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 8 <span class="nb">times </span>now.
+I have <span class="k">done </span>this 9 <span class="nb">times </span>now.
+Who are you to tell me what to <span class="k">do</span>???
 </pre></div>
 
 
-<p><span id="note">I'm not actually returning the max here, but you can build that in pretty easily.</span></p>
-<p><code>extract_max</code> is a bit more complicated than <code>insert</code>. Swapping the new root down takes a few more comparision steps as we have to decide which child to swap with. We're still within <code>O(logN)</code> time though, since we will never need to swap more than the height of the binary tree.</p>
-<h2>So what are heaps good for?</h2>
-<p>In general, when you constantly need to access the min or max of some data, heaps are a logical choice, as you just need to pluck it from the top of the tree/front of the array and do a little rearranging. This means they are useful for tasks like managing bandwith on a router (always send the prioritized traffic first) or handling asynchronous event processing (firing off shortest tasks first).</p>
-<p>Heaps are also useful in speeding up certain algorithms that require multiple min or max computations. One example is Dijkstra's shortest path algorithm, where you are constantly computing the minimum path for each node.</p>
-<p>So, hopefully you've now got a solid understanding of heaps. Next time you're working on something and you find yourself repeatedly taking minimums or maximums, you should give them a try. They will make your life easier.</p>
-                <p class="comments">
-        <a href="../posts/understanding-heaps.html#disqus_thread"></a>.
+<p><span class="note">If you're wondering, mutable default arguments was the answer I gave after a good amount of thought. I believe there are other solutions and I invite you to share them in the comments :)</span></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/the-self-aware-python-function.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/heaps.html">[heaps]</a>
-                    <a href="../tag/data-structures.html">[data structures]</a>
-                    <a href="../tag/python.html">[python]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+    </p>
         </article>
-                                    <p class="paginator">
-        Page 1 / 3
-            <a href="../category/misc2.html">&gt;&gt;</a>
-    </p>
-                                <footer>
+        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
