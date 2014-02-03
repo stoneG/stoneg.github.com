@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>spearhead</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/2013.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-06-29T23:00:00-07:00</updated><entry><title>I moved your stuff but don't freak out cuz I left behind a symlink</title><link href="http://blog.sitongpeng.com/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="alternate"></link><updated>2013-06-29T23:00:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-06-29:posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html</id><summary type="html">&lt;p&gt;&lt;span id="note"&gt;Learning new &lt;em&gt;nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about &lt;/em&gt;nix-craft.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;I'm not sure when I first heard of &lt;a href="http://en.wikipedia.org/wiki/Symbolic_link"&gt;symlinking&lt;/a&gt;, but the first time it hit me as "something I should get acquainted with" was while I was reading &lt;a href="http://dotfiles.github.io/"&gt;dotfiles.github.io&lt;/a&gt;. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.&lt;/p&gt;
+&lt;p&gt;So, as I had endeavored to clean my virtual &lt;code&gt;$HOME&lt;/code&gt; of dotfiles, it became apparent that I needed to get familiar with symlinks.&lt;/p&gt;
+&lt;h2&gt;Leaving a note&lt;/h2&gt;
+&lt;p&gt;To create a symlink, you'd type this into your terminal:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;link&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In English, this reads as:
+Create a symlink at &lt;code&gt;path/to/link&lt;/code&gt; that redirects to &lt;code&gt;path/to/target&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Reading the note&lt;/h2&gt;
+&lt;p&gt;Most programs play nicely with &lt;code&gt;symlinks&lt;/code&gt;. For instance, if you were to symlink your &lt;code&gt;~/.vimrc&lt;/code&gt; to &lt;code&gt;~/dotfiles/vim/.vimrc&lt;/code&gt;, Vim would access &lt;code&gt;~/.vimrc&lt;/code&gt; but would end up reading from &lt;code&gt;~/dotfiles/vim/.vimrc&lt;/code&gt; instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!&lt;/p&gt;
+&lt;p&gt;It's also helpful to know what path your existing symlinks are pointing to. A simple &lt;code&gt;ls&lt;/code&gt; doesn't list out your symlinks. You'll want to run &lt;code&gt;ls -l&lt;/code&gt;, and symlinks will look something like the second entry below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="o"&gt;-------&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;sitong&lt;/span&gt;  &lt;span class="n"&gt;staff&lt;/span&gt;    &lt;span class="mi"&gt;28054&lt;/span&gt; &lt;span class="n"&gt;Jun&lt;/span&gt; &lt;span class="mi"&gt;29&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;52&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;viminfo&lt;/span&gt;
+&lt;span class="n"&gt;lrwxr&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;xr&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;   &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;sitong&lt;/span&gt;  &lt;span class="n"&gt;staff&lt;/span&gt;       &lt;span class="mi"&gt;33&lt;/span&gt; &lt;span class="n"&gt;Jun&lt;/span&gt; &lt;span class="mi"&gt;29&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;57&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vimrc&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Users&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sitong&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dotfiles&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vim&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vimrc&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;span id="note"&gt;I actually ran &lt;code&gt;ls -al&lt;/code&gt; since the symlinks in my &lt;code&gt;$HOME&lt;/code&gt; are all dotfiles.&lt;/span&gt;  &lt;/p&gt;
+&lt;h2&gt;Removing the note&lt;/h2&gt;
+&lt;p&gt;Removing the symlink is just an &lt;code&gt;rm&lt;/code&gt; to the symlink. For instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;vimrc&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;A little bonus&lt;/h2&gt;
+&lt;p&gt;So we saw that &lt;code&gt;ln -s&lt;/code&gt; is the command for symlinks but what if you passed a naked &lt;code&gt;ln&lt;/code&gt; command to your terminal?&lt;/p&gt;
+&lt;p&gt;You would actually be creating a &lt;a href="http://en.wikipedia.org/wiki/Hard_link"&gt;hard link&lt;/a&gt;. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!&lt;/p&gt;</summary><category term="*nix-craft"></category><category term="dotfiles"></category><category term="shellscript"></category></entry><entry><title>Objects, attributes, functions, and methods</title><link href="http://blog.sitongpeng.com/posts/objects-attributes-functions-and-methods.html" rel="alternate"></link><updated>2013-04-07T16:00:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-04-07:posts/objects-attributes-functions-and-methods.html</id><summary type="html">&lt;p&gt;I set some time out to open the box on some &lt;a href="http://www.python.org"&gt;Python&lt;/a&gt; fundamentals this weekend. I have a few topics to write about but, for today, let's talk a little about objects.&lt;/p&gt;
+&lt;h2&gt;Objects&lt;/h2&gt;
+&lt;p&gt;Objects are a big deal in Python. And rightfully so, as most developers use Python in an object oriented manner, though you can certainly write imperatively or pseudo-functionally too. In fact, some people subscribe to the thought that &lt;a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html"&gt;everything in Python is an object&lt;/a&gt;. I'm not going to argue about whether that's true or not so we'll just tip-toe around it and state that there are an &lt;strong&gt;awful lot of objects&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So what is an object? Let's use &lt;a href="http://en.wikipedia.org/wiki/Object_(computer_science)#Properties_of_an_object"&gt;Wikipedia&lt;/a&gt;'s definition. Objects are characterized by these properties:&lt;/p&gt;
+&lt;h4&gt;Identity (Objects are unique from each other)&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+
+&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff_obj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;Trivial&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 25851216&lt;/span&gt;
+&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff_obj&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c"&gt;# 26133840&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;State (Can store data in object)&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt; &lt;span class="c"&gt;# modules are objects&lt;/span&gt;
+&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;arbitrary&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;my_data&lt;/span&gt; &lt;span class="c"&gt;# arbitrary&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Behavior (Can manipulate the object)&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;strings&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;are&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;objects&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;with&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;methods&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="c"&gt;# strings are objects with methods&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Attributes and Methods&lt;/h2&gt;
+&lt;p&gt;You're probably familiar with setting object attributes to static data or writing simple methods if you've worked with objects in the past.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Lannister&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{} says: &amp;quot;Hear Me Roar!&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Lannister&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister&lt;/span&gt;
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;Hear Me Roar!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But you're actually not limited to such trivial behavior. For instance, since functions are first class objects in Python, you could easily do the following too.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;A Lannister Always Pays His Debts.&amp;#39;&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;say_common_motto&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# A Lannister Always Pays His Debts.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, we've set the &lt;code&gt;.say_common_motto&lt;/code&gt; attribute to the function object &lt;code&gt;say_common_motto&lt;/code&gt;, then invoked the attribute.&lt;/p&gt;
+&lt;p&gt;Before we continue, we should make a distinction between &lt;code&gt;.say_common_motto&lt;/code&gt; and &lt;code&gt;.say_family_motto&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# &amp;lt;type &amp;#39;function&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# &amp;lt;type &amp;#39;instancemethod&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Python resolves the type of &lt;code&gt;.say_common_motto&lt;/code&gt; to a function object and &lt;code&gt;.say_family_motto&lt;/code&gt; to an instance method object. What's the difference?&lt;/p&gt;
+&lt;p&gt;You can think of a method as a function with a unique difference. A method always takes the object it's associated with as it's first argument. You don't have a choice on the matter.&lt;/p&gt;
+&lt;p&gt;Under the hood, when Python sees &lt;code&gt;tyrion.say_family_motto()&lt;/code&gt;, it first looks for a &lt;code&gt;.say_family_motto&lt;/code&gt; attribute in &lt;code&gt;tyrion&lt;/code&gt; (this means you can override an object method by writing to an object attribute with the same name). When it doesn't find that, the interpreter will jump up to the class level and look for &lt;code&gt;say_family_motto&lt;/code&gt; function defined at the class level. Once found, it will invoke the function as a method - namely, by attaching the &lt;code&gt;tyrion&lt;/code&gt; object to the head of the argument list. That's also why a method definition always includes a positional argument placeholder first (traditionally called &lt;code&gt;self&lt;/code&gt; in Python).&lt;/p&gt;
+&lt;p&gt;Methods are really just a shortcut though. You can actually just define your own function with an argument placeholder for an object and attach the function to the object attribute. An example makes this clearer. Suppose we rewrote the &lt;code&gt;say_common_motto&lt;/code&gt; function to make it equivalent to a method.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;{} says: &amp;quot;A Lannister Always Pays His Debts.&amp;quot;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;say_common_motto&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_common_motto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;A Lannister Always Pays His Debts.&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;tyrion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;say_family_motto&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c"&gt;# Tyrion Lannister says: &amp;quot;Hear Me Roar!&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, defining a method in the class is a lot cleaner than attaching a function to the instance object. But both styles get you to the same resolution eventually. &lt;/p&gt;
+&lt;p&gt;Anyways, hopefully you know a little more about Python objects now.&lt;/p&gt;</summary><category term="objects"></category><category term="python"></category><category term="functions"></category></entry><entry><title>Sustained momentum</title><link href="http://blog.sitongpeng.com/posts/sustained-momentum.html" rel="alternate"></link><updated>2013-03-20T23:59:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-03-20:posts/sustained-momentum.html</id><summary type="html">&lt;p&gt;In the next couple months, I'm planning on writing more about &lt;code&gt;Javascript&lt;/code&gt; as I pick it up in work and from my own reading. Towards the end of &lt;a href="https://www.hackerschool.com"&gt;Hacker School&lt;/a&gt;, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.&lt;/p&gt;
+&lt;p&gt;However, this doesn't mean I will stop developing in &lt;code&gt;Python&lt;/code&gt;. Aside from &lt;a href="https://www.djangoproject.com/"&gt;Django&lt;/a&gt; exposure at work, I'm planning to continue building web applications for myself - and hopefully with more robust front-end UI.&lt;/p&gt;
+&lt;p&gt;But, that's not quite good enough. If there was one thing I took away from Hacker School, it was the idea that I should always be pushing myself to become a better programmer. Web development is fun and lets me exercise my creative side, but I want to step outside my comfort zone and pursue other avenues of technology too. I'm not entirely sure what direction I'll look but I think my best bet is to attach myself to an open source project and develop a deep understanding of that problem space.&lt;/p&gt;
+&lt;p&gt;Anyways, I'll think on that and come back with my decision within the next month. Hold me to it!&lt;/p&gt;</summary><category term="future"></category><category term="javascript"></category><category term="python"></category><category term="django"></category><category term="open source"></category><category term="hacker school"></category></entry><entry><title>No man is an island: Collaboration with git</title><link href="http://blog.sitongpeng.com/posts/no-man-is-an-island.html" rel="alternate"></link><updated>2013-03-12T20:55:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-03-12:posts/no-man-is-an-island.html</id><summary type="html">&lt;p&gt;I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily &lt;code&gt;git&lt;/code&gt; is forgiving while I'm expanding my terminology past &lt;code&gt;add&lt;/code&gt;, &lt;code&gt;commit&lt;/code&gt;, &lt;code&gt;push&lt;/code&gt;, &lt;code&gt;status&lt;/code&gt;, &lt;code&gt;diff&lt;/code&gt;, and &lt;code&gt;clone&lt;/code&gt;. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear &lt;a href="http://git-scm.com/book"&gt;Pro Git&lt;/a&gt; text if you have the time.&lt;/p&gt;
+&lt;h2&gt;Version control for the masses&lt;/h2&gt;
+&lt;p&gt;When you're just a lone soul contributing to your own project, &lt;code&gt;git&lt;/code&gt; is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.&lt;/p&gt;
+&lt;h2&gt;Growing a forest from a single tree&lt;/h2&gt;
+&lt;p&gt;Every &lt;code&gt;git&lt;/code&gt; repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like &lt;a href="https://github.com"&gt;Github&lt;/a&gt; and &lt;a href="https://bitbucket.org/"&gt;BitBucket&lt;/a&gt;, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through &lt;code&gt;git&lt;/code&gt;'s branching model.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;new_branch&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, &lt;code&gt;git branch&lt;/code&gt; will simply list your outstanding branches and show you which branch you're currently working in.&lt;/p&gt;
+&lt;p&gt;To actually move branches, you'll want to run this command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;existing_branch&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then you can either &lt;code&gt;git branch&lt;/code&gt; or &lt;code&gt;git status&lt;/code&gt; to see where you are.&lt;/p&gt;
+&lt;h2&gt;Finding your way back home&lt;/h2&gt;
+&lt;p&gt;Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?&lt;/p&gt;
+&lt;p&gt;Generally there's two ways about this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;merge&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;existing_side_branch&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just &lt;code&gt;fast forward&lt;/code&gt; your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).&lt;/p&gt;
+&lt;p&gt;You can avoid having two parent commits and have a more straightforward development path with the second method of merging.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;rebase&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;existing_main_branch&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You'll start in your side branch. The &lt;code&gt;rebase&lt;/code&gt; command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.&lt;/p&gt;
+&lt;h2&gt;Knowing where your keys are&lt;/h2&gt;
+&lt;p&gt;The true beauty of &lt;code&gt;git&lt;/code&gt; isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the &lt;code&gt;remote&lt;/code&gt; variable.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This lists all saved remote locations. Your list may contain &lt;code&gt;origin&lt;/code&gt; (Github/Bitbucket), &lt;code&gt;heroku&lt;/code&gt; (Heroku), or the name for your own private server.&lt;/p&gt;
+&lt;p&gt;Anyways, that's essentially the foundation you need for version control. Stay tuned to a later post for more advanced &lt;code&gt;git&lt;/code&gt; control.&lt;/p&gt;</summary><category term="git"></category><category term="version control"></category><category term="crash course"></category><category term="rebase"></category><category term="github"></category><category term="heroku"></category><category term="bitbucket"></category></entry><entry><title>Understanding heaps</title><link href="http://blog.sitongpeng.com/posts/understanding-heaps.html" rel="alternate"></link><updated>2013-02-02T23:59:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-02-02:posts/understanding-heaps.html</id><summary type="html">&lt;p&gt;I'm spending this weekend filling in some of the holes in my programming background, data structures in particular. As part of the learning process, I want to share my new understanding of heaps.&lt;/p&gt;
+&lt;h2&gt;What is it?&lt;/h2&gt;
+&lt;p&gt;A heap is a type of &lt;a href="http://en.wikipedia.org/wiki/Priority_queue"&gt;priority queue&lt;/a&gt;, which is just a queue where dequeued elements are primarily selected based on their "priority" and secondarily selected based on the "first in first out" principle. A heap prioritizes by key values of objects it stores, which leads to the two flavors of heaps: the max heap and min heap. The max heap will dequeue the objects with the highest keys first. If there are multiple maxes, the heap will dequeue by order of insertion. As you'd expect, the min heap is the same except it dequeues objects with the lowest keys first.&lt;/p&gt;
+&lt;h2&gt;Introducing the max heap&lt;/h2&gt;
+&lt;p&gt;Although a heap is technically a priority queue, and although we are going to implement it as an array, heaps are commonly represented as a binary tree. Here is the max heap we're going to work with:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;There are two conditions that must be met for a binary tree to be a max heap.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Every parent node must be at least as large as either child nodes. This means the max key will always be at the top of the tree.&lt;/li&gt;
+&lt;li&gt;The tree must be complete at all levels except the deepest. The deepest level must be populated from the left. This means if the above tree had another node, it would be the left child of the node 8.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We're going to implement this heap as an array. This boils down to extracting nodes left to right, top to bottom. Here's what it will look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;span id="note"&gt;Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="m"&gt;1&lt;/span&gt;  &lt;span class="m"&gt;2&lt;/span&gt;  &lt;span class="m"&gt;3&lt;/span&gt;  &lt;span class="m"&gt;4&lt;/span&gt;  &lt;span class="m"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; One&lt;span class="o"&gt;-&lt;/span&gt;indexing
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;11&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                             EXAMPLE&lt;span class="o"&gt;:&lt;/span&gt;
+parent&lt;span class="p"&gt;(&lt;/span&gt;i&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; floor&lt;span class="p"&gt;(&lt;/span&gt;i&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;            parent&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+left_child&lt;span class="p"&gt;(&lt;/span&gt;i&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; i&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;           left_child&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;4&lt;/span&gt;
+right_child&lt;span class="p"&gt;(&lt;/span&gt;i&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; i&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;     right_child&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's code up what we have. I prefer to have zero-indexing so the math on the parent/children calculation will have to compensate.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MaxHeap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;object&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;children&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now, a heap has two basic operations: insert and extract_max (extract_min). These are guaranteed to run in &lt;code&gt;O(logN)&lt;/code&gt; time, or in other words, the height of the binary tree.&lt;/p&gt;
+&lt;h2&gt;Insert&lt;/h2&gt;
+&lt;p&gt;What does an insert look like in our binary tree model? Following the conditions of a binary heap, we have to insert the new object at the deepest level, moving in from the left. That corresponds to the node marked X below:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Insert at X" src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Heap_add_step1.svg/500px-Heap_add_step1.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;It should be pretty obvious that the object we insert could break the heap property of this tree. Whatever key we end up with, we first need to compare it with its parent node. The parent node's key is 8, so if we insert an object with &lt;code&gt;key &amp;lt;= 8&lt;/code&gt; then we wouldn't have to do anything further. But what if the key is something higher like 15? Then our insertion would break heap condition #2.&lt;/p&gt;
+&lt;p&gt;In this situation, the next step is to swap our inserted node with it's parent node. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Swap with parent" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Heap_add_step2.svg/500px-Heap_add_step2.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Cool. But now when we check 15 against its new parent, the root, we notice we're still in trouble. So we swap again. These swap acts are also known as "bubbling up" or "heapifying up", as the inserted object is promoted levels due to its priority.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Promoted to root" src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Heap_add_step3.svg/500px-Heap_add_step3.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Now that 15 has made it's way up to the root node, we can stop. As you can see, the new tree follows all conditions to be classified as a max heap. Here's the code for the insert operation.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+            &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;parent&lt;/span&gt;
+                &lt;span class="n"&gt;parent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c"&gt;# parent is root&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, we first insert to the end of the array, then while the inserted key is larger than its parent, we swap it upward until it finds its place.&lt;/p&gt;
+&lt;h2&gt;Extract Max&lt;/h2&gt;
+&lt;p&gt;I believe this is also known as Delete Max, but in either case, this operation removes the max from the heap. And because we're working with a heap, we know the max is the root of the tree (or first element of the array), so we certainly don't need to traverse through the entire structure to determine it.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Now, as mentioned before, the first step is to remove the root node. That leaves us with a tricky situation. What node will replace the root?&lt;/p&gt;
+&lt;p&gt;Let's go through our options.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pull up the 5. Well, now we fail both conditions. The root is now less than the right child, and more importantly we have an incomplete binary tree.&lt;/li&gt;
+&lt;li&gt;Pull up the 8. Cool, our root is the max, but now we have an entire empty branch on the right. That seems like a big problem and we can't just fix it by pulling from an entirely separate branch.&lt;/li&gt;
+&lt;li&gt;Pull up the 3. Breaks the complete tree again.&lt;/li&gt;
+&lt;li&gt;Pull up the 4. We still have a complete tree (in terms of a heap at least). We have a bad root but maybe we can shift that node back down.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So the general solution seems to be, promote the last element of the tree/array.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Big promotion here" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Heap_remove_step1.svg/500px-Heap_remove_step1.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;So now the new root is no longer the max. We need to swap it with one of its children. If we swap with 5, we'll still have the same problem. We'll need to swap with 8. This should lead us to the realization that we'll always want to swap with the higher of the two children, otherwise we'll just be making more of a mess of things.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Back to normalcy" src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Heap_remove_step2.svg/500px-Heap_remove_step2.svg.png" /&gt;&lt;/p&gt;
+&lt;p&gt;Now we have our max extracted heap!&lt;/p&gt;
+&lt;p&gt;Here's the code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;extract_max&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="k"&gt;del&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;children&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt; &lt;span class="c"&gt;# if right exists, so does left&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="ow"&gt;or&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+                &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+                    &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;
+                &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                    &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+                    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;
+                &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;children&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c"&gt;# we have a heap again&lt;/span&gt;
+                &lt;span class="k"&gt;return&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+                &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;span id="note"&gt;I'm not actually returning the max here, but you can build that in pretty easily.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;extract_max&lt;/code&gt; is a bit more complicated than &lt;code&gt;insert&lt;/code&gt;. Swapping the new root down takes a few more comparision steps as we have to decide which child to swap with. We're still within &lt;code&gt;O(logN)&lt;/code&gt; time though, since we will never need to swap more than the height of the binary tree.&lt;/p&gt;
+&lt;h2&gt;So what are heaps good for?&lt;/h2&gt;
+&lt;p&gt;In general, when you constantly need to access the min or max of some data, heaps are a logical choice, as you just need to pluck it from the top of the tree/front of the array and do a little rearranging. This means they are useful for tasks like managing bandwith on a router (always send the prioritized traffic first) or handling asynchronous event processing (firing off shortest tasks first).&lt;/p&gt;
+&lt;p&gt;Heaps are also useful in speeding up certain algorithms that require multiple min or max computations. One example is Dijkstra's shortest path algorithm, where you are constantly computing the minimum path for each node.&lt;/p&gt;
+&lt;p&gt;So, hopefully you've now got a solid understanding of heaps. Next time you're working on something and you find yourself repeatedly taking minimums or maximums, you should give them a try. They will make your life easier.&lt;/p&gt;</summary><category term="heaps"></category><category term="data structures"></category><category term="python"></category></entry><entry><title>Travelling Salesman</title><link href="http://blog.sitongpeng.com/posts/travelling-salesman.html" rel="alternate"></link><updated>2013-02-01T12:30:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-02-01:posts/travelling-salesman.html</id><summary type="html">&lt;p&gt;This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.&lt;/p&gt;
+&lt;p&gt;We'll work through the quirks of the travelling salesman problem. The map can be modelled as a &lt;a href="http://en.wikipedia.org/wiki/Graph_theory"&gt;graph&lt;/a&gt; where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.&lt;/p&gt;
+&lt;p&gt;Let's say there are 10 node cities: A to J. The salesman starts at node A.&lt;/p&gt;
+&lt;h2&gt;Finding a "short" path&lt;/h2&gt;
+&lt;p&gt;There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Starting at A, traverse through each node and make note of which path is the shortest.&lt;/li&gt;
+&lt;li&gt;Take the shortest path (let's say to B) and mark A visited.&lt;/li&gt;
+&lt;li&gt;Repeat step 1 and 2 until all nodes are visited.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When might this be the shortest path? Imagine the cities laid out in a line like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;E&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;H&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;I&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;J&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.&lt;/p&gt;
+&lt;p&gt;When might this be a long path? Try the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;J&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;E&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;F&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;H&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;I&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.&lt;/p&gt;
+&lt;p&gt;The problem with this "short" path algorithm is that we are considering too few paths.&lt;/p&gt;
+&lt;h2&gt;Exhaustive search&lt;/h2&gt;
+&lt;p&gt;One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see &lt;a href="http://en.wikipedia.org/wiki/Combinatorial_explosion"&gt;combinatorial explosion&lt;/a&gt;). For less busy salesmen though, this is a viable option.&lt;/p&gt;
+&lt;p&gt;Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Starting at A, move to next unvisited node, note distance and mark A as visited.&lt;/li&gt;
+&lt;li&gt;Repeat step 1 until all nodes visited, then you should have some array of all distances travelled. That is your distance path.&lt;/li&gt;
+&lt;li&gt;Now traverse back up your path until you have the option of visiting a different node. Visit that and dig deeper down until you also have that path complete. (in this case, traversing back up the path is done by finishing the innermost loop and moving on to the next node of the immediate outer loop)&lt;/li&gt;
+&lt;li&gt;Eventually you will visit every path and document the distances.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We end up with &lt;code&gt;(N-1)!&lt;/code&gt; paths which is pretty terrible in terms of computation time (Note this is not &lt;code&gt;N!&lt;/code&gt; because we are actually only visiting &lt;code&gt;N-1&lt;/code&gt; nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!&lt;/p&gt;
+&lt;h2&gt;So what about large N?&lt;/h2&gt;
+&lt;p&gt;Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow &lt;a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms"&gt;link&lt;/a&gt; though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.&lt;/p&gt;
+&lt;p&gt;&lt;span id="note"&gt;Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.&lt;/span&gt;&lt;/p&gt;</summary><category term="algorithms"></category><category term="graph"></category><category term="shortest path"></category></entry><entry><title>Bit manipulation fun</title><link href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="alternate"></link><updated>2013-01-30T22:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-30:posts/bit-manipulation-fun.html</id><summary type="html">&lt;p&gt;So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.&lt;/p&gt;
+&lt;h2&gt;Simple stuff first&lt;/h2&gt;
+&lt;p&gt;The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.&lt;/p&gt;
+&lt;p&gt;When you write out a integer in a binary representation, 5 as &lt;code&gt;0101&lt;/code&gt; for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="mo"&gt;0101&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+     &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Anyone can write a simple function that tests if a given integer &lt;code&gt;x&lt;/code&gt; is even. Usually it will involve checking to see if &lt;code&gt;x&lt;/code&gt; mod 2 is 0.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_even&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But, given that least significant bit of a binary value represents odd or even, we can write that same &lt;code&gt;is_even&lt;/code&gt; function using the &lt;code&gt;AND&lt;/code&gt; bit operation. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_even&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For example 6 &amp;amp; 1 is 0.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="m"&gt;0110&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="m"&gt;0001&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="o"&gt;======&lt;/span&gt;
+  &lt;span class="m"&gt;0000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This ends up being the same amount of typing but it's interesting that we have this second option of writing the &lt;code&gt;is_even&lt;/code&gt; function.&lt;/p&gt;
+&lt;h2&gt;Powerful twos&lt;/h2&gt;
+&lt;p&gt;If you work on &lt;a href="http://projecteuler.net/"&gt;Project Euler&lt;/a&gt; problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if &lt;code&gt;x&lt;/code&gt; is a power of two.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_power_of_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;power_of_two&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;is_power_of_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Let's see this in action with &lt;code&gt;x&lt;/code&gt; as some random binary number:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="m"&gt;010110000&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x
+&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="m"&gt;000000001&lt;/span&gt;
+&lt;span class="o"&gt;===========&lt;/span&gt;
+  &lt;span class="m"&gt;010101111&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x&lt;span class="m"&gt;-1&lt;/span&gt;
+&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="m"&gt;010110000&lt;/span&gt;
+&lt;span class="o"&gt;===========&lt;/span&gt;
+  &lt;span class="m"&gt;010100000&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;--&lt;/span&gt; x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="m"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+So&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="m"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; just removed the left&lt;span class="o"&gt;-&lt;/span&gt;most bit that was equal to &lt;span class="m"&gt;1&lt;/span&gt;. But then&lt;span class="p"&gt;,&lt;/span&gt; when might &lt;span class="p"&gt;(&lt;/span&gt;x &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;x&lt;span class="m"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; be &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt; That would only happen when x has only one &lt;span class="m"&gt;1&lt;/span&gt; bit&lt;span class="p"&gt;,&lt;/span&gt; which means that x must be a power of &lt;span class="m"&gt;2&lt;/span&gt;.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Swapping in place&lt;/h2&gt;
+&lt;p&gt;Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Behind the scenes, Python accesses the values of &lt;code&gt;y&lt;/code&gt; and &lt;code&gt;x&lt;/code&gt;, then rotates them as it unpacks and assigns to &lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt;. Here's what that looks like when run through the Python disassembler:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;dis&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;func&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="n"&gt;dis&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dis&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;3&lt;/span&gt;           &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;              &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;4&lt;/span&gt;           &lt;span class="mi"&gt;6&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;              &lt;span class="mi"&gt;9&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;5&lt;/span&gt;          &lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;15&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;18&lt;/span&gt; &lt;span class="n"&gt;ROT_TWO&lt;/span&gt;             
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;19&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;22&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;  &lt;span class="mi"&gt;6&lt;/span&gt;          &lt;span class="mi"&gt;25&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;28&lt;/span&gt; &lt;span class="n"&gt;LOAD_FAST&lt;/span&gt;                &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;31&lt;/span&gt; &lt;span class="n"&gt;ROT_TWO&lt;/span&gt;             
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;32&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;35&lt;/span&gt; &lt;span class="n"&gt;STORE_FAST&lt;/span&gt;               &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;38&lt;/span&gt; &lt;span class="n"&gt;LOAD_CONST&lt;/span&gt;               &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;             &lt;span class="mi"&gt;41&lt;/span&gt; &lt;span class="n"&gt;RETURN_VALUE&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But, did you know we can actually swap without a temporary variable using &lt;code&gt;XOR&lt;/code&gt; too.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;^=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;^=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;^=&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To understand what's happening, you should recall that &lt;code&gt;XOR&lt;/code&gt; is commutative, &lt;code&gt;x^x&lt;/code&gt; is 0, and &lt;code&gt;x^0&lt;/code&gt; is &lt;code&gt;x&lt;/code&gt;. Let's break down the &lt;a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm"&gt;XOR Swap Algorithm&lt;/a&gt; again.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gh"&gt;start   -&amp;gt;  breaking down  -&amp;gt;  commuting      -&amp;gt;  cancelling -&amp;gt;  removing 0&amp;#39;s&lt;/span&gt;
+&lt;span class="gh"&gt;=============================================================================&lt;/span&gt;
+x ^= y  -&amp;gt;  x = x^y
+y ^= x  -&amp;gt;  y = y^x^y      -&amp;gt;  y = x^y^y      -&amp;gt;  y = x^0    -&amp;gt;  y = x
+x ^= y  -&amp;gt;  x = x^y^y^x^y  -&amp;gt;  x = x^x^y^y^y  -&amp;gt;  x = 0^y^0  -&amp;gt;  x = y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.&lt;/p&gt;
+&lt;p&gt;Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of &lt;a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice"&gt;these&lt;/a&gt; buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.&lt;/p&gt;
+&lt;p&gt;&lt;span id="note"&gt;Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.&lt;/span&gt;&lt;/p&gt;</summary><category term="bit manipulation"></category><category term="binary"></category><category term="tricks"></category><category term="python"></category><category term="algorithms"></category></entry><entry><title>The case for base cases</title><link href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="alternate"></link><updated>2013-01-28T21:45:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-28:posts/the-case-for-base-cases.html</id><summary type="html">&lt;p&gt;You have a complicated problem to solve. How do you start tackling it?&lt;/p&gt;
+&lt;p&gt;One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?&lt;/p&gt;
+&lt;h2&gt;Tower of Hanoi&lt;/h2&gt;
+&lt;p&gt;I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the &lt;a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi"&gt;Tower of Hanoi&lt;/a&gt; is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /&gt;&lt;/p&gt;
+&lt;p&gt;There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Only one disk may be moved at a time.  &lt;/li&gt;
+&lt;li&gt;Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  &lt;/li&gt;
+&lt;li&gt;No disk may be placed on top of a disk smaller than it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Seems straightforward enough, but let's solve this for N disks. How should we start?&lt;/p&gt;
+&lt;h2&gt;Let's start with the base cases&lt;/h2&gt;
+&lt;p&gt;N=1&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+&lt;span class="mf"&gt;1.&lt;/span&gt;  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;So&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt; &lt;span class="n"&gt;solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;one&lt;/span&gt; &lt;span class="n"&gt;move&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;N=2&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+&lt;span class="mf"&gt;1.&lt;/span&gt;  &lt;span class="o"&gt;-------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;      &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;         &lt;span class="n"&gt;B&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;
+
+&lt;span class="mf"&gt;2.&lt;/span&gt;  &lt;span class="o"&gt;----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+&lt;span class="mf"&gt;3.&lt;/span&gt;            &lt;span class="o"&gt;-------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Let&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;take&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;closer&lt;/span&gt; &lt;span class="n"&gt;look&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;these&lt;/span&gt; &lt;span class="n"&gt;moves&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="n"&gt;Exactly&lt;/span&gt; &lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="n"&gt;solving&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt; &lt;span class="n"&gt;instead&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;second&lt;/span&gt; &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="n"&gt;places&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;largest&lt;/span&gt; &lt;span class="n"&gt;disc&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;base&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="n"&gt;Also&lt;/span&gt; &lt;span class="n"&gt;solves&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;only&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;instead&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Let&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;rewrite&lt;/span&gt; &lt;span class="n"&gt;our&lt;/span&gt; &lt;span class="n"&gt;steps&lt;/span&gt; &lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="n"&gt;Move&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;span class="n"&gt;Done&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;N=3&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;   &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+ &lt;span class="o"&gt;---|---&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    A         B         C
+
+&lt;span class="m"&gt;1&lt;/span&gt;.  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+&lt;span class="m"&gt;2&lt;/span&gt;.  &lt;span class="o"&gt;------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+&lt;span class="m"&gt;3&lt;/span&gt;.           &lt;span class="o"&gt;-|-&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-------&lt;/span&gt;
+
+    &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;         &lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="o"&gt;|&lt;/span&gt;        &lt;span class="o"&gt;-|-&lt;/span&gt;        &lt;span class="o"&gt;|&lt;/span&gt;
+ &lt;span class="o"&gt;---|---&lt;/span&gt;    &lt;span class="o"&gt;--|--&lt;/span&gt;       &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt; &lt;span class="o"&gt;=========&lt;/span&gt;
+    A         B         C
+
+&lt;span class="m"&gt;4&lt;/span&gt;.  &lt;span class="o"&gt;---------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;---|---&lt;/span&gt;
+&lt;span class="m"&gt;5&lt;/span&gt;. &lt;span class="o"&gt;-|-&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-------&lt;/span&gt;
+&lt;span class="m"&gt;6&lt;/span&gt;.            &lt;span class="o"&gt;------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;--|--&lt;/span&gt;
+&lt;span class="m"&gt;7&lt;/span&gt;.  &lt;span class="o"&gt;-----------------&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;-|-&lt;/span&gt;
+Done.
+
+Notice how steps &lt;span class="m"&gt;1-3&lt;/span&gt; solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; and places it at B. Rewrite&lt;span class="o"&gt;?&lt;/span&gt;
+&lt;span class="m"&gt;1&lt;/span&gt;. Solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; except A&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;B
+&lt;span class="m"&gt;2&lt;/span&gt;. Move &lt;span class="o"&gt;---|---&lt;/span&gt; from A&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;C
+&lt;span class="m"&gt;3&lt;/span&gt;. Solve N&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; except B&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;C
+Done.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Interesting. Looks like we have a formula.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;
+&lt;span class="mf"&gt;1.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;B&lt;/span&gt;
+&lt;span class="mf"&gt;2.&lt;/span&gt; &lt;span class="n"&gt;Move&lt;/span&gt; &lt;span class="n"&gt;largest&lt;/span&gt; &lt;span class="n"&gt;disc&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;span class="mf"&gt;3.&lt;/span&gt; &lt;span class="n"&gt;Solve&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;except&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;
+    &lt;span class="n"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+    &lt;span class="n"&gt;solve_hanoi&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;B&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The trick is to redefine the rods for each recursive &lt;code&gt;n-1&lt;/code&gt; call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.&lt;/p&gt;
+&lt;p&gt;I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!&lt;/p&gt;
+&lt;iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary><category term="base case"></category><category term="python"></category><category term="tower of hanoi"></category><category term="algorithms"></category><category term="recursion"></category><category term="youtube"></category></entry><entry><title>Unexpected random number generation</title><link href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="alternate"></link><updated>2013-01-23T20:20:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-23:posts/unexpected-random-number-generation.html</id><summary type="html">&lt;p&gt;So, last month, I was working on building test applications for &lt;a href="https://github.com/stoneG/whiskey"&gt;Whiskey&lt;/a&gt;, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fork&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="c"&gt;# if we are in the child process&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;A little background&lt;/h2&gt;
+&lt;p&gt;Whiskey handles concurrent client requests by forking new child processes. Calling &lt;code&gt;os.fork()&lt;/code&gt; splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.&lt;/p&gt;
+&lt;h2&gt;Result&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;0.844421851525&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?&lt;/p&gt;
+&lt;p&gt;Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.&lt;/p&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;                      &lt;span class="c"&gt;##### ADDED THIS LINE ######&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fork&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;pid&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;seed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="c"&gt;##### ADDED THIS LINE ######&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_exit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Randomness restored.&lt;/p&gt;
+&lt;p&gt;&lt;span id="update"&gt;Update&lt;/span&gt;&lt;br /&gt;
+My friend &lt;a href="https://twitter.com/geofflee"&gt;Geoff&lt;/a&gt; mentioned that for real applications, you wouldn't want to use &lt;code&gt;time.time()&lt;/code&gt; as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using &lt;code&gt;/dev/random&lt;/code&gt; (UNIX) or &lt;code&gt;CryptGenRandom&lt;/code&gt; (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to &lt;code&gt;os.urandom()&lt;/code&gt; to access your OS's random file. You can find the documentation on that, &lt;a href="http://docs.python.org/2/library/os.html#os.urandom"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span id="note"&gt;I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.&lt;/span&gt;&lt;/p&gt;</summary><category term="random"></category><category term="random numbers"></category><category term="processes"></category><category term="forking"></category><category term="python"></category><category term="whiskey"></category></entry><entry><title>Play sweeper</title><link href="http://blog.sitongpeng.com/posts/play-sweeper.html" rel="alternate"></link><updated>2013-01-17T16:20:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-17:posts/play-sweeper.html</id><summary type="html">&lt;p&gt;Been working on this for the last couple days. It's my first, real foray into writing in Javascript since I don't count the couple of functions I've written for my websites. It uses a bit of JQuery. A lot of learning went into the creation of this game so I might write more about that business later. But yeah, for now.. Play &lt;a href="http://stoneg.github.com/sweeper/sweeper.html"&gt;sweeper&lt;/a&gt;.&lt;/p&gt;</summary><category term="sweeper"></category><category term="javascript"></category><category term="programming challenge"></category><category term="game"></category><category term="minesweeper"></category></entry><entry><title>I am a real Vim user today</title><link href="http://blog.sitongpeng.com/posts/i-am-a-real-vim-user-today.html" rel="alternate"></link><updated>2013-01-10T20:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-10:posts/i-am-a-real-vim-user-today.html</id><summary type="html">&lt;p&gt;There comes a point, usually after you've been using something for awhile, when you realize you are no longer just using it casually. &lt;strong&gt;&lt;em&gt;And no, I'm not talking about drugs.&lt;/em&gt;&lt;/strong&gt;I'm talking about defining my first shortcut key in my &lt;code&gt;.vimrc&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;A little background&lt;/h2&gt;
+&lt;p&gt;I was first introduced to &lt;a href="http://www.vim.org/"&gt;Vim&lt;/a&gt; by my &lt;a href="http://www.hackerschool.com"&gt;Hacker School&lt;/a&gt; buddy &lt;a href="http://www.jamesshieh.com"&gt;James&lt;/a&gt;. For those of you who don't know, Vim is a very peculiar text editor. It is an "improved" version of &lt;a href="http://ex-vi.sourceforge.net/"&gt;Vi&lt;/a&gt;, the de facto Unix editor. Vim allows for a very efficient coding experience in which your hands generally never have to leave their main resting positions on the keyboard. And unlike editors (see &lt;a href="http://www.gnu.org/software/emacs/"&gt;Emacs&lt;/a&gt;), Vim makes heavy usage of different input modes to separate document navigation, inserting content, and text selection. This makes for a steep initial learning curve, as the default mode in Vim is mostly navigational, which is a farcry from the style of most word processors (hjkl actually mean hjkl, not left down up right).&lt;/p&gt;
+&lt;h2&gt;Word Wrap&lt;/h2&gt;
+&lt;p&gt;So I was excited to be able to write these blog posts using Vim since I've gotten quite good and fast at using it. However, I quickly realized that a text editor that primarily displays lines of code needs a bit of work to properly display words and sentences.&lt;/p&gt;
+&lt;p&gt;For instance, here's what I was seeing everytime I wrote a paragraph of text:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;This is a medium paragraph of text. Everything is all fine and dandy until you
+ get to the end of the line. Then, whatever text you just wrote gets cut off p
+recisely when you reach the column width of your Vim window. This leads to awk
+ward and hard to read paragraphs!
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So, after a bit of research, I threw this into my &lt;code&gt;.vimrc&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;quot; F5 word wrap mode (great for writing blog posts!)&lt;/span&gt;
+&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;wrap&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;F5&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; :&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;linebreak&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;C&lt;span class="p"&gt;-&lt;/span&gt;F5&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; :&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nolinebreak&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The first line turns the &lt;code&gt;wrap&lt;/code&gt; option on. The second line binds &lt;code&gt;:set linebreak&amp;lt;CR&amp;gt;&lt;/code&gt; to &lt;code&gt;F5&lt;/code&gt; in normal mode. The last line binds the reverse to &lt;code&gt;Ctrl&lt;/code&gt; + &lt;code&gt;F5&lt;/code&gt;. &lt;code&gt;&amp;lt;CR&amp;gt;&lt;/code&gt; is a carriage return, otherwise known as the &lt;code&gt;enter&lt;/code&gt; or &lt;code&gt;return&lt;/code&gt; button.&lt;/p&gt;
+&lt;p&gt;So hitting &lt;code&gt;F5&lt;/code&gt; in normal mode effectively types out &lt;code&gt;:set linebreak&lt;/code&gt; then hits &lt;code&gt;enter&lt;/code&gt; for you, rendering much more readable text for when you are not just writing code!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;This is a medium paragraph of text. Everything is all fine and dandy until
+you get to the end of the line. Then, whatever text you just wrote gets cut
+off precisely when you reach the column width of your Vim window. This
+leads to awkward and hard to read paragraphs!
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;span id="note"&gt;For those of you that are curious, Vim will automatically break the line as soon as it encounters any of these characters &lt;code&gt;^I !@*-+;:,./?&lt;/code&gt;. You can change that default by redefining the &lt;code&gt;breakat&lt;/code&gt; option. See &lt;a href="http://vim.wikia.com/wiki/Word_wrap_without_line_breaks"&gt;here&lt;/a&gt; for details.&lt;/span&gt;&lt;/p&gt;</summary><category term="vim"></category><category term="vimrc"></category><category term="shortcut"></category><category term="emacs"></category><category term="word wrap"></category><category term="blog"></category><category term="hacker school"></category></entry><entry><title>Trying out the static blog thing</title><link href="http://blog.sitongpeng.com/posts/trying-out-the-static-blog-thing.html" rel="alternate"></link><updated>2013-01-08T16:35:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-08:posts/trying-out-the-static-blog-thing.html</id><summary type="html">&lt;p&gt;Since I started actively programming a few months ago, I've learned much about what technology I take for granted. In order to help me appreciate the many abstractions that our lives are built upon, I've made it my goal to be more technologically self-sufficent. The first step was to revamp my &lt;a href="http://www.sitongpeng.com"&gt;personal website&lt;/a&gt;. Next up was to move my code blog from Tumblr to my own domain, and then rebuild it on top of a static site/blog generator. That way, I would have complete ownership and control over my own posts.&lt;/p&gt;
+&lt;h2&gt;Static what nots?&lt;/h2&gt;
+&lt;p&gt;Static site generators do what they advertise. They take some content you provide, then generate a pre-determined set of static html pages that are web ready. The idea here is that once you finish setting up the styling and format of your site, you can simply focus on &lt;strong&gt;&lt;em&gt;writing content&lt;/em&gt;&lt;/strong&gt;. Of course, they have boiler plate templates ready for you too, if you'd rather jump right into writing.&lt;/p&gt;
+&lt;h2&gt;Getting set up&lt;/h2&gt;
+&lt;p&gt;You should certainly consult the &lt;a href="https://pelican.readthedocs.org"&gt;Pelican docs&lt;/a&gt; for the full guide, but here's my general guide on how to get started.&lt;/p&gt;
+&lt;p&gt;Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports &lt;a href="http://docutils.sourceforge.net/rst.html"&gt;reST&lt;/a&gt; out of the box but provides &lt;a href="http://daringfireball.net/projects/markdown/"&gt;Markdown&lt;/a&gt; support upon installation of the &lt;a href="http://packages.python.org/Markdown/"&gt;Python-Markdown&lt;/a&gt; library. I use Markdown for my posts.&lt;/p&gt;
+&lt;p&gt;Then, you'll want to make a &lt;code&gt;settings.py&lt;/code&gt; file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;AUTHOR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;YOUR&lt;/span&gt; &lt;span class="n"&gt;NAME&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;YOUR&lt;/span&gt; &lt;span class="n"&gt;SITE&lt;/span&gt; &lt;span class="n"&gt;NAME&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;SITEURL&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//your-site.com&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For the purposes of setting up a blog on Pelican, you will want to set &lt;code&gt;DEFAULT_PAGINATION&lt;/code&gt; to be the (number of posts)/page and &lt;code&gt;DEFAULT_ORPHANS&lt;/code&gt; as the largest remainder of posts you'll allow on your last page. For my setup, I selected 5 posts/page, and no more than 3 posts on the last page (so up to 8 posts on the last page).&lt;/p&gt;
+&lt;p&gt;You can browse over all my selected settings &lt;a href="https://github.com/stoneG/blarg/blob/master/settings.py"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Making it yours&lt;/h2&gt;
+&lt;p&gt;Now, you can certainly use the &lt;a href="https://github.com/getpelican/pelican-themes/blob/master/notmyidea-cms-fr/screenshot.png"&gt;default theme&lt;/a&gt; provided by Pelican, or one of their other &lt;a href="https://github.com/getpelican/pelican-themes/blob/master/waterspill/screenshot.png"&gt;sample themes&lt;/a&gt;, but I prefer to make a theme that suits my own tastes. Reading the Pelican documentation and working through the quickstart guide took up half of my weekend, which means I spent the other half on designing my theme.&lt;/p&gt;
+&lt;p&gt;You'll need some familiarity with &lt;a href="http://jinja.pocoo.org/docs/"&gt;Jinja2&lt;/a&gt; templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.&lt;/p&gt;
+&lt;p&gt;Pelican is specific about what file structure it wants in a custom theme. The &lt;a href="http://docs.getpelican.com/en/3.1.1/themes.html"&gt;documentation&lt;/a&gt; outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.&lt;/p&gt;
+&lt;p&gt;I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;categories&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;author&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;authors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Pelican is smart enough to just use it's base templates from the Simple theme if you don't provide all the desired html templates.&lt;/p&gt;
+&lt;p&gt;You will, however, want to make the basic html frame for your blog and save it as &lt;code&gt;base.html&lt;/code&gt;, as all other html templates will inherit from it. Otherwise, use the default theme's templates as a guide for building your custom templates.&lt;/p&gt;
+&lt;p&gt;Once you have your html templates set, you'll want to work on the CSS, which you will save in &lt;code&gt;static/css&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;The theme for this blog is &lt;a href="https://github.com/stoneG/blarg/tree/master/themes/sitong"&gt;here&lt;/a&gt;. Please give me a shoutout in the footer if you want to use it ;).&lt;/p&gt;
+&lt;h2&gt;Workflow&lt;/h2&gt;
+&lt;p&gt;So once you have your theme, you're ready to create content! I host my pages on &lt;a href="http://pages.github.com/"&gt;Github Pages&lt;/a&gt;, but you choose your own host.&lt;/p&gt;
+&lt;p&gt;Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;trying&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;static&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;thing&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The new static pages will be placed in&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;but you can always change that path in your &lt;code&gt;settings.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Then I simply &lt;code&gt;$ git add .&lt;/code&gt; in my output folder, throw on a commit message, then push it to Github.&lt;/p&gt;
+&lt;h2&gt;Final thoughts&lt;/h2&gt;
+&lt;p&gt;The entire set up process takes a bit of time, especially if you're making your own theme, but it's always nice to have ownership over your own content. That's just something you don't get on Tumblr or other browser based blogs. Pelican is an awesome option for anyone looking for a static blog generator and wanting to work in Python, I heartily recommend it.&lt;/p&gt;</summary><category term="static blog"></category><category term="pelican"></category><category term="python"></category><category term="the architect"></category><category term="jinja2"></category></entry><entry><title>On to better things</title><link href="http://blog.sitongpeng.com/posts/on-to-better-things.html" rel="alternate"></link><updated>2013-01-06T18:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-06:posts/on-to-better-things.html</id><summary type="html">&lt;p&gt;Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, &lt;em&gt;&lt;a href="http://blog.sitongpeng.com"&gt;here it is&lt;/a&gt;&lt;/em&gt;.  &lt;/p&gt;
+&lt;p&gt;I'm now running on the static site generator, &lt;a href="http://docs.getpelican.com/"&gt;Pelican&lt;/a&gt;. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (&lt;em&gt;not Ruby&lt;/em&gt;). Anyways, things I'm most excited about:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Writing all my posts in Markdown&lt;/li&gt;
+&lt;li&gt;Being hosted on Github Pages&lt;/li&gt;
+&lt;li&gt;Having all my posts saved on my Dropbox&lt;/li&gt;
+&lt;li&gt;New syntax highlighting color scheme&lt;/li&gt;
+&lt;li&gt;Actually using my own domain&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.&lt;/p&gt;
+&lt;p&gt;(find old posts on my &lt;a href="http://hellositong.tumblr.com"&gt;tumblr&lt;/a&gt;)&lt;/p&gt;</summary><category term="pelican"></category><category term="new"></category><category term="github pages"></category><category term="jinja2"></category><category term="python"></category><category term="tumblr"></category></entry><entry><title>Programming Resolutions</title><link href="http://blog.sitongpeng.com/posts/programming-resolutions.html" rel="alternate"></link><updated>2013-01-02T19:23:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-01-02:posts/programming-resolutions.html</id><summary type="html">&lt;p&gt;Last year was the first year in a long time that I did not make any
+resolutions over the year. I’d like to get back to it this year, with a
+few that I should be able to keep.&lt;/p&gt;
+&lt;/p&gt;&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Articulation: 100 posts about programming things I’ve encountered and want to share.&lt;/li&gt;
+&lt;li&gt;Get involved: Contribute a couple patches or a bug fix to an open source project.&lt;/li&gt;
+&lt;li&gt;Push myself: Do a weekend project and get it on the front page of HN.&lt;/li&gt;
+&lt;li&gt;Read more books: I need to expand my knowledge beyond just reading the news and blogs.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/p&gt;&lt;p&gt;Here’s to a great 2013!&lt;/p&gt;
+&lt;/p&gt;</summary><category term="resolutions"></category><category term="2013"></category><category term="2012"></category><category term="programming"></category><category term="open source"></category><category term="blog"></category><category term="weekend project"></category><category term="hacker news"></category></entry></feed>
