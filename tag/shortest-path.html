@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - shortest path</title>
+        <title>writings - shortest path</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -58,13 +58,13 @@
 <li>Repeat step 1 and 2 until all nodes are visited.</li>
 </ol>
 <p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<div class="highlight"><pre>(A) (B) (C) (D) (E) (F) (G) (H) (I) (J)
 </pre></div>
 
 
 <p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
 <p>When might this be a long path? Try the following:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<div class="highlight"><pre>(J)   (A) (B) (C) (D) (E) (F) (G) (H) (I)
 </pre></div>
 
 

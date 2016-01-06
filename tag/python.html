@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - python</title>
+        <title>writings - python</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -67,7 +67,7 @@
 
 
 <p>Those familiar with Python are up in arms right now, and rightfully so. Here's what you get when invoking <code>self_aware_function</code>:</p>
-<div class="highlight"><pre><span class="n">UnboundLocalError</span><span class="o">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s1">&#39;count&#39;</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span>
+<div class="highlight"><pre>UnboundLocalError: <span class="nb">local </span>variable <span class="s1">&#39;count&#39;</span> referenced before assignment
 </pre></div>
 
 
@@ -126,14 +126,14 @@
 <p>And we have our cheeky, self aware function!</p>
 <div class="highlight"><pre><span class="nv">$ </span>python aware.py
 This is my first <span class="nb">time </span>doing this
-I have <span class="k">done </span>this 2 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 3 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 4 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 5 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 6 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 7 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 8 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 9 <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">2</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">3</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">4</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">5</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">6</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">7</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">8</span> <span class="nb">times </span>now.
+I have <span class="k">done</span> this <span class="m">9</span> <span class="nb">times </span>now.
 Who are you to tell me what to <span class="k">do</span>???
 </pre></div>
 
@@ -292,12 +292,12 @@ Who are you to tell me what to <span class="k">do</span>???
 
 <p><span id="note">Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.</span></p>
 <p>We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.</p>
-<div class="highlight"><pre>  <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>  <span class="m">5</span>  <span class="o">&lt;--</span> One<span class="o">-</span>indexing
-<span class="p">[</span><span class="m">11</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
-                             EXAMPLE<span class="o">:</span>
-parent<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> floor<span class="p">(</span>i<span class="o">/</span><span class="m">2</span><span class="p">)</span>            parent<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">1</span>
-left_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span>           left_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">4</span>
-right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span>     right_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">5</span>
+<div class="highlight"><pre>  1  2  3  4  5  &lt;-- One-indexing
+[11, 5, 8, 3, 4]
+                             EXAMPLE:
+parent(i) = floor(i/2)            parent(2) = 1
+left_child(i) = i*2           left_child(2) = 4
+right_child(i) = i*2 + 1     right_child(2) = 5
 </pre></div>
 
 
@@ -407,9 +407,9 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 <h2>Simple stuff first</h2>
 <p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
 <p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
-<div class="highlight"><pre><span class="mo">0101</span> <span class="n">is</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="p">)</span>
-     <span class="n">or</span> <span class="mi">0</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span>
-     <span class="n">or</span> <span class="mi">5</span>
+<div class="highlight"><pre>0101 is 0*(2^3) + 1*(2^2) + 0*(2^1) + 1*(2^0)
+     or 0*8 + 1*4 + 0*2 + 1*1
+     or 5
 </pre></div>
 
 
@@ -426,10 +426,10 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 
 
 <p>For example 6 &amp; 1 is 0.</p>
-<div class="highlight"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
-<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
-<span class="o">======</span>
-  <span class="m">0000</span>
+<div class="highlight"><pre>  0110  &lt;-- 6
+&amp; 0001  &lt;-- 1
+======
+  0000
 </pre></div>
 
 
@@ -451,15 +451,15 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 
 
 <p>Let's see this in action with <code>x</code> as some random binary number:</p>
-<div class="highlight"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
-<span class="o">-</span> <span class="m">000000001</span>
-<span class="o">===========</span>
-  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="m">-1</span>
-<span class="o">&amp;</span> <span class="m">010110000</span>
-<span class="o">===========</span>
-  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">)</span>
+<div class="highlight"><pre>  010110000  &lt;-- x
+- 000000001
+===========
+  010101111  &lt;-- x-1
+&amp; 010110000
+===========
+  010100000  &lt;-- x &amp; (x-1)
 
-So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1</span>. But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> be <span class="m">0</span><span class="o">?</span> That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2</span>.
+So, (x &amp; (x-1)) just removed the left-most bit that was equal to 1. But then, when might (x &amp; (x-1)) be 0? That would only happen when x has only one 1 bit, which means that x must be a power of 2.
 </pre></div>
 
 
@@ -503,9 +503,9 @@ So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span
 
 
 <p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
-<div class="highlight"><pre><span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
-<span class="n">y</span> <span class="o">^=</span> <span class="n">x</span>
-<span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+<div class="highlight"><pre>x ^= y
+y ^= x
+x ^= y
 </pre></div>
 
 

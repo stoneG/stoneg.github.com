@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead</title>
+        <title>writings</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -43,21 +43,61 @@
     <section id="main">
 
         <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/on-generators-and-len.html" rel="bookmark"
+                   title="Permalink to On generators and len">On generators and len</a></h1>
+<p class="date">Wednesday, December 05, 2012</p>        </header>
+        <article>
+            <p>So one of the WSGI server specifications is that if a WSGI application
+doesn’t supply the Content-Length response header, it is the job of the
+WSGI server to try to determine the Content-Length of the response body
+(if possible). This is straightforward enough for the average WSGI app,
+which will return the response body in a list object. However, WSGI apps
+also have the option of using a generator to return the response body
+(since the specification only requires that the app return is an
+iterable).</p>
+<div class="section" id="so-can-we-apply-the-len-function-to-the-output-of-a-generator">
+<h2>So can we apply the len function to the output of a generator?</h2>
+</p><p>The answer is no. Generators are simple constructs that just yield
+values when you iterate on them, immediately passing output along. And
+since generators keep no memory of past generated values, they have no
+idea what the length of their output is or will be. Therefore they don’t
+have a len attribute.</p>
+</div>
+<div class="section" id="so-how-do-we-send-the-client-the-content-length-if-the-app-is-a-generator">
+<h2>So how do we send the client the Content-Length if the app is a generator?</h2>
+</p><p>Well, in HTTP/1.1, some servers and clients support the chunked transfer
+coding. This allows servers to send response bodies in chunks, as they
+are available. Each chunk will have it’s own Content-Length. I hope to
+support chunked transferring in <a class="reference external" href="https://github.com/stoneG/whiskey">whiskey</a>, so I can always provide a
+Content-Length. I’ll be sure to post about my implementation.</p>
+</div>
+
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/on-generators-and-len.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/whiskey.html">[whiskey]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/http.html">[http]</a>
+            <a href="http://blog.sitongpeng.com/tag/generators.html">[generators]</a>
+            <a href="http://blog.sitongpeng.com/tag/len.html">[len]</a>
+            <a href="http://blog.sitongpeng.com/tag/wsgi.html">[wsgi]</a>
+            <a href="http://blog.sitongpeng.com/tag/content-length.html">[content-length]</a>
+            <a href="http://blog.sitongpeng.com/tag/server.html">[server]</a>
+            <a href="http://blog.sitongpeng.com/tag/client.html">[client]</a>
+            <a href="http://blog.sitongpeng.com/tag/response.html">[response]</a>
+    </p>
+        </article>
+
+        <header>
             <h1><a href="http://blog.sitongpeng.com/posts/become-a-better-programmer.html" rel="bookmark"
                    title="Permalink to Become a better programmer">Become a better programmer</a></h1>
 <p class="date">Tuesday, December 04, 2012</p>        </header>
         <article>
-            <p><a href="#id1"><span class="problematic" id="id2">`|image0|`_</span></a></p>
-<p>Hacker School <a class="reference external" href="https://www.hackerschool.com/blog/10-winter-2013-applications-open">Winter 2013 applications</a> are open TODAY! If you’re
+            <p>Hacker School <a class="reference external" href="https://www.hackerschool.com/blog/10-winter-2013-applications-open">Winter 2013 applications</a> are open TODAY! If you’re
 interested, I’ll save you the time and say you <strong>SHOULD</strong> apply. Let me
 know if you’re interested and have questions :)</p>
-</p><div class="system-messages section">
-<h2>Docutils System Messages</h2>
-<div class="system-message" id="id1">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">/Users/sitong/Dropbox/Blog/content/2012/become-a-better-programmer.rst</tt>, line 6); <em><a href="#id2">backlink</a></em></p>
-Unknown target name: &quot;|image0|&quot;.</div>
-</div>
-
+</p>
     <p class="comments">
         <a href="http://blog.sitongpeng.com/posts/become-a-better-programmer.html#disqus_thread"></a>.
     </p>
@@ -147,15 +187,8 @@ files, it’s safe to say that you should be using string.translate.</p>
         <article>
             <p>“Furthermore HTTP has become quite popular lately and browsers are no
 longer the only clients that are using HTTP. For instance, many revision
-control system use it.”</p>
-<div class="system-message">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">/Users/sitong/Dropbox/Blog/content/2012/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.rst</tt>, line 9)</p>
-Unexpected indentation.</div>
-<blockquote>
-<ul class="simple">
-<li><em>`Flask Quickstart Guide`_</em></li>
-</ul>
-</blockquote>
+control system use it.”
+- <em>`Flask Quickstart Guide`_</em></p>
 
     <p class="comments">
         <a href="http://blog.sitongpeng.com/posts/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.html#disqus_thread"></a>.
@@ -192,48 +225,9 @@ category 3 of the <strong>`When It Is Just Fine`_</strong> section.</p>
         <a href="http://blog.sitongpeng.com/posts/from-constants-import.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/from-module-import.html">[from module import *]</a>
             <a href="http://blog.sitongpeng.com/tag/pythonic.html">[pythonic]</a>
             <a href="http://blog.sitongpeng.com/tag/constants.html">[constants]</a>
-            <a href="http://blog.sitongpeng.com/tag/python-userssitongdropboxblogcontent2012from-constants-importrst4-warning2-inline-emphasis-start-string-without-end-string.html">[python
-
-/Users/sitong/Dropbox/Blog/content/2012/from-constants-import.rst:4: (WARNING/2) Inline emphasis start-string without end-string.]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/project-euler-3.html" rel="bookmark"
-                   title="Permalink to Project Euler 3">Project Euler 3</a></h1>
-<p class="date">Thursday, November 01, 2012</p>        </header>
-        <article>
-            <p>I’ve updated the method on this solution after discussing and optimizing
-with <a class="reference external" href="http://www.jamesshieh.com">James</a>. Here is his code in Python:</p>
-<p><pre class="literal-block">
-n = 600851475143pfact = 0i = 2while i &lt; n+1:    while n % i == 0:        n = n/i        pfact = i    i += 1print pfact
-</pre>
-</p><p>The awesome thing about this code (besides that it’s so short), is that
-it naturally pulls out all the prime factors of a number in two while
-loops. It’s pitfall is when you are given large prime number to begin
-with (such as 600851475149), these loops would have to count up to the
-prime number before it found it.</p>
-<p>My solution’s pitfall is if you are given a number that has numerous
-small prime factors, such as 2^32, which only has the prime factor 2.
-However, by merging the ideas of my and James’ solution, we can come up
-with a much more optimal solution that avoids both of our pitfalls:</p>
-<p><pre class="literal-block">
-largestPrimeFactor = function(num) {  i = 2    if(isPrime(num)){        return(num)  }    while(i &lt; num){       while(num % i == 0) { # Used to be if(num % i == 0)                        num = num/i # redefine num by pulling out the lowest prime factor          if(isPrime(num)){                return(num)          }        }        i = i + 1    }}
-</pre>
-</p><p>So, 2^32 and 600581475149 both run instantly instead of never.</p>
-</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/project-euler-3.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/project-euler.html">[project euler]</a>
-            <a href="http://blog.sitongpeng.com/tag/pair-programming.html">[pair programming]</a>
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/r.html">[R]</a>
-            <a href="http://blog.sitongpeng.com/tag/prime-factors.html">[prime factors]</a>
     </p>
         </article>
 <p class="paginator">

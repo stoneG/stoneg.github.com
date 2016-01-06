@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - pelican</title>
+        <title>writings - pelican</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -54,9 +54,9 @@
 <p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
 <p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
 <p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
-<div class="highlight"><pre><span class="n">AUTHOR</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">YOUR</span> <span class="n">NAME</span><span class="err">&#39;</span>
-<span class="n">SITENAME</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">YOUR</span> <span class="n">SITE</span> <span class="n">NAME</span><span class="err">&#39;</span>
-<span class="n">SITEURL</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//your-site.com&#39;</span>
+<div class="highlight"><pre>AUTHOR = &#39;YOUR NAME&#39;
+SITENAME = &#39;YOUR SITE NAME&#39;
+SITEURL = &#39;http://your-site.com&#39;
 </pre></div>
 
 
@@ -67,10 +67,10 @@
 <p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
 <p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
 <p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
-<div class="highlight"><pre><span class="n">categories</span><span class="p">.</span><span class="n">html</span>
-<span class="n">category</span><span class="p">.</span><span class="n">html</span>
-<span class="n">author</span><span class="p">.</span><span class="n">html</span>
-<span class="n">authors</span><span class="p">.</span><span class="n">html</span>
+<div class="highlight"><pre>categories.html
+category.html
+author.html
+authors.html
 </pre></div>
 
 
@@ -81,17 +81,17 @@
 <h2>Workflow</h2>
 <p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
 <p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
-<div class="highlight"><pre><span class="n">content</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span><span class="n">trying</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="k">static</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">thing</span><span class="p">.</span><span class="n">md</span>
+<div class="highlight"><pre>content/2013/trying-out-the-static-blog-thing.md
 </pre></div>
 
 
 <p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">pelican</span> <span class="n">content</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span class="nv">$ </span>pelican content/2013/ -s path/to/settings.py
 </pre></div>
 
 
 <p>The new static pages will be placed in</p>
-<div class="highlight"><pre><span class="n">output</span><span class="o">/</span>
+<div class="highlight"><pre>output/
 </pre></div>
 
 

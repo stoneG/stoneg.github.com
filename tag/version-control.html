@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - version control</title>
+        <title>writings - version control</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -52,13 +52,13 @@
 <p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
 <h2>Growing a forest from a single tree</h2>
 <p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git branch [new_branch]
 </pre></div>
 
 
 <p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
 <p>To actually move branches, you'll want to run this command:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git checkout [existing_branch]
 </pre></div>
 
 
@@ -66,20 +66,20 @@
 <h2>Finding your way back home</h2>
 <p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
 <p>Generally there's two ways about this.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git merge [existing_side_branch]
 </pre></div>
 
 
 <p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
 <p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git rebase [existing_main_branch]
 </pre></div>
 
 
 <p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
 <h2>Knowing where your keys are</h2>
 <p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">remote</span>
+<div class="highlight"><pre>git remote
 </pre></div>
 
 

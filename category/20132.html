@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead</title>
+        <title>writings</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -58,13 +58,13 @@
 <li>Repeat step 1 and 2 until all nodes are visited.</li>
 </ol>
 <p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<div class="highlight"><pre>(A) (B) (C) (D) (E) (F) (G) (H) (I) (J)
 </pre></div>
 
 
 <p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
 <p>When might this be a long path? Try the following:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<div class="highlight"><pre>(J)   (A) (B) (C) (D) (E) (F) (G) (H) (I)
 </pre></div>
 
 
@@ -102,9 +102,9 @@
 <h2>Simple stuff first</h2>
 <p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
 <p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
-<div class="highlight"><pre><span class="mo">0101</span> <span class="n">is</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="p">)</span>
-     <span class="n">or</span> <span class="mi">0</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span>
-     <span class="n">or</span> <span class="mi">5</span>
+<div class="highlight"><pre>0101 is 0*(2^3) + 1*(2^2) + 0*(2^1) + 1*(2^0)
+     or 0*8 + 1*4 + 0*2 + 1*1
+     or 5
 </pre></div>
 
 
@@ -121,10 +121,10 @@
 
 
 <p>For example 6 &amp; 1 is 0.</p>
-<div class="highlight"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
-<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
-<span class="o">======</span>
-  <span class="m">0000</span>
+<div class="highlight"><pre>  0110  &lt;-- 6
+&amp; 0001  &lt;-- 1
+======
+  0000
 </pre></div>
 
 
@@ -146,15 +146,15 @@
 
 
 <p>Let's see this in action with <code>x</code> as some random binary number:</p>
-<div class="highlight"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
-<span class="o">-</span> <span class="m">000000001</span>
-<span class="o">===========</span>
-  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="m">-1</span>
-<span class="o">&amp;</span> <span class="m">010110000</span>
-<span class="o">===========</span>
-  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">)</span>
+<div class="highlight"><pre>  010110000  &lt;-- x
+- 000000001
+===========
+  010101111  &lt;-- x-1
+&amp; 010110000
+===========
+  010100000  &lt;-- x &amp; (x-1)
 
-So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1</span>. But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> be <span class="m">0</span><span class="o">?</span> That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2</span>.
+So, (x &amp; (x-1)) just removed the left-most bit that was equal to 1. But then, when might (x &amp; (x-1)) be 0? That would only happen when x has only one 1 bit, which means that x must be a power of 2.
 </pre></div>
 
 
@@ -198,9 +198,9 @@ So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span
 
 
 <p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
-<div class="highlight"><pre><span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
-<span class="n">y</span> <span class="o">^=</span> <span class="n">x</span>
-<span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+<div class="highlight"><pre>x ^= y
+y ^= x
+x ^= y
 </pre></div>
 
 
@@ -247,88 +247,88 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 <p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
 <h2>Let's start with the base cases</h2>
 <p>N=1</p>
-<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+<div class="highlight"><pre>    |         |         |
+    |         |         |
+   -|-        |         |
+========= ========= =========
+    A         B         C
 
-<span class="mf">1.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
+1.  -----------------&gt; -|-
+Done.
 
-<span class="n">So</span> <span class="n">we</span> <span class="n">solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span> <span class="n">with</span> <span class="n">one</span> <span class="n">move</span> <span class="n">of</span> <span class="o">-|-</span><span class="p">.</span>
+So we solve N=1 with one move of -|-.
 </pre></div>
 
 
 <p>N=2</p>
-<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+<div class="highlight"><pre>    |         |         |
+   -|-        |         |
+  --|--       |         |
+========= ========= =========
+    A         B         C
 
-<span class="mf">1.</span>  <span class="o">-------&gt;</span> <span class="o">-|-</span>
+1.  -------&gt; -|-
 
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>      <span class="o">-|-</span>        <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+    |         |         |
+    |         |         |
+  --|--      -|-        |
+========= ========= =========
+    A         B         C
 
-<span class="mf">2.</span>  <span class="o">----------------&gt;</span> <span class="o">--|--</span>
-<span class="mf">3.</span>            <span class="o">-------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
+2.  ----------------&gt; --|--
+3.            -------&gt; -|-
+Done.
 
-<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">take</span> <span class="n">a</span> <span class="n">closer</span> <span class="n">look</span> <span class="n">at</span> <span class="n">these</span> <span class="n">moves</span><span class="o">:</span>
-<span class="mf">1.</span> <span class="n">Exactly</span> <span class="n">like</span> <span class="n">solving</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-<span class="mf">2.</span> <span class="n">The</span> <span class="n">second</span> <span class="n">step</span> <span class="n">places</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">at</span> <span class="n">the</span> <span class="n">base</span> <span class="n">of</span> <span class="n">C</span><span class="p">.</span>
-<span class="mf">3.</span> <span class="n">Also</span> <span class="n">solves</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">only</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-<span class="n">Done</span><span class="p">.</span>
+Let&#39;s take a closer look at these moves:
+1. Exactly like solving N=1, except A-&gt;B instead of A-&gt;C.
+2. The second step places the largest disc at the base of C.
+3. Also solves N=1, only B-&gt;C instead of A-&gt;C.
+Done.
 
-<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">rewrite</span> <span class="n">our</span> <span class="n">steps</span> <span class="n">like</span> <span class="n">this</span><span class="o">:</span>
-<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-<span class="mf">2.</span> <span class="n">Move</span> <span class="o">--|--</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="n">Done</span><span class="p">.</span>
+Let&#39;s rewrite our steps like this:
+1. Solve N=1, except A-&gt;B
+2. Move --|-- from A-&gt;C
+3. Solve N=1, except B-&gt;C
+Done.
 </pre></div>
 
 
 <p>N=3</p>
-<div class="highlight"><pre>   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
- <span class="o">---|---</span>      <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+<div class="highlight"><pre>   -|-        |         |
+  --|--       |         |
+ ---|---      |         |
+========= ========= =========
     A         B         C
 
-<span class="m">1</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="m">2</span>.  <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">3</span>.           <span class="o">-|-</span> <span class="o">&lt;-------</span>
+1.  -----------------&gt; -|-
+2.  ------&gt; --|--
+3.           -|- &lt;-------
 
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>        <span class="o">-|-</span>        <span class="o">|</span>
- <span class="o">---|---</span>    <span class="o">--|--</span>       <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    |         |         |
+    |        -|-        |
+ ---|---    --|--       |
+========= ========= =========
     A         B         C
 
-<span class="m">4</span>.  <span class="o">---------------&gt;</span> <span class="o">---|---</span>
-<span class="m">5</span>. <span class="o">-|-</span> <span class="o">&lt;-------</span>
-<span class="m">6</span>.            <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">7</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
+4.  ---------------&gt; ---|---
+5. -|- &lt;-------
+6.            ------&gt; --|--
+7.  -----------------&gt; -|-
 Done.
 
-Notice how steps <span class="m">1-3</span> solve N<span class="o">=</span><span class="m">2</span> and places it at B. Rewrite<span class="o">?</span>
-<span class="m">1</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except A<span class="o">-&gt;</span>B
-<span class="m">2</span>. Move <span class="o">---|---</span> from A<span class="o">-&gt;</span>C
-<span class="m">3</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except B<span class="o">-&gt;</span>C
+Notice how steps 1-3 solve N=2 and places it at B. Rewrite?
+1. Solve N=2, except A-&gt;B
+2. Move ---|--- from A-&gt;C
+3. Solve N=2, except B-&gt;C
 Done.
 </pre></div>
 
 
 <p>Interesting. Looks like we have a formula.</p>
-<div class="highlight"><pre><span class="n">N</span><span class="o">=</span><span class="n">n</span>
-<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-<span class="mf">2.</span> <span class="n">Move</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
+<div class="highlight"><pre>N=n
+1. Solve N=(n-1), except A-&gt;B
+2. Move largest disc from A-&gt;C
+3. Solve N=(n-1), except B-&gt;C
 </pre></div>
 
 
@@ -378,13 +378,13 @@ Done.
 <h2>A little background</h2>
 <p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
 <h2>Result</h2>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<div class="highlight"><pre>&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
 </pre></div>
 
 

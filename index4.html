@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead</title>
+        <title>writings</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,23 +24,52 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
     </header>
 
     <section id="main">
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/on-to-better-things.html" rel="bookmark"
+                   title="Permalink to On to better things">On to better things</a></h1>
+<p class="date">Sunday, January 06, 2013</p>        </header>
+        <article>
+            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.  </p>
+<p>I'm now running on the static site generator, <a href="http://docs.getpelican.com/">Pelican</a>. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to <a href="http://jekyllrb.com/">Jekyll</a>. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (<em>not Ruby</em>). Anyways, things I'm most excited about:</p>
+<ul>
+<li>Writing all my posts in Markdown</li>
+<li>Being hosted on Github Pages</li>
+<li>Having all my posts saved on my Dropbox</li>
+<li>New syntax highlighting color scheme</li>
+<li>Actually using my own domain</li>
+</ul>
+<p>I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.</p>
+<p>(find old posts on my <a href="http://hellositong.tumblr.com">tumblr</a>)</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/on-to-better-things.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/pelican.html">[pelican]</a>
+            <a href="http://blog.sitongpeng.com/tag/new.html">[new]</a>
+            <a href="http://blog.sitongpeng.com/tag/github-pages.html">[github pages]</a>
+            <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tumblr.html">[tumblr]</a>
+    </p>
+        </article>
 
         <header>
             <h1><a href="http://blog.sitongpeng.com/posts/programming-resolutions.html" rel="bookmark"
@@ -186,53 +215,6 @@ the format of my solution is as such:</p>
             <a href="http://blog.sitongpeng.com/tag/functional-programming.html">[functional programming]</a>
             <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/on-generators-and-len.html" rel="bookmark"
-                   title="Permalink to On generators and len">On generators and len</a></h1>
-<p class="date">Wednesday, December 05, 2012</p>        </header>
-        <article>
-            <p>So one of the WSGI server specifications is that if a WSGI application
-doesn’t supply the Content-Length response header, it is the job of the
-WSGI server to try to determine the Content-Length of the response body
-(if possible). This is straightforward enough for the average WSGI app,
-which will return the response body in a list object. However, WSGI apps
-also have the option of using a generator to return the response body
-(since the specification only requires that the app return is an
-iterable).</p>
-<div class="section" id="so-can-we-apply-the-len-function-to-the-output-of-a-generator">
-<h2>So can we apply the len function to the output of a generator?</h2>
-</p><p>The answer is no. Generators are simple constructs that just yield
-values when you iterate on them, immediately passing output along. And
-since generators keep no memory of past generated values, they have no
-idea what the length of their output is or will be. Therefore they don’t
-have a len attribute.</p>
-</div>
-<div class="section" id="so-how-do-we-send-the-client-the-content-length-if-the-app-is-a-generator">
-<h2>So how do we send the client the Content-Length if the app is a generator?</h2>
-</p><p>Well, in HTTP/1.1, some servers and clients support the chunked transfer
-coding. This allows servers to send response bodies in chunks, as they
-are available. Each chunk will have it’s own Content-Length. I hope to
-support chunked transferring in <a class="reference external" href="https://github.com/stoneG/whiskey">whiskey</a>, so I can always provide a
-Content-Length. I’ll be sure to post about my implementation.</p>
-</div>
-
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/on-generators-and-len.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/whiskey.html">[whiskey]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/http.html">[http]</a>
-            <a href="http://blog.sitongpeng.com/tag/generators.html">[generators]</a>
-            <a href="http://blog.sitongpeng.com/tag/len.html">[len]</a>
-            <a href="http://blog.sitongpeng.com/tag/wsgi.html">[wsgi]</a>
-            <a href="http://blog.sitongpeng.com/tag/content-length.html">[content-length]</a>
-            <a href="http://blog.sitongpeng.com/tag/server.html">[server]</a>
-            <a href="http://blog.sitongpeng.com/tag/client.html">[client]</a>
-            <a href="http://blog.sitongpeng.com/tag/response.html">[response]</a>
     </p>
         </article>
 <p class="paginator">

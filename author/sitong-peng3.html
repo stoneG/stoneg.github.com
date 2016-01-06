@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - Articles by Sitong Peng</title>
+        <title>writings - Articles by Sitong Peng</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,23 +24,153 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
     </header>
 
     <section id="main">
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
+                   title="Permalink to The case for base cases">The case for base cases</a></h1>
+<p class="date">Monday, January 28, 2013</p>        </header>
+        <article>
+            <p>You have a complicated problem to solve. How do you start tackling it?</p>
+<p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
+<h2>Tower of Hanoi</h2>
+<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
+<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /></p>
+<p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
+<ol>
+<li>Only one disk may be moved at a time.  </li>
+<li>Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  </li>
+<li>No disk may be placed on top of a disk smaller than it.</li>
+</ol>
+<p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
+<h2>Let's start with the base cases</h2>
+<p>N=1</p>
+<div class="highlight"><pre>    |         |         |
+    |         |         |
+   -|-        |         |
+========= ========= =========
+    A         B         C
+
+1.  -----------------&gt; -|-
+Done.
+
+So we solve N=1 with one move of -|-.
+</pre></div>
+
+
+<p>N=2</p>
+<div class="highlight"><pre>    |         |         |
+   -|-        |         |
+  --|--       |         |
+========= ========= =========
+    A         B         C
+
+1.  -------&gt; -|-
+
+    |         |         |
+    |         |         |
+  --|--      -|-        |
+========= ========= =========
+    A         B         C
+
+2.  ----------------&gt; --|--
+3.            -------&gt; -|-
+Done.
+
+Let&#39;s take a closer look at these moves:
+1. Exactly like solving N=1, except A-&gt;B instead of A-&gt;C.
+2. The second step places the largest disc at the base of C.
+3. Also solves N=1, only B-&gt;C instead of A-&gt;C.
+Done.
+
+Let&#39;s rewrite our steps like this:
+1. Solve N=1, except A-&gt;B
+2. Move --|-- from A-&gt;C
+3. Solve N=1, except B-&gt;C
+Done.
+</pre></div>
+
+
+<p>N=3</p>
+<div class="highlight"><pre>   -|-        |         |
+  --|--       |         |
+ ---|---      |         |
+========= ========= =========
+    A         B         C
+
+1.  -----------------&gt; -|-
+2.  ------&gt; --|--
+3.           -|- &lt;-------
+
+    |         |         |
+    |        -|-        |
+ ---|---    --|--       |
+========= ========= =========
+    A         B         C
+
+4.  ---------------&gt; ---|---
+5. -|- &lt;-------
+6.            ------&gt; --|--
+7.  -----------------&gt; -|-
+Done.
+
+Notice how steps 1-3 solve N=2 and places it at B. Rewrite?
+1. Solve N=2, except A-&gt;B
+2. Move ---|--- from A-&gt;C
+3. Solve N=2, except B-&gt;C
+Done.
+</pre></div>
+
+
+<p>Interesting. Looks like we have a formula.</p>
+<div class="highlight"><pre>N=n
+1. Solve N=(n-1), except A-&gt;B
+2. Move largest disc from A-&gt;C
+3. Solve N=(n-1), except B-&gt;C
+</pre></div>
+
+
+<p>I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
+<p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
+<iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
+            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
+    </p>
+        </article>
 
         <header>
             <h1><a href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="bookmark"
@@ -62,13 +192,13 @@
 <h2>A little background</h2>
 <p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
 <h2>Result</h2>
-<div class="highlight"><pre><span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
-<span class="o">&gt;</span> <span class="mf">0.844421851525</span>
+<div class="highlight"><pre>&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
 </pre></div>
 
 
@@ -186,9 +316,9 @@ leads to awkward and hard to read paragraphs!
 <p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
 <p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
 <p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
-<div class="highlight"><pre><span class="n">AUTHOR</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">YOUR</span> <span class="n">NAME</span><span class="err">&#39;</span>
-<span class="n">SITENAME</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">YOUR</span> <span class="n">SITE</span> <span class="n">NAME</span><span class="err">&#39;</span>
-<span class="n">SITEURL</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//your-site.com&#39;</span>
+<div class="highlight"><pre>AUTHOR = &#39;YOUR NAME&#39;
+SITENAME = &#39;YOUR SITE NAME&#39;
+SITEURL = &#39;http://your-site.com&#39;
 </pre></div>
 
 
@@ -199,10 +329,10 @@ leads to awkward and hard to read paragraphs!
 <p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
 <p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
 <p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
-<div class="highlight"><pre><span class="n">categories</span><span class="p">.</span><span class="n">html</span>
-<span class="n">category</span><span class="p">.</span><span class="n">html</span>
-<span class="n">author</span><span class="p">.</span><span class="n">html</span>
-<span class="n">authors</span><span class="p">.</span><span class="n">html</span>
+<div class="highlight"><pre>categories.html
+category.html
+author.html
+authors.html
 </pre></div>
 
 
@@ -213,17 +343,17 @@ leads to awkward and hard to read paragraphs!
 <h2>Workflow</h2>
 <p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
 <p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
-<div class="highlight"><pre><span class="n">content</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span><span class="n">trying</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="k">static</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">thing</span><span class="p">.</span><span class="n">md</span>
+<div class="highlight"><pre>content/2013/trying-out-the-static-blog-thing.md
 </pre></div>
 
 
 <p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">pelican</span> <span class="n">content</span><span class="o">/</span><span class="mi">2013</span><span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span class="nv">$ </span>pelican content/2013/ -s path/to/settings.py
 </pre></div>
 
 
 <p>The new static pages will be placed in</p>
-<div class="highlight"><pre><span class="n">output</span><span class="o">/</span>
+<div class="highlight"><pre>output/
 </pre></div>
 
 
@@ -240,35 +370,6 @@ leads to awkward and hard to read paragraphs!
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
             <a href="http://blog.sitongpeng.com/tag/the-architect.html">[the architect]</a>
             <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/on-to-better-things.html" rel="bookmark"
-                   title="Permalink to On to better things">On to better things</a></h1>
-<p class="date">Sunday, January 06, 2013</p>        </header>
-        <article>
-            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.  </p>
-<p>I'm now running on the static site generator, <a href="http://docs.getpelican.com/">Pelican</a>. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to <a href="http://jekyllrb.com/">Jekyll</a>. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (<em>not Ruby</em>). Anyways, things I'm most excited about:</p>
-<ul>
-<li>Writing all my posts in Markdown</li>
-<li>Being hosted on Github Pages</li>
-<li>Having all my posts saved on my Dropbox</li>
-<li>New syntax highlighting color scheme</li>
-<li>Actually using my own domain</li>
-</ul>
-<p>I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.</p>
-<p>(find old posts on my <a href="http://hellositong.tumblr.com">tumblr</a>)</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/on-to-better-things.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/pelican.html">[pelican]</a>
-            <a href="http://blog.sitongpeng.com/tag/new.html">[new]</a>
-            <a href="http://blog.sitongpeng.com/tag/github-pages.html">[github pages]</a>
-            <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/tumblr.html">[tumblr]</a>
     </p>
         </article>
 <p class="paginator">

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - *nix-craft</title>
+        <title>writings - *nix-craft</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,17 +24,17 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -52,7 +52,7 @@
 <p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
 <h2>Leaving a note</h2>
 <p>To create a symlink, you'd type this into your terminal:</p>
-<div class="highlight"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">target</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">link</span>
+<div class="highlight"><pre>ln -s path/to/target path/to/link
 </pre></div>
 
 
@@ -61,15 +61,15 @@ Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/ta
 <h2>Reading the note</h2>
 <p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
 <p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
-<div class="highlight"><pre><span class="o">-</span><span class="n">rw</span><span class="o">-------</span>   <span class="mi">1</span> <span class="n">sitong</span>  <span class="n">staff</span>    <span class="mi">28054</span> <span class="n">Jun</span> <span class="mi">29</span> <span class="mi">17</span><span class="o">:</span><span class="mi">52</span> <span class="p">.</span><span class="n">viminfo</span>
-<span class="n">lrwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>   <span class="mi">1</span> <span class="n">sitong</span>  <span class="n">staff</span>       <span class="mi">33</span> <span class="n">Jun</span> <span class="mi">29</span> <span class="mi">16</span><span class="o">:</span><span class="mi">57</span> <span class="p">.</span><span class="n">vimrc</span> <span class="o">-&gt;</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">sitong</span><span class="o">/</span><span class="n">dotfiles</span><span class="o">/</span><span class="n">vim</span><span class="o">/</span><span class="p">.</span><span class="n">vimrc</span>
+<div class="highlight"><pre>-rw-------   1 sitong  staff    28054 Jun 29 17:52 .viminfo
+lrwxr-xr-x   1 sitong  staff       33 Jun 29 16:57 .vimrc -&gt; /Users/sitong/dotfiles/vim/.vimrc
 </pre></div>
 
 
 <p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
 <h2>Removing the note</h2>
 <p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
-<div class="highlight"><pre><span class="n">rm</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+<div class="highlight"><pre>rm ~/.vimrc
 </pre></div>
 
 

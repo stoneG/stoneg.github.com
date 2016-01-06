@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>spearhead - Articles by Sitong Peng</title>
+        <title>writings - Articles by Sitong Peng</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="spearhead Atom Feed" />
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
@@ -24,23 +24,45 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneGksp" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="http://blog.sitongpeng.com/">spearhead</a></h1>
-            <p>writings about code discovery</p>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">writings</a></h1>
+            <p>they're the words that got out</p>
                 <ul>
-                    <li><a href="http://blog.sitongpeng.com/index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
-                    <li><a href="http://blog.sitongpeng.com/archives.html">Archives</a></li>
-                    <li><a href="http://blog.sitongpeng.com/tags.html">Tags</a></li>
-                    <li><a href="http://blog.sitongpeng.com/feeds/all.atom.xml">Atom</a></li>
+                    <li><a href="/archives.html">Archives</a></li>
+                    <li><a href="/tags.html">Tags</a></li>
+                    <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneGksp">Twitter</a></li>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
     </header>
 
     <section id="main">
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/sustained-momentum.html" rel="bookmark"
+                   title="Permalink to Sustained momentum">Sustained momentum</a></h1>
+<p class="date">Wednesday, March 20, 2013</p>        </header>
+        <article>
+            <p>In the next couple months, I'm planning on writing more about <code>Javascript</code> as I pick it up in work and from my own reading. Towards the end of <a href="https://www.hackerschool.com">Hacker School</a>, I decided I wanted to explore it as my second programming language. Reasoning: I can return to my functional programming roots and I can round out my understanding of web development by getting intimate with how the browser works.</p>
+<p>However, this doesn't mean I will stop developing in <code>Python</code>. Aside from <a href="https://www.djangoproject.com/">Django</a> exposure at work, I'm planning to continue building web applications for myself - and hopefully with more robust front-end UI.</p>
+<p>But, that's not quite good enough. If there was one thing I took away from Hacker School, it was the idea that I should always be pushing myself to become a better programmer. Web development is fun and lets me exercise my creative side, but I want to step outside my comfort zone and pursue other avenues of technology too. I'm not entirely sure what direction I'll look but I think my best bet is to attach myself to an open source project and develop a deep understanding of that problem space.</p>
+<p>Anyways, I'll think on that and come back with my decision within the next month. Hold me to it!</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/sustained-momentum.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/future.html">[future]</a>
+            <a href="http://blog.sitongpeng.com/tag/javascript.html">[javascript]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/django.html">[django]</a>
+            <a href="http://blog.sitongpeng.com/tag/open-source.html">[open source]</a>
+            <a href="http://blog.sitongpeng.com/tag/hacker-school.html">[hacker school]</a>
+    </p>
+        </article>
 
         <header>
             <h1><a href="http://blog.sitongpeng.com/posts/no-man-is-an-island.html" rel="bookmark"
@@ -52,13 +74,13 @@
 <p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
 <h2>Growing a forest from a single tree</h2>
 <p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git branch [new_branch]
 </pre></div>
 
 
 <p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
 <p>To actually move branches, you'll want to run this command:</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git checkout [existing_branch]
 </pre></div>
 
 
@@ -66,20 +88,20 @@
 <h2>Finding your way back home</h2>
 <p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
 <p>Generally there's two ways about this.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git merge [existing_side_branch]
 </pre></div>
 
 
 <p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
 <p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
+<div class="highlight"><pre>git rebase [existing_main_branch]
 </pre></div>
 
 
 <p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
 <h2>Knowing where your keys are</h2>
 <p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
-<div class="highlight"><pre><span class="n">git</span> <span class="n">remote</span>
+<div class="highlight"><pre>git remote
 </pre></div>
 
 
@@ -122,12 +144,12 @@
 
 <p><span id="note">Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.</span></p>
 <p>We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.</p>
-<div class="highlight"><pre>  <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>  <span class="m">5</span>  <span class="o">&lt;--</span> One<span class="o">-</span>indexing
-<span class="p">[</span><span class="m">11</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
-                             EXAMPLE<span class="o">:</span>
-parent<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> floor<span class="p">(</span>i<span class="o">/</span><span class="m">2</span><span class="p">)</span>            parent<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">1</span>
-left_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span>           left_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">4</span>
-right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span>     right_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">5</span>
+<div class="highlight"><pre>  1  2  3  4  5  &lt;-- One-indexing
+[11, 5, 8, 3, 4]
+                             EXAMPLE:
+parent(i) = floor(i/2)            parent(2) = 1
+left_child(i) = i*2           left_child(2) = 4
+right_child(i) = i*2 + 1     right_child(2) = 5
 </pre></div>
 
 
@@ -244,13 +266,13 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 <li>Repeat step 1 and 2 until all nodes are visited.</li>
 </ol>
 <p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<div class="highlight"><pre>(A) (B) (C) (D) (E) (F) (G) (H) (I) (J)
 </pre></div>
 
 
 <p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
 <p>When might this be a long path? Try the following:</p>
-<div class="highlight"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<div class="highlight"><pre>(J)   (A) (B) (C) (D) (E) (F) (G) (H) (I)
 </pre></div>
 
 
@@ -288,9 +310,9 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 <h2>Simple stuff first</h2>
 <p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
 <p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
-<div class="highlight"><pre><span class="mo">0101</span> <span class="n">is</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="p">)</span>
-     <span class="n">or</span> <span class="mi">0</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">0</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">*</span><span class="mi">1</span>
-     <span class="n">or</span> <span class="mi">5</span>
+<div class="highlight"><pre>0101 is 0*(2^3) + 1*(2^2) + 0*(2^1) + 1*(2^0)
+     or 0*8 + 1*4 + 0*2 + 1*1
+     or 5
 </pre></div>
 
 
@@ -307,10 +329,10 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 
 
 <p>For example 6 &amp; 1 is 0.</p>
-<div class="highlight"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
-<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
-<span class="o">======</span>
-  <span class="m">0000</span>
+<div class="highlight"><pre>  0110  &lt;-- 6
+&amp; 0001  &lt;-- 1
+======
+  0000
 </pre></div>
 
 
@@ -332,15 +354,15 @@ right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</
 
 
 <p>Let's see this in action with <code>x</code> as some random binary number:</p>
-<div class="highlight"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
-<span class="o">-</span> <span class="m">000000001</span>
-<span class="o">===========</span>
-  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="m">-1</span>
-<span class="o">&amp;</span> <span class="m">010110000</span>
-<span class="o">===========</span>
-  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">)</span>
+<div class="highlight"><pre>  010110000  &lt;-- x
+- 000000001
+===========
+  010101111  &lt;-- x-1
+&amp; 010110000
+===========
+  010100000  &lt;-- x &amp; (x-1)
 
-So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1</span>. But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="m">-1</span><span class="p">))</span> be <span class="m">0</span><span class="o">?</span> That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2</span>.
+So, (x &amp; (x-1)) just removed the left-most bit that was equal to 1. But then, when might (x &amp; (x-1)) be 0? That would only happen when x has only one 1 bit, which means that x must be a power of 2.
 </pre></div>
 
 
@@ -384,9 +406,9 @@ So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span
 
 
 <p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
-<div class="highlight"><pre><span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
-<span class="n">y</span> <span class="o">^=</span> <span class="n">x</span>
-<span class="n">x</span> <span class="o">^=</span> <span class="n">y</span>
+<div class="highlight"><pre>x ^= y
+y ^= x
+x ^= y
 </pre></div>
 
 
@@ -411,136 +433,6 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
             <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
             <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
-                   title="Permalink to The case for base cases">The case for base cases</a></h1>
-<p class="date">Monday, January 28, 2013</p>        </header>
-        <article>
-            <p>You have a complicated problem to solve. How do you start tackling it?</p>
-<p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
-<h2>Tower of Hanoi</h2>
-<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
-<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /></p>
-<p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
-<ol>
-<li>Only one disk may be moved at a time.  </li>
-<li>Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  </li>
-<li>No disk may be placed on top of a disk smaller than it.</li>
-</ol>
-<p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
-<h2>Let's start with the base cases</h2>
-<p>N=1</p>
-<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
-
-<span class="mf">1.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
-
-<span class="n">So</span> <span class="n">we</span> <span class="n">solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span> <span class="n">with</span> <span class="n">one</span> <span class="n">move</span> <span class="n">of</span> <span class="o">-|-</span><span class="p">.</span>
-</pre></div>
-
-
-<p>N=2</p>
-<div class="highlight"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
-
-<span class="mf">1.</span>  <span class="o">-------&gt;</span> <span class="o">-|-</span>
-
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>      <span class="o">-|-</span>        <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
-
-<span class="mf">2.</span>  <span class="o">----------------&gt;</span> <span class="o">--|--</span>
-<span class="mf">3.</span>            <span class="o">-------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
-
-<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">take</span> <span class="n">a</span> <span class="n">closer</span> <span class="n">look</span> <span class="n">at</span> <span class="n">these</span> <span class="n">moves</span><span class="o">:</span>
-<span class="mf">1.</span> <span class="n">Exactly</span> <span class="n">like</span> <span class="n">solving</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-<span class="mf">2.</span> <span class="n">The</span> <span class="n">second</span> <span class="n">step</span> <span class="n">places</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">at</span> <span class="n">the</span> <span class="n">base</span> <span class="n">of</span> <span class="n">C</span><span class="p">.</span>
-<span class="mf">3.</span> <span class="n">Also</span> <span class="n">solves</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">only</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-<span class="n">Done</span><span class="p">.</span>
-
-<span class="n">Let</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">rewrite</span> <span class="n">our</span> <span class="n">steps</span> <span class="n">like</span> <span class="n">this</span><span class="o">:</span>
-<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-<span class="mf">2.</span> <span class="n">Move</span> <span class="o">--|--</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="n">Done</span><span class="p">.</span>
-</pre></div>
-
-
-<p>N=3</p>
-<div class="highlight"><pre>   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
- <span class="o">---|---</span>      <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    A         B         C
-
-<span class="m">1</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="m">2</span>.  <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">3</span>.           <span class="o">-|-</span> <span class="o">&lt;-------</span>
-
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>        <span class="o">-|-</span>        <span class="o">|</span>
- <span class="o">---|---</span>    <span class="o">--|--</span>       <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
-    A         B         C
-
-<span class="m">4</span>.  <span class="o">---------------&gt;</span> <span class="o">---|---</span>
-<span class="m">5</span>. <span class="o">-|-</span> <span class="o">&lt;-------</span>
-<span class="m">6</span>.            <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">7</span>.  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-Done.
-
-Notice how steps <span class="m">1-3</span> solve N<span class="o">=</span><span class="m">2</span> and places it at B. Rewrite<span class="o">?</span>
-<span class="m">1</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except A<span class="o">-&gt;</span>B
-<span class="m">2</span>. Move <span class="o">---|---</span> from A<span class="o">-&gt;</span>C
-<span class="m">3</span>. Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except B<span class="o">-&gt;</span>C
-Done.
-</pre></div>
-
-
-<p>Interesting. Looks like we have a formula.</p>
-<div class="highlight"><pre><span class="n">N</span><span class="o">=</span><span class="n">n</span>
-<span class="mf">1.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-<span class="mf">2.</span> <span class="n">Move</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="mf">3.</span> <span class="n">Solve</span> <span class="n">N</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
-</pre></div>
-
-
-<p>I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
-    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
-<p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
-<iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
-            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
-            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
-            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
     </p>
         </article>
 <p class="paginator">
