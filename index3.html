@@ -43,6 +43,141 @@
     <section id="main">
 
         <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
+                   title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
+<p class="date">Wednesday, January 30, 2013</p>        </header>
+        <article>
+            <p>So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.</p>
+<h2>Simple stuff first</h2>
+<p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
+<p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
+<div class="highlight"><pre>0101 is 0*(2^3) + 1*(2^2) + 0*(2^1) + 1*(2^0)
+     or 0*8 + 1*4 + 0*2 + 1*1
+     or 5
+</pre></div>
+
+
+<p>Anyone can write a simple function that tests if a given integer <code>x</code> is even. Usually it will involve checking to see if <code>x</code> mod 2 is 0.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>But, given that least significant bit of a binary value represents odd or even, we can write that same <code>is_even</code> function using the <code>AND</code> bit operation. </p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>For example 6 &amp; 1 is 0.</p>
+<div class="highlight"><pre>  0110  &lt;-- 6
+&amp; 0001  &lt;-- 1
+======
+  0000
+</pre></div>
+
+
+<p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
+<h2>Powerful twos</h2>
+<p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">power_of_two</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">power_of_two</span> <span class="o">==</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Let's see this in action with <code>x</code> as some random binary number:</p>
+<div class="highlight"><pre>  010110000  &lt;-- x
+- 000000001
+===========
+  010101111  &lt;-- x-1
+&amp; 010110000
+===========
+  010100000  &lt;-- x &amp; (x-1)
+
+So, (x &amp; (x-1)) just removed the left-most bit that was equal to 1. But then, when might (x &amp; (x-1)) be 0? That would only happen when x has only one 1 bit, which means that x must be a power of 2.
+</pre></div>
+
+
+<h2>Swapping in place</h2>
+<p>Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.</p>
+<div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>Behind the scenes, Python accesses the values of <code>y</code> and <code>x</code>, then rotates them as it unpacks and assigns to <code>x</code> and <code>y</code>. Here's what that looks like when run through the Python disassembler:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">dis</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">3</span>           <span class="mi">0</span> <span class="n">LOAD_CONST</span>               <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">3</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">4</span>           <span class="mi">6</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">9</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">5</span>          <span class="mi">12</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">15</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">18</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">19</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">22</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">6</span>          <span class="mi">25</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">28</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">31</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">32</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">35</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">38</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">41</span> <span class="n">RETURN_VALUE</span> 
+</pre></div>
+
+
+<p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
+<div class="highlight"><pre>x ^= y
+y ^= x
+x ^= y
+</pre></div>
+
+
+<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
+<div class="highlight"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
+<span class="gh">=============================================================================</span>
+x ^= y  -&gt;  x = x^y
+y ^= x  -&gt;  y = y^x^y      -&gt;  y = x^y^y      -&gt;  y = x^0    -&gt;  y = x
+x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x = y
+</pre></div>
+
+
+<p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
+<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
+<p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
+            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+    </p>
+        </article>
+
+        <header>
             <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
                    title="Permalink to The case for base cases">The case for base cases</a></h1>
 <p class="date">Monday, January 28, 2013</p>        </header>
@@ -301,75 +436,6 @@ leads to awkward and hard to read paragraphs!
             <a href="http://blog.sitongpeng.com/tag/word-wrap.html">[word wrap]</a>
             <a href="http://blog.sitongpeng.com/tag/blog.html">[blog]</a>
             <a href="http://blog.sitongpeng.com/tag/hacker-school.html">[hacker school]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/trying-out-the-static-blog-thing.html" rel="bookmark"
-                   title="Permalink to Trying out the static blog thing">Trying out the static blog thing</a></h1>
-<p class="date">Tuesday, January 08, 2013</p>        </header>
-        <article>
-            <p>Since I started actively programming a few months ago, I've learned much about what technology I take for granted. In order to help me appreciate the many abstractions that our lives are built upon, I've made it my goal to be more technologically self-sufficent. The first step was to revamp my <a href="http://www.sitongpeng.com">personal website</a>. Next up was to move my code blog from Tumblr to my own domain, and then rebuild it on top of a static site/blog generator. That way, I would have complete ownership and control over my own posts.</p>
-<h2>Static what nots?</h2>
-<p>Static site generators do what they advertise. They take some content you provide, then generate a pre-determined set of static html pages that are web ready. The idea here is that once you finish setting up the styling and format of your site, you can simply focus on <strong><em>writing content</em></strong>. Of course, they have boiler plate templates ready for you too, if you'd rather jump right into writing.</p>
-<h2>Getting set up</h2>
-<p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
-<p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
-<p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
-<div class="highlight"><pre>AUTHOR = &#39;YOUR NAME&#39;
-SITENAME = &#39;YOUR SITE NAME&#39;
-SITEURL = &#39;http://your-site.com&#39;
-</pre></div>
-
-
-<p>For the purposes of setting up a blog on Pelican, you will want to set <code>DEFAULT_PAGINATION</code> to be the (number of posts)/page and <code>DEFAULT_ORPHANS</code> as the largest remainder of posts you'll allow on your last page. For my setup, I selected 5 posts/page, and no more than 3 posts on the last page (so up to 8 posts on the last page).</p>
-<p>You can browse over all my selected settings <a href="https://github.com/stoneG/blarg/blob/master/settings.py">here</a>.</p>
-<h2>Making it yours</h2>
-<p>Now, you can certainly use the <a href="https://github.com/getpelican/pelican-themes/blob/master/notmyidea-cms-fr/screenshot.png">default theme</a> provided by Pelican, or one of their other <a href="https://github.com/getpelican/pelican-themes/blob/master/waterspill/screenshot.png">sample themes</a>, but I prefer to make a theme that suits my own tastes. Reading the Pelican documentation and working through the quickstart guide took up half of my weekend, which means I spent the other half on designing my theme.</p>
-<p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
-<p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
-<p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
-<div class="highlight"><pre>categories.html
-category.html
-author.html
-authors.html
-</pre></div>
-
-
-<p>Pelican is smart enough to just use it's base templates from the Simple theme if you don't provide all the desired html templates.</p>
-<p>You will, however, want to make the basic html frame for your blog and save it as <code>base.html</code>, as all other html templates will inherit from it. Otherwise, use the default theme's templates as a guide for building your custom templates.</p>
-<p>Once you have your html templates set, you'll want to work on the CSS, which you will save in <code>static/css</code> folder.</p>
-<p>The theme for this blog is <a href="https://github.com/stoneG/blarg/tree/master/themes/sitong">here</a>. Please give me a shoutout in the footer if you want to use it ;).</p>
-<h2>Workflow</h2>
-<p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
-<p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
-<div class="highlight"><pre>content/2013/trying-out-the-static-blog-thing.md
-</pre></div>
-
-
-<p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
-<div class="highlight"><pre><span class="nv">$ </span>pelican content/2013/ -s path/to/settings.py
-</pre></div>
-
-
-<p>The new static pages will be placed in</p>
-<div class="highlight"><pre>output/
-</pre></div>
-
-
-<p>but you can always change that path in your <code>settings.py</code>.</p>
-<p>Then I simply <code>$ git add .</code> in my output folder, throw on a commit message, then push it to Github.</p>
-<h2>Final thoughts</h2>
-<p>The entire set up process takes a bit of time, especially if you're making your own theme, but it's always nice to have ownership over your own content. That's just something you don't get on Tumblr or other browser based blogs. Pelican is an awesome option for anyone looking for a static blog generator and wanting to work in Python, I heartily recommend it.</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/trying-out-the-static-blog-thing.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/static-blog.html">[static blog]</a>
-            <a href="http://blog.sitongpeng.com/tag/pelican.html">[pelican]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/the-architect.html">[the architect]</a>
-            <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
     </p>
         </article>
 <p class="paginator">

@@ -43,6 +43,40 @@
     <section id="main">
 
         <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/project-euler-5.html" rel="bookmark"
+                   title="Permalink to Project Euler 5">Project Euler 5</a></h1>
+<p class="date">Monday, December 17, 2012</p>        </header>
+        <article>
+            <p>2520 is the smallest number that can be divided by each of the numbers
+from 1 to 10 without any remainder. What is the smallest positive number
+that is evenly divisible by all of the numbers from 1 to 20?</p>
+<p>I’ve found that I usually want to solve these problems using a more
+functional programming style. For instance, my solution uses uses a
+recursive <strong>prime_factorization</strong> helper function and reduce. But then
+again, it also uses iterative loops, but only because I didn’t feel like
+keeping track of the laundry list of factors recursively :). Anyways,
+the format of my solution is as such:</p>
+<ul class="simple">
+<li>Initial notes about the problem</li>
+<li>General solution for any positive integer n.</li>
+</ul>
+<p><pre class="literal-block">
+# 1, 2, 3, 4, 5, 6, 7, 8, 9, 10# Basically 2520 = product of the prime factors of the above numbers# So... 2520 = 2*3*2*5*7*2*3# A general solution would check if the prime factorization of some 'n'# is already in the set of prime factorizations from the 'n-1' term.def prime_factorization(num, divisor=2):    &quot;&quot;&quot;Given an non-neg int num, return the prime factorization in a list.&quot;&quot;&quot;    if num &lt; 2:        return [num]    elif num % divisor:        divisor += 1        return prime_factorization(num, divisor)    else:        return prime_factorization(num/divisor, divisor) + [divisor]def product(a, b):    &quot;&quot;&quot;Returns a * b.&quot;&quot;&quot;    return a * bdef super_product(num):    &quot;&quot;&quot;Given an integer num, find the smallest positive number that is    divisible by all integers [1, num].    &quot;&quot;&quot;    factors = []    while num &gt; 1:        pf = prime_factorization(num)        for factor in pf:            try:                factors.remove(factor)            except ValueError:                continue        factors += pf        num -= 1    return reduce(product, factors)
+</pre>
+</p></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/project-euler-5.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/project-euler-5.html">[project euler 5]</a>
+            <a href="http://blog.sitongpeng.com/tag/prime-factorization.html">[prime factorization]</a>
+            <a href="http://blog.sitongpeng.com/tag/functional-programming.html">[functional programming]</a>
+            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+    </p>
+        </article>
+
+        <header>
             <h1><a href="http://blog.sitongpeng.com/posts/on-generators-and-len.html" rel="bookmark"
                    title="Permalink to On generators and len">On generators and len</a></h1>
 <p class="date">Wednesday, December 05, 2012</p>        </header>
@@ -199,35 +233,6 @@ control system use it.”
             <a href="http://blog.sitongpeng.com/tag/http.html">[HTTP]</a>
             <a href="http://blog.sitongpeng.com/tag/revision-control.html">[revision control]</a>
             <a href="http://blog.sitongpeng.com/tag/browsers.html">[browsers]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/from-constants-import.html" rel="bookmark"
-                   title="Permalink to from constants import *">from constants import *</a></h1>
-<p class="date">Tuesday, November 13, 2012</p>        </header>
-        <article>
-            <p>Is this pythonic? According to the Python documentation on <strong>`Language
-Constructs You Should Not Use`_</strong>, the following tops the list:</p>
-<p><pre class="literal-block">
-from module import *
-</pre>
-</p><p>However, here’s a problem I’m running into. I want some constants to be
-use-able over a couple different modules, but I don’t want to call
-constants.FOO every time I need to use them. So, what’s a guy to do?</p>
-<p>Well, I’m going to throw “caution” to the wind and just create a
-“constants.py” file and attach a “from constants import *” to the files
-I need these constants in. I feel like this situation falls under
-category 3 of the <strong>`When It Is Just Fine`_</strong> section.</p>
-<p>What do you think?</p>
-</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/from-constants-import.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/pythonic.html">[pythonic]</a>
-            <a href="http://blog.sitongpeng.com/tag/constants.html">[constants]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
     </p>
         </article>
 <p class="paginator">
