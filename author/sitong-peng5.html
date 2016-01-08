@@ -43,6 +43,49 @@
     <section id="main">
 
         <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/html-checkbox-form-gotcha.html" rel="bookmark"
+                   title="Permalink to HTML Checkbox Form Gotcha">HTML Checkbox Form Gotcha</a></h1>
+<p class="date">Monday, December 17, 2012</p>        </header>
+        <article>
+            <p>I’ve been working on implementing a toy web app on <a class="reference external" href="http://flask.pocoo.org/">Flask</a>. It’s been
+very straightforward so far, the work I did on my WSGI server was a good
+stepping stone into this WSGI framework. I just stumbled upon something
+I will refer to as a HTML Checkbox Form Gotcha. HTMLCFG? So basically, I
+am building the login page for the web app and I have a checkbox that I
+wanted to be a boolean for whether the user was registering for the
+first time or just logging in normally.</p>
+<p><pre class="literal-block">
+&lt;input name=&quot;register&quot; type=&quot;checkbox&quot; value=&quot;true&quot; /&gt;
+</pre>
+</p><p>Then, I would use the following code in Flask access the state of the
+checkbox:</p>
+<p><pre class="literal-block">
+if request.form['register']:# do stuff
+</pre>
+</p><p>However, I kept getting a HTTP 400 Bad Request. After some sleuthing, it
+turns out that POST requests don’t include unchecked checkboxes. So
+there is no <tt class="docutils literal"><span class="pre">request.form['register']</span></tt> entry if the checkbox isn’t
+checked by the user before submission. Here’s how I ended up working
+around it.</p>
+<p><pre class="literal-block">
+registering = Falseif 'register' in request.form:    # do register logicelse:    # do normal login logic
+</pre>
+</p></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/html-checkbox-form-gotcha.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/gotcha.html">[gotcha]</a>
+            <a href="http://blog.sitongpeng.com/tag/html.html">[html]</a>
+            <a href="http://blog.sitongpeng.com/tag/checkbox.html">[checkbox]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/flask.html">[flask]</a>
+            <a href="http://blog.sitongpeng.com/tag/http-400.html">[http 400]</a>
+            <a href="http://blog.sitongpeng.com/tag/post.html">[post]</a>
+    </p>
+        </article>
+
+        <header>
             <h1><a href="http://blog.sitongpeng.com/posts/project-euler-5.html" rel="bookmark"
                    title="Permalink to Project Euler 5">Project Euler 5</a></h1>
 <p class="date">Monday, December 17, 2012</p>        </header>
@@ -211,28 +254,6 @@ files, it’s safe to say that you should be using string.translate.</p>
             <a href="http://blog.sitongpeng.com/tag/project-gutenberg.html">[project gutenberg]</a>
             <a href="http://blog.sitongpeng.com/tag/scrabble.html">[scrabble]</a>
             <a href="http://blog.sitongpeng.com/tag/a-christmas-carol.html">[a christmas carol]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.html" rel="bookmark"
-                   title="Permalink to "Furthermore HTTP has become quite popular lately and browsers are no longer the only clients that..."">&quot;Furthermore HTTP has become quite popular lately and browsers are no longer the only clients that...&quot;</a></h1>
-<p class="date">Monday, November 26, 2012</p>        </header>
-        <article>
-            <p>“Furthermore HTTP has become quite popular lately and browsers are no
-longer the only clients that are using HTTP. For instance, many revision
-control system use it.”
-- <em>`Flask Quickstart Guide`_</em></p>
-
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/furthermore-http-has-become-quite-popular-lately-and-browsers-are-no-longer-the-only-clients-that.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/flask.html">[flask]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/http.html">[HTTP]</a>
-            <a href="http://blog.sitongpeng.com/tag/revision-control.html">[revision control]</a>
-            <a href="http://blog.sitongpeng.com/tag/browsers.html">[browsers]</a>
     </p>
         </article>
 <p class="paginator">
