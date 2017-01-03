@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>writings - Articles by Sitong Peng</title>
+        <title>Writing - Articles by Sitong Peng</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
-                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
+                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,9 +24,9 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="/">writings</a></h1>
-            <p>they're the words that got out</p>
+                        <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">Writing</a></h1>
+            <p>My thoughts, shared</p>
                 <ul>
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
@@ -34,18 +34,198 @@
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
-                            <li><a href="https:/github.com/stoneG">Github</a></li>
-                </ul>
+                                                                        <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
+                                                            </ul>
         </div>
     </header>
 
     <section id="main">
+            
+                <header>
+            <h1><a href="../posts/a-little-about-push.html" rel="bookmark"
+                   title="Permalink to A little about push">A little about push</a></h1>
+        <p class="date">Sunday, February 02, 2014</p>        </header>
+        <article>
+            <p>Last year I had the chance to take some time and get a better understanding of how push notifications work for iOS applications. But before I talk about that, it helps to understand why push notifications exist in the first place.</p>
+<p>Apple developed iOS as a closed platform operating system. The source code is mostly closed except for the publicly available portions that developers use in networking programming or to interface with the camera or all the other fancy things that apps do. One of the most important design decisions made at Apple was to heavily restrict the capabilities of daemonized apps (apps running in the background). In fact, Apple's guidelines explicitly state that only apps such as music players, VoIP clients, and GPS navigation systems are allowed to run background tasks. That essentially means that once a user leaves your app, you're dead in the water until the user decides to tap your lovely retina icon again... at least that would have been the case if it weren't for push notifications.</p>
+<p>Push notifications exist for the express purpose of letting applications pull users back into their experience. They're basically shouting "Hey, look at me, I have something to show you!"</p>
+<p>The life of a push notification starts on an application. The application will ask iOS for a unique device token that identifies the device, sort of like an IP address. As you'd imagine, it's pretty important to know the address of the device you want to send something to. The operating system doesn't have this information regularly, it actually makes a request to the Apple Push Notification Service (APNS), which divulges a unique token for that specific iOS build on that specific device. The application should then pass the token to its backend server (this is the thing that I've been working on at <a href="https://www.myeatclub.com">EAT Club</a>).</p>
+<p>Once you want to send a push notification to a specific user (for instance, a "Your food is ready for pickup!" notification that we send to users who have ordered a meal that day), just pluck that device token out of your database table and pass it to your push server to fire off to APNS. There are also third parties that exist as the middle man push server between your backend servers and APNS (see UrbanAirship). While it would be awesome if we could build servers that directly sent out pushes to iOS devices, Apple unfortunately maintains ultimate gatekeeper status and all your push notification requests must be routed through APNS. Such is the plight of developing on a closed source platform.</p>
+<p>Then if all is fine and dandy, APNS will send your push to the user's device - along with a custom sound (i.e. the Gmail app), custom alert text, and even let you specify where the user lands when they open the notification (i.e. opening up the Twitter app and immediately dropping you on the tweet that just mentioned your handle).</p>
+                <p class="comments">
+        <a href="../posts/a-little-about-push.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/ios.html">[iOS]</a>
+                    <a href="../tag/apns.html">[APNS]</a>
+            </p>
+        </article>
+            
+                <header>
+            <h1><a href="../posts/bit-manipulation-fun.html" rel="bookmark"
+                   title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
+        <p class="date">Wednesday, January 30, 2013</p>        </header>
+        <article>
+            <p>So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.</p>
+<h2>Simple stuff first</h2>
+<p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
+<p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
+<div class="codehilite"><pre>0101 <span class="n">is</span> 0<span class="o">*</span><span class="p">(</span>2^3<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^2<span class="p">)</span> <span class="o">+</span> 0<span class="o">*</span><span class="p">(</span>2^1<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^0<span class="p">)</span>
+     <span class="n">or</span> 0<span class="o">*</span>8 <span class="o">+</span> 1<span class="o">*</span>4 <span class="o">+</span> 0<span class="o">*</span>2 <span class="o">+</span> 1<span class="o">*</span>1
+     <span class="n">or</span> 5
+</pre></div>
 
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/dear-toronto.html" rel="bookmark"
+
+<p>Anyone can write a simple function that tests if a given integer <code>x</code> is even. Usually it will involve checking to see if <code>x</code> mod 2 is 0.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>But, given that least significant bit of a binary value represents odd or even, we can write that same <code>is_even</code> function using the <code>AND</code> bit operation. </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>For example 6 &amp; 1 is 0.</p>
+<div class="codehilite"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
+<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
+<span class="o">======</span>
+  <span class="m">0000</span>
+</pre></div>
+
+
+<p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
+<h2>Powerful twos</h2>
+<p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">power_of_two</span> <span class="o">*=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">power_of_two</span> <span class="o">==</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Let's see this in action with <code>x</code> as some random binary number:</p>
+<div class="codehilite"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
+<span class="o">-</span> <span class="m">000000001</span>
+<span class="o">===========</span>
+  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="o">-</span><span class="m">1</span>
+<span class="o">&amp;</span> <span class="m">010110000</span>
+<span class="o">===========</span>
+  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">)</span>
+
+So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1.</span> But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> be <span class="m">0</span>? That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2.</span>
+</pre></div>
+
+
+<h2>Swapping in place</h2>
+<p>Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.</p>
+<div class="codehilite"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+</pre></div>
+
+
+<p>Behind the scenes, Python accesses the values of <code>y</code> and <code>x</code>, then rotates them as it unpacks and assigns to <code>x</code> and <code>y</code>. Here's what that looks like when run through the Python disassembler:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">dis</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="n">dis</span><span class="o">.</span><span class="n">dis</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">3</span>           <span class="mi">0</span> <span class="n">LOAD_CONST</span>               <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">3</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">4</span>           <span class="mi">6</span> <span class="n">LOAD_CONST</span>               <span class="mi">2</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;</span>              <span class="mi">9</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">5</span>          <span class="mi">12</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">15</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">18</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">19</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">22</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span>  <span class="mi">6</span>          <span class="mi">25</span> <span class="n">LOAD_FAST</span>                <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">28</span> <span class="n">LOAD_FAST</span>                <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">31</span> <span class="n">ROT_TWO</span>             
+<span class="o">&gt;</span>             <span class="mi">32</span> <span class="n">STORE_FAST</span>               <span class="mi">0</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">35</span> <span class="n">STORE_FAST</span>               <span class="mi">1</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">38</span> <span class="n">LOAD_CONST</span>               <span class="mi">0</span> <span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="o">&gt;</span>             <span class="mi">41</span> <span class="n">RETURN_VALUE</span> 
+</pre></div>
+
+
+<p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
+<div class="codehilite"><pre><span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
+<span class="n">y</span> ^<span class="p">=</span> <span class="n">x</span>
+<span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
+<div class="codehilite"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
+<span class="gh">=============================================================================</span>
+x ^= y  -&gt;  x = x^y
+y ^= x  -&gt;  y = y^x^y      -&gt;  y = x^y^y      -&gt;  y = x^0    -&gt;  y = x
+x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x = y
+</pre></div>
+
+
+<p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
+<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
+<p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
+                <p class="comments">
+        <a href="../posts/bit-manipulation-fun.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/bit-manipulation.html">[bit manipulation]</a>
+                    <a href="../tag/binary.html">[binary]</a>
+                    <a href="../tag/tricks.html">[tricks]</a>
+                    <a href="../tag/python.html">[python]</a>
+                    <a href="../tag/algorithms.html">[algorithms]</a>
+            </p>
+        </article>
+            
+                <header>
+            <h1><a href="../posts/coming-up-in-2016.html" rel="bookmark"
+                   title="Permalink to Coming up in 2016">Coming up in 2016</a></h1>
+        <p class="date">Wednesday, January 06, 2016</p>        </header>
+        <article>
+            <p>It’s been a few years since I’ve done this <a href="/posts/programming-resolutions.html">publicly</a>, but I’d like to bring this tradition back. Learning from past experiences, I’m keeping this list concise and specific. Life can sometimes get in the way but here’s what I’m agreeing to in 2016:</p>
+<ol>
+<li>Ship something in virtual reality.</li>
+<li>Write 8 posts worthy of reading.</li>
+<li>Hike at two national parks, preferably new.</li>
+<li>Live in a foreign country that's new to me.</li>
+<li>Develop a fluidity in the kitchen so most dishes I make are served on time.</li>
+<li>Be able to name all common herbs &amp; spices by sight &amp; smell.</li>
+<li>Accomplish at least two physical goals for surfing, snowboarding, skiing, or weightlifting.</li>
+</ol>
+<p>Time's ticking.</p>
+                <p class="comments">
+        <a href="../posts/coming-up-in-2016.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="../tag/resolutions.html">[resolutions]</a>
+                    <a href="../tag/2016.html">[2016]</a>
+            </p>
+        </article>
+            
+                <header>
+            <h1><a href="../posts/dear-toronto.html" rel="bookmark"
                    title="Permalink to Dear Toronto,">Dear Toronto,</a></h1>
-<p class="date">Friday, January 08, 2016</p>        </header>
+        <p class="date">Friday, January 08, 2016</p>        </header>
         <article>
             <p>I have a few things to say to the people I met in a city I wasn't sure I would like.</p>
 <p><img alt="Toronto at night" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/toronto.jpg" /></p>
@@ -60,195 +240,69 @@
 <p><strong>You all made me feel odd, like I was leaving a place that had become a home.</strong></p>
 <p>Sincerely,</p>
 <p>Confused in California.</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/dear-toronto.html#disqus_thread"></a>.
+                <p class="comments">
+        <a href="../posts/dear-toronto.html#disqus_thread"></a>.
     </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/travel.html">[travel]</a>
-            <a href="http://blog.sitongpeng.com/tag/toronto.html">[toronto]</a>
-    </p>
+                <p class="tags">
+                    <a href="../tag/travel.html">[travel]</a>
+                    <a href="../tag/toronto.html">[toronto]</a>
+            </p>
         </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/coming-up-in-2016.html" rel="bookmark"
-                   title="Permalink to Coming up in 2016">Coming up in 2016</a></h1>
-<p class="date">Wednesday, January 06, 2016</p>        </header>
+            
+                <header>
+            <h1><a href="../posts/i-am-a-real-vim-user-today.html" rel="bookmark"
+                   title="Permalink to I am a real Vim user today">I am a real Vim user today</a></h1>
+        <p class="date">Thursday, January 10, 2013</p>        </header>
         <article>
-            <p>It’s been a few years since I’ve done this <a href="/posts/programming-resolutions.html">publicly</a>, but I’d like to bring this tradition back. Learning from past experiences, I’m keeping this list concise and specific. Life can sometimes get in the way but here’s what I’m agreeing to in 2016:</p>
-<ol>
-<li>Ship something in virtual reality.</li>
-<li>Write 8 posts worthy of reading.</li>
-<li>Hike at two national parks, preferably new.</li>
-<li>Live in a foreign country that's new to me.</li>
-<li>Develop a fluidity in the kitchen so most dishes I make are served on time.</li>
-<li>Be able to name all common herbs &amp; spices by sight &amp; smell.</li>
-<li>Accomplish at least two physical goals for surfing, snowboarding, skiing, or weightlifting.</li>
-</ol>
-<p>Time's ticking.</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/coming-up-in-2016.html#disqus_thread"></a>.
+            <p>There comes a point, usually after you've been using something for awhile, when you realize you are no longer just using it casually. <strong><em>And no, I'm not talking about drugs.</em></strong>I'm talking about defining my first shortcut key in my <code>.vimrc</code>.</p>
+<h2>A little background</h2>
+<p>I was first introduced to <a href="http://www.vim.org/">Vim</a> by my <a href="http://www.hackerschool.com">Hacker School</a> buddy <a href="http://www.jamesshieh.com">James</a>. For those of you who don't know, Vim is a very peculiar text editor. It is an "improved" version of <a href="http://ex-vi.sourceforge.net/">Vi</a>, the de facto Unix editor. Vim allows for a very efficient coding experience in which your hands generally never have to leave their main resting positions on the keyboard. And unlike editors (see <a href="http://www.gnu.org/software/emacs/">Emacs</a>), Vim makes heavy usage of different input modes to separate document navigation, inserting content, and text selection. This makes for a steep initial learning curve, as the default mode in Vim is mostly navigational, which is a farcry from the style of most word processors (hjkl actually mean hjkl, not left down up right).</p>
+<h2>Word Wrap</h2>
+<p>So I was excited to be able to write these blog posts using Vim since I've gotten quite good and fast at using it. However, I quickly realized that a text editor that primarily displays lines of code needs a bit of work to properly display words and sentences.</p>
+<p>For instance, here's what I was seeing everytime I wrote a paragraph of text:</p>
+<div class="codehilite"><pre>This is a medium paragraph of text. Everything is all fine and dandy until you
+ get to the end of the line. Then, whatever text you just wrote gets cut off p
+recisely when you reach the column width of your Vim window. This leads to awk
+ward and hard to read paragraphs!
+</pre></div>
+
+
+<p>So, after a bit of research, I threw this into my <code>.vimrc</code> file.</p>
+<div class="codehilite"><pre><span class="c">&quot; F5 word wrap mode (great for writing blog posts!)</span>
+<span class="k">set</span> <span class="nb">wrap</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">linebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">nolinebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</pre></div>
+
+
+<p>The first line turns the <code>wrap</code> option on. The second line binds <code>:set linebreak&lt;CR&gt;</code> to <code>F5</code> in normal mode. The last line binds the reverse to <code>Ctrl</code> + <code>F5</code>. <code>&lt;CR&gt;</code> is a carriage return, otherwise known as the <code>enter</code> or <code>return</code> button.</p>
+<p>So hitting <code>F5</code> in normal mode effectively types out <code>:set linebreak</code> then hits <code>enter</code> for you, rendering much more readable text for when you are not just writing code!</p>
+<div class="codehilite"><pre>This is a medium paragraph of text. Everything is all fine and dandy until
+you get to the end of the line. Then, whatever text you just wrote gets cut
+off precisely when you reach the column width of your Vim window. This
+leads to awkward and hard to read paragraphs!
+</pre></div>
+
+
+<p><span id="note">For those of you that are curious, Vim will automatically break the line as soon as it encounters any of these characters <code>^I !@*-+;:,./?</code>. You can change that default by redefining the <code>breakat</code> option. See <a href="http://vim.wikia.com/wiki/Word_wrap_without_line_breaks">here</a> for details.</span></p>
+                <p class="comments">
+        <a href="../posts/i-am-a-real-vim-user-today.html#disqus_thread"></a>.
     </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/resolutions.html">[resolutions]</a>
-            <a href="http://blog.sitongpeng.com/tag/2016.html">[2016]</a>
-    </p>
+                <p class="tags">
+                    <a href="../tag/vim.html">[vim]</a>
+                    <a href="../tag/vimrc.html">[vimrc]</a>
+                    <a href="../tag/shortcut.html">[shortcut]</a>
+                    <a href="../tag/emacs.html">[emacs]</a>
+                    <a href="../tag/word-wrap.html">[word wrap]</a>
+                    <a href="../tag/blog.html">[blog]</a>
+                    <a href="../tag/hacker-school.html">[hacker school]</a>
+            </p>
         </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/refocusing.html" rel="bookmark"
-                   title="Permalink to Refocusing">Refocusing</a></h1>
-<p class="date">Wednesday, January 06, 2016</p>        </header>
-        <article>
-            <p>Before I release the 2016 ones, here are my last set of resolutions from <a href="/posts/programming-resolutions.html">2013</a>:</p>
-<p class="quote">"100 posts about programming things I’ve encountered and want to share"</p>
-
-<p>Rode the new years train a bit too hard on this one. Even without life getting in the way, this would have been a tough one to keep, but glad I managed even 14 posts even if 13 came in the first half of the year.</p>
-<p class="quote">"Contribute a couple patches or a bug fix to an open source project."</p>
-
-<p>To my credit, I did make a very small contribution to Django REST Framework as well as other smaller repositories. Work and personal projects have always gotten the best of me. I’ve since forked projects and made features I’ve needed but I’ve always been too lazy to properly submit pull requests with tests.</p>
-<p class="quote">"Do a weekend project and get it on the front page of HN"</p>
-
-<p>In retrospect, it seems silly to make a project with the explicit intention of making the HN front page. No wonder this is the resolution I remember making the least. I suspect many developers have fallen into the same trap, but I have numerous projects that are anywhere from 50% to 80% complete. Shipping products is an art.</p>
-<p class="quote">“Read more books: I need to expand my knowledge beyond just reading the news and blogs"</p>
-
-<p>By my count, I’ve read around 18 books since then. Paltry, to be sure, but not nothing.</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/refocusing.html#disqus_thread"></a>.
+                                    <p class="paginator">
+        Page 1 / 4
+            <a href="../author/sitong-peng2.html">&gt;&gt;</a>
     </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/resolutions.html">[resolutions]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/a-little-about-push.html" rel="bookmark"
-                   title="Permalink to A little about push">A little about push</a></h1>
-<p class="date">Sunday, February 02, 2014</p>        </header>
-        <article>
-            <p>Last year I had the chance to take some time and get a better understanding of how push notifications work for iOS applications. But before I talk about that, it helps to understand why push notifications exist in the first place.</p>
-<p>Apple developed iOS as a closed platform operating system. The source code is mostly closed except for the publicly available portions that developers use in networking programming or to interface with the camera or all the other fancy things that apps do. One of the most important design decisions made at Apple was to heavily restrict the capabilities of daemonized apps (apps running in the background). In fact, Apple's guidelines explicitly state that only apps such as music players, VoIP clients, and GPS navigation systems are allowed to run background tasks. That essentially means that once a user leaves your app, you're dead in the water until the user decides to tap your lovely retina icon again... at least that would have been the case if it weren't for push notifications.</p>
-<p>Push notifications exist for the express purpose of letting applications pull users back into their experience. They're basically shouting "Hey, look at me, I have something to show you!"</p>
-<p>The life of a push notification starts on an application. The application will ask iOS for a unique device token that identifies the device, sort of like an IP address. As you'd imagine, it's pretty important to know the address of the device you want to send something to. The operating system doesn't have this information regularly, it actually makes a request to the Apple Push Notification Service (APNS), which divulges a unique token for that specific iOS build on that specific device. The application should then pass the token to its backend server (this is the thing that I've been working on at <a href="https://www.myeatclub.com">EAT Club</a>).</p>
-<p>Once you want to send a push notification to a specific user (for instance, a "Your food is ready for pickup!" notification that we send to users who have ordered a meal that day), just pluck that device token out of your database table and pass it to your push server to fire off to APNS. There are also third parties that exist as the middle man push server between your backend servers and APNS (see UrbanAirship). While it would be awesome if we could build servers that directly sent out pushes to iOS devices, Apple unfortunately maintains ultimate gatekeeper status and all your push notification requests must be routed through APNS. Such is the plight of developing on a closed source platform.</p>
-<p>Then if all is fine and dandy, APNS will send your push to the user's device - along with a custom sound (i.e. the Gmail app), custom alert text, and even let you specify where the user lands when they open the notification (i.e. opening up the Twitter app and immediately dropping you on the tweet that just mentioned your handle).</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/a-little-about-push.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/ios.html">[iOS]</a>
-            <a href="http://blog.sitongpeng.com/tag/apns.html">[APNS]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/the-self-aware-python-function.html" rel="bookmark"
-                   title="Permalink to The Self Aware Python Function">The Self Aware Python Function</a></h1>
-<p class="date">Saturday, January 18, 2014</p>        </header>
-        <article>
-            <p>I've been using Python for over a year now. It's what I learned to program with. About half a year ago, a fellow coder (friend of a friend) posed the following riddle upon learning that it was my language of choice:</p>
-<p class="quote">"How would you write a function in Python that knows how many times it's been invoked?"</p>
-
-<p>Let's consider this for a moment. A function that knows how many times it has been invoked is one that would need some access to a scope outside of it's own. Functions are generally pretty transient &mdash; they do their thing and then wait until they are told to do it again. There isn't a middling dormant state where they consider how many times they've been told to execute their (probably) menial task.</p>
-<p>As a first stab, we might consider a global counter, as in the following setup:</p>
-<div class="highlight"><pre><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">self_aware_function</span><span class="p">()</span>
-</pre></div>
-
-
-<p>Those familiar with Python are up in arms right now, and rightfully so. Here's what you get when invoking <code>self_aware_function</code>:</p>
-<div class="highlight"><pre>UnboundLocalError: <span class="nb">local </span>variable <span class="s1">&#39;count&#39;</span> referenced before assignment
-</pre></div>
-
-
-<p>In Python, when you are in a function and assign a value to an immutable type variable (such as our int <code>count</code>), you end up shadowing the global variable with one local to the function's scope. So when <code>count += 1</code> is evaluated (remember this is expanded to <code>count = count + 1</code>), Python cannot find the value for <code>count</code> in the expression to the right of the <code>=</code>.</p>
-<h2>Okay, local variables won't work, how about we use the <code>global</code> keyword or mutable variables?</h2>
-<div class="highlight"><pre><span class="c"># global keyword</span>
-
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">count</span> <span class="c"># Now we force the use of the global count</span>
-    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c"># ...</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span class="c"># using a list</span>
-<span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c"># ...</span>
-</pre></div>
-
-
-<p>These both work and globals were my first idea for a solution. However, when I asked if this was acceptable, I was met with opposition.</p>
-<p class="quote">"You are only allowed to write code within the function, not outside of it."</p>
-
-<p>That's rough. How do you become self aware of an outside world/scope that you can't even interact with?</p>
-<p>Turns out, the answer lies within a popular Python <a href="http://effbot.org/zone/default-values.html">gotcha</a>.</p>
-<h2>Self-awareness</h2>
-<p>Here's how you define a default parameter in Python:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">default</span>
-</pre></div>
-
-
-<p>In Python, default parameters are evaluated ONLY once &mdash; when the function is defined. That means the default parameter is "the same" for all invocations of the function. I say "the same" because normally the default parameter will have the same value across multiple function invocations, but if your default parameter is mutable then you change it! And then you can do some really special things.</p>
-<p>Case in point, self-awareness:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
-    <span class="k">elif</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&quot;Who are you to tell me what to do???&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">self_aware_function</span><span class="p">()</span>
-</pre></div>
-
-
-<ul>
-<li><code>count</code> is evaluated at function definition to be a mutable list with one integer element.</li>
-<li>Each invocation of our <code>self_aware_function</code> adds another tick to our mutable <code>count</code> parameter.</li>
-</ul>
-<p>And we have our cheeky, self aware function!</p>
-<div class="highlight"><pre><span class="nv">$ </span>python aware.py
-This is my first <span class="nb">time </span>doing this
-I have <span class="k">done</span> this <span class="m">2</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">3</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">4</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">5</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">6</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">7</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">8</span> <span class="nb">times </span>now.
-I have <span class="k">done</span> this <span class="m">9</span> <span class="nb">times </span>now.
-Who are you to tell me what to <span class="k">do</span>???
-</pre></div>
-
-
-<p><span class="note">If you're wondering, mutable default arguments was the answer I gave after a good amount of thought. I believe there are other solutions and I invite you to share them in the comments :)</span></p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/the-self-aware-python-function.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-    </p>
-        </article>
-<p class="paginator">
-    Page 1 / 7
-        <a href="http://blog.sitongpeng.com/author/sitong-peng2.html">&gt;&gt;</a>
-</p>
-        <footer>
+                                <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>

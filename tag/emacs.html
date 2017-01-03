@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>writings - emacs</title>
+        <title>Writing - emacs</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="writings Atom Feed" />
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
-                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
+                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,9 +24,9 @@
 
     <header id="sidebar">
         <div class="bounds">
-            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
-            <h1><a href="/">writings</a></h1>
-            <p>they're the words that got out</p>
+                        <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <h1><a href="/">Writing</a></h1>
+            <p>My thoughts, shared</p>
                 <ul>
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
@@ -34,18 +34,18 @@
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
-                            <li><a href="https:/github.com/stoneG">Github</a></li>
-                </ul>
+                                                                        <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
+                                                            </ul>
         </div>
     </header>
 
     <section id="main">
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/i-am-a-real-vim-user-today.html" rel="bookmark"
+            
+                <header>
+            <h1><a href="../posts/i-am-a-real-vim-user-today.html" rel="bookmark"
                    title="Permalink to I am a real Vim user today">I am a real Vim user today</a></h1>
-<p class="date">Thursday, January 10, 2013</p>        </header>
+        <p class="date">Thursday, January 10, 2013</p>        </header>
         <article>
             <p>There comes a point, usually after you've been using something for awhile, when you realize you are no longer just using it casually. <strong><em>And no, I'm not talking about drugs.</em></strong>I'm talking about defining my first shortcut key in my <code>.vimrc</code>.</p>
 <h2>A little background</h2>
@@ -53,7 +53,7 @@
 <h2>Word Wrap</h2>
 <p>So I was excited to be able to write these blog posts using Vim since I've gotten quite good and fast at using it. However, I quickly realized that a text editor that primarily displays lines of code needs a bit of work to properly display words and sentences.</p>
 <p>For instance, here's what I was seeing everytime I wrote a paragraph of text:</p>
-<div class="highlight"><pre>This is a medium paragraph of text. Everything is all fine and dandy until you
+<div class="codehilite"><pre>This is a medium paragraph of text. Everything is all fine and dandy until you
  get to the end of the line. Then, whatever text you just wrote gets cut off p
 recisely when you reach the column width of your Vim window. This leads to awk
 ward and hard to read paragraphs!
@@ -61,7 +61,7 @@ ward and hard to read paragraphs!
 
 
 <p>So, after a bit of research, I threw this into my <code>.vimrc</code> file.</p>
-<div class="highlight"><pre><span class="c">&quot; F5 word wrap mode (great for writing blog posts!)</span>
+<div class="codehilite"><pre><span class="c">&quot; F5 word wrap mode (great for writing blog posts!)</span>
 <span class="k">set</span> <span class="nb">wrap</span>
 <span class="nb">nnoremap</span> <span class="p">&lt;</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">linebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
 <span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">nolinebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
@@ -70,7 +70,7 @@ ward and hard to read paragraphs!
 
 <p>The first line turns the <code>wrap</code> option on. The second line binds <code>:set linebreak&lt;CR&gt;</code> to <code>F5</code> in normal mode. The last line binds the reverse to <code>Ctrl</code> + <code>F5</code>. <code>&lt;CR&gt;</code> is a carriage return, otherwise known as the <code>enter</code> or <code>return</code> button.</p>
 <p>So hitting <code>F5</code> in normal mode effectively types out <code>:set linebreak</code> then hits <code>enter</code> for you, rendering much more readable text for when you are not just writing code!</p>
-<div class="highlight"><pre>This is a medium paragraph of text. Everything is all fine and dandy until
+<div class="codehilite"><pre>This is a medium paragraph of text. Everything is all fine and dandy until
 you get to the end of the line. Then, whatever text you just wrote gets cut
 off precisely when you reach the column width of your Vim window. This
 leads to awkward and hard to read paragraphs!
@@ -78,20 +78,20 @@ leads to awkward and hard to read paragraphs!
 
 
 <p><span id="note">For those of you that are curious, Vim will automatically break the line as soon as it encounters any of these characters <code>^I !@*-+;:,./?</code>. You can change that default by redefining the <code>breakat</code> option. See <a href="http://vim.wikia.com/wiki/Word_wrap_without_line_breaks">here</a> for details.</span></p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/i-am-a-real-vim-user-today.html#disqus_thread"></a>.
+                <p class="comments">
+        <a href="../posts/i-am-a-real-vim-user-today.html#disqus_thread"></a>.
     </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/vim.html">[vim]</a>
-            <a href="http://blog.sitongpeng.com/tag/vimrc.html">[vimrc]</a>
-            <a href="http://blog.sitongpeng.com/tag/shortcut.html">[shortcut]</a>
-            <a href="http://blog.sitongpeng.com/tag/emacs.html">[emacs]</a>
-            <a href="http://blog.sitongpeng.com/tag/word-wrap.html">[word wrap]</a>
-            <a href="http://blog.sitongpeng.com/tag/blog.html">[blog]</a>
-            <a href="http://blog.sitongpeng.com/tag/hacker-school.html">[hacker school]</a>
-    </p>
+                <p class="tags">
+                    <a href="../tag/vim.html">[vim]</a>
+                    <a href="../tag/vimrc.html">[vimrc]</a>
+                    <a href="../tag/shortcut.html">[shortcut]</a>
+                    <a href="../tag/emacs.html">[emacs]</a>
+                    <a href="../tag/word-wrap.html">[word wrap]</a>
+                    <a href="../tag/blog.html">[blog]</a>
+                    <a href="../tag/hacker-school.html">[hacker school]</a>
+            </p>
         </article>
-        <footer>
+                                        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
