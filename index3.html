@@ -43,6 +43,63 @@
     <section id="main">
             
                 <header>
+            <h1><a href="./posts/no-man-is-an-island.html" rel="bookmark"
+                   title="Permalink to No man is an island: Collaboration with git">No man is an island: Collaboration with git</a></h1>
+        <p class="date">Tuesday, March 12, 2013</p>        </header>
+        <article>
+            <p>I'm currently in the middle of a Git crash course at work. Though to be honest, it's not really a course. It's more just me crashing. Luckily <code>git</code> is forgiving while I'm expanding my terminology past <code>add</code>, <code>commit</code>, <code>push</code>, <code>status</code>, <code>diff</code>, and <code>clone</code>. In this post, I'll summarize what I'm learning in my own words, but you should read the amazingly clear <a href="http://git-scm.com/book">Pro Git</a> text if you have the time.</p>
+<h2>Version control for the masses</h2>
+<p>When you're just a lone soul contributing to your own project, <code>git</code> is basically just a backup system. You're really only keeping snapshots of your project progress and not really worrying about concurrent user editing. But add other contributors into the equation and suddenly you'll need to be in control of all the moving parts of your codebase, or you may have a mess of things.</p>
+<h2>Growing a forest from a single tree</h2>
+<p>Every <code>git</code> repository holds a wealth of information about a project. Since each repository houses an entire project and it is dead simple to pull down repository clones from websites like <a href="https://github.com">Github</a> and <a href="https://bitbucket.org/">BitBucket</a>, it is easy to see how a popular project might spread its roots over many machines. This can lead to a lot of chaos though, and teams that are working together on projects will need to work on atomizing their changes. Individual commits do fulfill this fairly well on the small scale, but you also need to organize your commits into groups. A good way of conducting this separation is through <code>git</code>'s branching model.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="p">[</span><span class="n">new_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This command creates a new branch separate from your current development branch. Branching is useful to organize paths of development, as you're literally splitting off a new path. For instance, you might want to make a new branch for every bug-fix/feature request of your website or for both server and client sides of your new game. If not given a parameter, <code>git branch</code> will simply list your outstanding branches and show you which branch you're currently working in.</p>
+<p>To actually move branches, you'll want to run this command:</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="p">[</span><span class="n">existing_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Then you can either <code>git branch</code> or <code>git status</code> to see where you are.</p>
+<h2>Finding your way back home</h2>
+<p>Great, so you've fixed three bugs and added two features, including pillow armor for your game's main character. How do you get all of that jazz back onto your main development or master branch?</p>
+<p>Generally there's two ways about this.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">merge</span> <span class="p">[</span><span class="n">existing_side_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>While you're in a branch (such as the main/master branch) and you want to merge in a side branch, you'll generally be safe with this command. If your current branch never moved forward, the merge will just <code>fast forward</code> your current branch to the position of the side branch. If your current branch has progressed separately from the side branch, the merge will recursively find the two branches' common ancestor, then perform a three-way merge. You'll end up with an extra commit that merges your two branches. This extra commit will have two parents instead of one (one for each branch that it was merged from).</p>
+<p>You can avoid having two parent commits and have a more straightforward development path with the second method of merging.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">rebase</span> <span class="p">[</span><span class="n">existing_main_branch</span><span class="p">]</span>
+</pre></div>
+
+
+<p>You'll start in your side branch. The <code>rebase</code> command starts with the divergent main branch and tries to sequentially stack the each side branch's commits on top. If there are no merge conflicts, you'll end up with a straight development path.</p>
+<h2>Knowing where your keys are</h2>
+<p>The true beauty of <code>git</code> isn't realized until you spread out repositories onto different machines and servers. Remote locations are tracked in the <code>remote</code> variable.</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">remote</span>
+</pre></div>
+
+
+<p>This lists all saved remote locations. Your list may contain <code>origin</code> (Github/Bitbucket), <code>heroku</code> (Heroku), or the name for your own private server.</p>
+<p>Anyways, that's essentially the foundation you need for version control. Stay tuned to a later post for more advanced <code>git</code> control.</p>
+                <p class="comments">
+        <a href="./posts/no-man-is-an-island.html#disqus_thread"></a>.
+    </p>
+                <p class="tags">
+                    <a href="./tag/git.html">[git]</a>
+                    <a href="./tag/version-control.html">[version control]</a>
+                    <a href="./tag/crash-course.html">[crash course]</a>
+                    <a href="./tag/rebase.html">[rebase]</a>
+                    <a href="./tag/github.html">[github]</a>
+                    <a href="./tag/heroku.html">[heroku]</a>
+                    <a href="./tag/bitbucket.html">[bitbucket]</a>
+            </p>
+        </article>
+            
+                <header>
             <h1><a href="./posts/understanding-heaps.html" rel="bookmark"
                    title="Permalink to Understanding heaps">Understanding heaps</a></h1>
         <p class="date">Saturday, February 02, 2013</p>        </header>
@@ -484,70 +541,6 @@ Done.
                     <a href="./tag/algorithms.html">[algorithms]</a>
                     <a href="./tag/recursion.html">[recursion]</a>
                     <a href="./tag/youtube.html">[youtube]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="./posts/unexpected-random-number-generation.html" rel="bookmark"
-                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
-        <p class="date">Wednesday, January 23, 2013</p>        </header>
-        <article>
-            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># if we are in the child process</span>
-        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<h2>A little background</h2>
-<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
-<h2>Result</h2>
-<div class="codehilite"><pre><span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-</pre></div>
-
-
-<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
-<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
-<h2>Solution</h2>
-<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">time</span>                      <span class="c">##### ADDED THIS LINE ######</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c">##### ADDED THIS LINE ######</span>
-        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Randomness restored.</p>
-<p><span id="update">Update</span><br />
-My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
-<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
-                <p class="comments">
-        <a href="./posts/unexpected-random-number-generation.html#disqus_thread"></a>.
-    </p>
-                <p class="tags">
-                    <a href="./tag/random.html">[random]</a>
-                    <a href="./tag/random-numbers.html">[random numbers]</a>
-                    <a href="./tag/processes.html">[processes]</a>
-                    <a href="./tag/forking.html">[forking]</a>
-                    <a href="./tag/python.html">[python]</a>
-                    <a href="./tag/whiskey.html">[whiskey]</a>
             </p>
         </article>
                                     <p class="paginator">
