@@ -4,19 +4,19 @@
         <title>Writing - algorithms</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
+                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,7 +24,7 @@
 
     <header id="sidebar">
         <div class="bounds">
-                        <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
             <h1><a href="/">Writing</a></h1>
             <p>My thoughts, shared</p>
                 <ul>
@@ -34,18 +34,18 @@
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                                                                        <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
-                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
-                                                            </ul>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                            <li><a href="https:/github.com/stoneG">Github</a></li>
+                </ul>
         </div>
     </header>
 
     <section id="main">
-            
-                <header>
-            <h1><a href="../posts/travelling-salesman.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/travelling-salesman.html" rel="bookmark"
                    title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
-        <p class="date">Friday, February 01, 2013</p>        </header>
+<p class="date">Friday, February 01, 2013</p>        </header>
         <article>
             <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
 <p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
@@ -58,13 +58,13 @@
 <li>Repeat step 1 and 2 until all nodes are visited.</li>
 </ol>
 <p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>(A) (B) (C) (D) (E) (F) (G) (H) (I) (J)
 </pre></div>
 
 
 <p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
 <p>When might this be a long path? Try the following:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>(J)   (A) (B) (C) (D) (E) (F) (G) (H) (I)
 </pre></div>
 
 
@@ -83,55 +83,55 @@
 <h2>So what about large N?</h2>
 <p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
 <p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
-                <p class="comments">
-        <a href="../posts/travelling-salesman.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/travelling-salesman.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/algorithms.html">[algorithms]</a>
-                    <a href="../tag/graph.html">[graph]</a>
-                    <a href="../tag/shortest-path.html">[shortest path]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/graph.html">[graph]</a>
+            <a href="http://blog.sitongpeng.com/tag/shortest-path.html">[shortest path]</a>
+    </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/bit-manipulation-fun.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
                    title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
-        <p class="date">Wednesday, January 30, 2013</p>        </header>
+<p class="date">Wednesday, January 30, 2013</p>        </header>
         <article>
             <p>So while I was working on interview prep, I got a bit curious about what cool ways bit manipulation might alter the way we might write code. Here's a few examples of short functions you can write using only bit operations.</p>
 <h2>Simple stuff first</h2>
 <p>The following trick may be standard fare but seeing as I am not a "classically" trained programmer (no degree in computer science), this guy did tickle my fancy.</p>
 <p>When you write out a integer in a binary representation, 5 as <code>0101</code> for example, the least significant bit (leftmost bit) represents if the integer is odd or even. Of course, bits further left represent powers of two, hence the term "base two".</p>
-<div class="codehilite"><pre>0101 <span class="n">is</span> 0<span class="o">*</span><span class="p">(</span>2^3<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^2<span class="p">)</span> <span class="o">+</span> 0<span class="o">*</span><span class="p">(</span>2^1<span class="p">)</span> <span class="o">+</span> 1<span class="o">*</span><span class="p">(</span>2^0<span class="p">)</span>
-     <span class="n">or</span> 0<span class="o">*</span>8 <span class="o">+</span> 1<span class="o">*</span>4 <span class="o">+</span> 0<span class="o">*</span>2 <span class="o">+</span> 1<span class="o">*</span>1
-     <span class="n">or</span> 5
+<div class="highlight"><pre><span></span>0101 is 0*(2^3) + 1*(2^2) + 0*(2^1) + 1*(2^0)
+     or 0*8 + 1*4 + 0*2 + 1*1
+     or 5
 </pre></div>
 
 
 <p>Anyone can write a simple function that tests if a given integer <code>x</code> is even. Usually it will involve checking to see if <code>x</code> mod 2 is 0.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>But, given that least significant bit of a binary value represents odd or even, we can write that same <code>is_even</code> function using the <code>AND</code> bit operation. </p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>For example 6 &amp; 1 is 0.</p>
-<div class="codehilite"><pre>  <span class="m">0110</span>  <span class="o">&lt;--</span> <span class="m">6</span>
-<span class="o">&amp;</span> <span class="m">0001</span>  <span class="o">&lt;--</span> <span class="m">1</span>
-<span class="o">======</span>
-  <span class="m">0000</span>
+<div class="highlight"><pre><span></span>  0110  &lt;-- 6
+&amp; 0001  &lt;-- 1
+======
+  0000
 </pre></div>
 
 
 <p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
 <h2>Powerful twos</h2>
 <p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
         <span class="n">power_of_two</span> <span class="o">*=</span> <span class="mi">2</span>
@@ -140,32 +140,32 @@
 
 
 <p>That's pretty compact but it turns out binary is well suited to figure out if a number is a power of two.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 
 
 <p>Let's see this in action with <code>x</code> as some random binary number:</p>
-<div class="codehilite"><pre>  <span class="m">010110000</span>  <span class="o">&lt;--</span> x
-<span class="o">-</span> <span class="m">000000001</span>
-<span class="o">===========</span>
-  <span class="m">010101111</span>  <span class="o">&lt;--</span> x<span class="o">-</span><span class="m">1</span>
-<span class="o">&amp;</span> <span class="m">010110000</span>
-<span class="o">===========</span>
-  <span class="m">010100000</span>  <span class="o">&lt;--</span> x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span>  010110000  &lt;-- x
+- 000000001
+===========
+  010101111  &lt;-- x-1
+&amp; 010110000
+===========
+  010100000  &lt;-- x &amp; (x-1)
 
-So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> just removed the left<span class="o">-</span>most bit that was equal to <span class="m">1.</span> But then<span class="p">,</span> when might <span class="p">(</span>x <span class="o">&amp;</span> <span class="p">(</span>x<span class="o">-</span><span class="m">1</span><span class="p">))</span> be <span class="m">0</span>? That would only happen when x has only one <span class="m">1</span> bit<span class="p">,</span> which means that x must be a power of <span class="m">2.</span>
+So, (x &amp; (x-1)) just removed the left-most bit that was equal to 1. But then, when might (x &amp; (x-1)) be 0? That would only happen when x has only one 1 bit, which means that x must be a power of 2.
 </pre></div>
 
 
 <h2>Swapping in place</h2>
 <p>Python is nice in that you never have to use a temporary variable when you want to do variable swaps. This is, of course, not the same in other languages.</p>
-<div class="codehilite"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
 </pre></div>
 
 
 <p>Behind the scenes, Python accesses the values of <code>y</code> and <code>x</code>, then rotates them as it unpacks and assigns to <code>x</code> and <code>y</code>. Here's what that looks like when run through the Python disassembler:</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">dis</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dis</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
     <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
@@ -198,14 +198,14 @@ So<span class="p">,</span> <span class="p">(</span>x <span class="o">&amp;</span
 
 
 <p>But, did you know we can actually swap without a temporary variable using <code>XOR</code> too.</p>
-<div class="codehilite"><pre><span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
-<span class="n">y</span> ^<span class="p">=</span> <span class="n">x</span>
-<span class="n">x</span> ^<span class="p">=</span> <span class="n">y</span>
+<div class="highlight"><pre><span></span>x ^= y
+y ^= x
+x ^= y
 </pre></div>
 
 
 <p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
-<div class="codehilite"><pre><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
+<div class="highlight"><pre><span></span><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
 <span class="gh">=============================================================================</span>
 x ^= y  -&gt;  x = x^y
 y ^= x  -&gt;  y = y^x^y      -&gt;  y = x^y^y      -&gt;  y = x^0    -&gt;  y = x
@@ -216,28 +216,28 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 <p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
 <p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
 <p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
-                <p class="comments">
-        <a href="../posts/bit-manipulation-fun.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/bit-manipulation.html">[bit manipulation]</a>
-                    <a href="../tag/binary.html">[binary]</a>
-                    <a href="../tag/tricks.html">[tricks]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/algorithms.html">[algorithms]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
+            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+    </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/the-case-for-base-cases.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
                    title="Permalink to The case for base cases">The case for base cases</a></h1>
-        <p class="date">Monday, January 28, 2013</p>        </header>
+<p class="date">Monday, January 28, 2013</p>        </header>
         <article>
             <p>You have a complicated problem to solve. How do you start tackling it?</p>
 <p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
 <h2>Tower of Hanoi</h2>
 <p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
-<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg" /></p>
+<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg"></p>
 <p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
 <ol>
 <li>Only one disk may be moved at a time.  </li>
@@ -247,93 +247,93 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 <p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
 <h2>Let's start with the base cases</h2>
 <p>N=1</p>
-<div class="codehilite"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-<span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+<div class="highlight"><pre><span></span>    |         |         |
+    |         |         |
+   -|-        |         |
+========= ========= =========
+    A         B         C
 
-1<span class="p">.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
+1.  -----------------&gt; -|-
+Done.
 
-<span class="n">So</span> <span class="n">we</span> <span class="n">solve</span> <span class="n">N</span><span class="p">=</span>1 <span class="n">with</span> <span class="n">one</span> <span class="n">move</span> <span class="n">of</span> <span class="o">-|-</span><span class="p">.</span>
+So we solve N=1 with one move of -|-.
 </pre></div>
 
 
 <p>N=2</p>
-<div class="codehilite"><pre>    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
-<span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+<div class="highlight"><pre><span></span>    |         |         |
+   -|-        |         |
+  --|--       |         |
+========= ========= =========
+    A         B         C
 
-1<span class="p">.</span>  <span class="o">-------&gt;</span> <span class="o">-|-</span>
+1.  -------&gt; -|-
 
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>      <span class="o">-|-</span>        <span class="o">|</span>
-<span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span> <span class="o">========</span><span class="p">=</span>
-    <span class="n">A</span>         <span class="n">B</span>         <span class="n">C</span>
+    |         |         |
+    |         |         |
+  --|--      -|-        |
+========= ========= =========
+    A         B         C
 
-2<span class="p">.</span>  <span class="o">----------------&gt;</span> <span class="o">--|--</span>
-3<span class="p">.</span>            <span class="o">-------&gt;</span> <span class="o">-|-</span>
-<span class="n">Done</span><span class="p">.</span>
+2.  ----------------&gt; --|--
+3.            -------&gt; -|-
+Done.
 
-<span class="n">Let</span><span class="o">&#39;</span><span class="n">s</span> <span class="n">take</span> <span class="n">a</span> <span class="n">closer</span> <span class="n">look</span> <span class="n">at</span> <span class="n">these</span> <span class="n">moves</span><span class="p">:</span>
-1<span class="p">.</span> <span class="n">Exactly</span> <span class="n">like</span> <span class="n">solving</span> <span class="n">N</span><span class="p">=</span>1<span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-2<span class="p">.</span> <span class="n">The</span> <span class="n">second</span> <span class="n">step</span> <span class="n">places</span> <span class="n">the</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">at</span> <span class="n">the</span> <span class="n">base</span> <span class="n">of</span> <span class="n">C</span><span class="p">.</span>
-3<span class="p">.</span> <span class="n">Also</span> <span class="n">solves</span> <span class="n">N</span><span class="p">=</span>1<span class="p">,</span> <span class="n">only</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span><span class="p">.</span>
-<span class="n">Done</span><span class="p">.</span>
+Let&#39;s take a closer look at these moves:
+1. Exactly like solving N=1, except A-&gt;B instead of A-&gt;C.
+2. The second step places the largest disc at the base of C.
+3. Also solves N=1, only B-&gt;C instead of A-&gt;C.
+Done.
 
-<span class="n">Let</span><span class="o">&#39;</span><span class="n">s</span> <span class="n">rewrite</span> <span class="n">our</span> <span class="n">steps</span> <span class="n">like</span> <span class="n">this</span><span class="p">:</span>
-1<span class="p">.</span> <span class="n">Solve</span> <span class="n">N</span><span class="p">=</span>1<span class="p">,</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-2<span class="p">.</span> <span class="n">Move</span> <span class="o">--|--</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-3<span class="p">.</span> <span class="n">Solve</span> <span class="n">N</span><span class="p">=</span>1<span class="p">,</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
-<span class="n">Done</span><span class="p">.</span>
+Let&#39;s rewrite our steps like this:
+1. Solve N=1, except A-&gt;B
+2. Move --|-- from A-&gt;C
+3. Solve N=1, except B-&gt;C
+Done.
 </pre></div>
 
 
 <p>N=3</p>
-<div class="codehilite"><pre>   <span class="o">-|-</span>        <span class="o">|</span>         <span class="o">|</span>
-  <span class="o">--|--</span>       <span class="o">|</span>         <span class="o">|</span>
- <span class="o">---|---</span>      <span class="o">|</span>         <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+<div class="highlight"><pre><span></span>   -|-        |         |
+  --|--       |         |
+ ---|---      |         |
+========= ========= =========
     A         B         C
 
-<span class="m">1.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
-<span class="m">2.</span>  <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">3.</span>           <span class="o">-|-</span> <span class="o">&lt;-------</span>
+1.  -----------------&gt; -|-
+2.  ------&gt; --|--
+3.           -|- &lt;-------
 
-    <span class="o">|</span>         <span class="o">|</span>         <span class="o">|</span>
-    <span class="o">|</span>        <span class="o">-|-</span>        <span class="o">|</span>
- <span class="o">---|---</span>    <span class="o">--|--</span>       <span class="o">|</span>
-<span class="o">=========</span> <span class="o">=========</span> <span class="o">=========</span>
+    |         |         |
+    |        -|-        |
+ ---|---    --|--       |
+========= ========= =========
     A         B         C
 
-<span class="m">4.</span>  <span class="o">---------------&gt;</span> <span class="o">---|---</span>
-<span class="m">5.</span> <span class="o">-|-</span> <span class="o">&lt;-------</span>
-<span class="m">6.</span>            <span class="o">------&gt;</span> <span class="o">--|--</span>
-<span class="m">7.</span>  <span class="o">-----------------&gt;</span> <span class="o">-|-</span>
+4.  ---------------&gt; ---|---
+5. -|- &lt;-------
+6.            ------&gt; --|--
+7.  -----------------&gt; -|-
 Done.
 
-Notice how steps <span class="m">1</span><span class="o">-</span><span class="m">3</span> solve N<span class="o">=</span><span class="m">2</span> and places it at B. Rewrite?
-<span class="m">1.</span> Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except A<span class="o">-&gt;</span>B
-<span class="m">2.</span> Move <span class="o">---|---</span> from A<span class="o">-&gt;</span>C
-<span class="m">3.</span> Solve N<span class="o">=</span><span class="m">2</span><span class="p">,</span> except B<span class="o">-&gt;</span>C
+Notice how steps 1-3 solve N=2 and places it at B. Rewrite?
+1. Solve N=2, except A-&gt;B
+2. Move ---|--- from A-&gt;C
+3. Solve N=2, except B-&gt;C
 Done.
 </pre></div>
 
 
 <p>Interesting. Looks like we have a formula.</p>
-<div class="codehilite"><pre><span class="n">N</span><span class="p">=</span><span class="n">n</span>
-1<span class="p">.</span> <span class="n">Solve</span> <span class="n">N</span><span class="p">=(</span><span class="n">n</span><span class="o">-</span>1<span class="p">),</span> <span class="n">except</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">B</span>
-2<span class="p">.</span> <span class="n">Move</span> <span class="n">largest</span> <span class="n">disc</span> <span class="n">from</span> <span class="n">A</span><span class="o">-&gt;</span><span class="n">C</span>
-3<span class="p">.</span> <span class="n">Solve</span> <span class="n">N</span><span class="p">=(</span><span class="n">n</span><span class="o">-</span>1<span class="p">),</span> <span class="n">except</span> <span class="n">B</span><span class="o">-&gt;</span><span class="n">C</span>
+<div class="highlight"><pre><span></span>N=n
+1. Solve N=(n-1), except A-&gt;B
+2. Move largest disc from A-&gt;C
+3. Solve N=(n-1), except B-&gt;C
 </pre></div>
 
 
 <p>I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
@@ -345,22 +345,22 @@ Done.
 <p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
 <p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
 <iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
-                <p class="comments">
-        <a href="../posts/the-case-for-base-cases.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/base-case.html">[base case]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/tower-of-hanoi.html">[tower of hanoi]</a>
-                    <a href="../tag/algorithms.html">[algorithms]</a>
-                    <a href="../tag/recursion.html">[recursion]</a>
-                    <a href="../tag/youtube.html">[youtube]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
+            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
+    </p>
         </article>
-                                    <p class="paginator">
-        Page 1 / 1
-    </p>
-                                <footer>
+<p class="paginator">
+    Page 1 / 1
+</p>
+        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>

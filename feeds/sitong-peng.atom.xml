@@ -1,5 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Writing - 2013</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/2013.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2013-06-29T23:00:00-07:00</updated><entry><title>I moved your stuff but don't freak out cuz I left behind a symlink</title><link href="http://blog.sitongpeng.com/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="alternate"></link><published>2013-06-29T23:00:00-07:00</published><updated>2013-06-29T23:00:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-06-29:/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html</id><summary type="html">&lt;p&gt;Dotfiles and symlinks otherwise known as cleaning $HOME&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span id="note"&gt;Learning new &lt;em&gt;nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about &lt;/em&gt;nix-craft.&lt;/span&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Writing - Sitong Peng</title><link href="http://blog.sitongpeng.com/" rel="alternate"></link><link href="http://blog.sitongpeng.com/feeds/sitong-peng.atom.xml" rel="self"></link><id>http://blog.sitongpeng.com/</id><updated>2018-05-07T23:45:00-07:00</updated><entry><title>Back to the learning grind</title><link href="http://blog.sitongpeng.com/posts/back-to-the-learning-grind.html" rel="alternate"></link><published>2018-05-07T23:45:00-07:00</published><updated>2018-05-07T23:45:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2018-05-07:/posts/back-to-the-learning-grind.html</id><summary type="html">&lt;p&gt;Introductory post about future machine learning posts&lt;/p&gt;</summary><content type="html">&lt;p&gt;It’s been a long time coming, but I’m finally getting around to learning about machine learning. I’m hoping to get a better idea of what artificial general intelligence (AGI) could look like in the future and how that might affect the life I know.&lt;/p&gt;
+&lt;p&gt;As a first step I’m currently working through Andrew Ng’s &lt;a href="https://www.coursera.org/specializations/deep-learning"&gt;Deep Learning&lt;/a&gt; course to get my feet wet with some of the technical challenges of machine learning as well as reading Max Tegmark’s &lt;a href="https://www.amazon.com/Life-3-0-Being-Artificial-Intelligence/dp/1101946598/"&gt;Life 3.0: Being Human in the Age of Artificial Intelligence&lt;/a&gt; to get a grasp on potential big picture ideas about machine learning.&lt;/p&gt;
+&lt;p&gt;It’s my plan to keep a weekly log of things I’m learning as a way of organizing my thoughts. Wish me luck!&lt;/p&gt;</content><category term="machine-learning"></category></entry><entry><title>What's coming up 2017</title><link href="http://blog.sitongpeng.com/posts/whats-coming-up-2017.html" rel="alternate"></link><published>2017-01-03T23:30:00-08:00</published><updated>2017-01-03T23:30:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2017-01-03:/posts/whats-coming-up-2017.html</id><summary type="html">&lt;p&gt;Talking about resolutions for 2017&lt;/p&gt;</summary><content type="html">&lt;ol&gt;
+&lt;li&gt;Read 18 books, at least 3 nonfiction.&lt;br&gt;
+&lt;span class="note"&gt;I’ve always averaged 5 books/year but I’d like to make reading more of a priority this year.&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Commit to a longer side project (At least 3 months).&lt;br&gt;
+&lt;span class="note"&gt;I have at least one in mind :)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Accomplish two physical milestones.&lt;br&gt;
+&lt;span class="note"&gt;Potential examples: train for another run or swim or bike race, complete a major hike/trek, do a muscle up, etc...&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Accomplish two creative milestones.&lt;br&gt;
+&lt;span class="note"&gt;Potential examples: getting better at freestyle hip hop, art, music, or even food composition/plating.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Can't wait.&lt;/p&gt;</content><category term="resolutions"></category></entry><entry><title>Resolving 2016</title><link href="http://blog.sitongpeng.com/posts/resolving-2016.html" rel="alternate"></link><published>2017-01-02T21:30:00-08:00</published><updated>2017-01-02T21:30:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2017-01-02:/posts/resolving-2016.html</id><summary type="html">&lt;p&gt;Going over my 2016 resolutions&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="Torrey Pines State Beach" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/tpstatebeach.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Let's go over my 2016 &lt;a href="/posts/coming-up-in-2016.html"&gt;resolutions&lt;/a&gt;:&lt;/p&gt;
+&lt;p class="quote"&gt;"Ship something in virtual reality"&lt;/p&gt;
+
+&lt;p&gt;I made a scene in VR but nothing worth sharing or shipping. This resolution fell to the wayside since I was waiting for the touch controllers to come out. I also started some work on a 2D project. I might prefer 2D.&lt;/p&gt;
+&lt;p class="quote"&gt;"Write 8 posts worthy of reading"&lt;/p&gt;
+
+&lt;p&gt;Well, it sure is rough to have fallen short on the first two resolutions. This one was related to the first, as I was planning on writing about things I learned in VR.&lt;/p&gt;
+&lt;p class="quote"&gt;"Hike at two national parks, preferably new"&lt;/p&gt;
+
+&lt;p&gt;Hiked at Arches, Joshua Tree, Banff, Mt. Rainier, Crater Lake. Each park was deeply inspiring in its own way and I continue to feel lucky and humbled upon every visit. To get a feel for what I saw, check out my &lt;a href="https://instagram.com/stoneG"&gt;instagram&lt;/a&gt;.&lt;/p&gt;
+&lt;p class="quote"&gt;“Live in a foreign country that's new to me"&lt;/p&gt;
+
+&lt;p&gt;I spent March living in Budapest. I had an amazing time in that city. Solo travel has shown me how much I care about human relationships. So it's exceedingly ironic that where I expected to find independence, I instead found how I crave the vulnerability of dependence.&lt;/p&gt;
+&lt;p class="quote"&gt;“Develop a fluidity in the kitchen so most dishes I make are served on time"&lt;/p&gt;
+
+&lt;p&gt;I prepared somewhere between one to two handfuls of multiple course dinner parties (~6 people each time). And most were ready to go by the time the last guest arrived!&lt;/p&gt;
+&lt;p class="quote"&gt;Be able to name all common herbs &amp; spices by sight &amp; smell"&lt;/p&gt;
+
+&lt;p&gt;TBD, I need to test myself and get this on tape.&lt;/p&gt;
+&lt;p class="quote"&gt;"Accomplish at least two physical goals for surfing, snowboarding, skiing, or weightlifting"&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Surfing&lt;/em&gt;: After many youtube videos and lots of trial and error, I'm proud to say I can usually get up on the board, albeit sometimes only briefly before falling. I still need to work on my speed and foot placement.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Snowboarding&lt;/em&gt;: I definitely progressed from beginner/intermediate to intermediate/advanced levels. I’m good enough to mess around on jumps at the terrain park and I can get some good speed on downhill runs.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Bonus physical goal&lt;/em&gt;: I went from the couch to a half marathon this year :)&lt;/p&gt;
+&lt;h2&gt;All in all: 4 to 5 resolutions of 7.&lt;/h2&gt;</content><category term="resolutions"></category></entry><entry><title>Dear Toronto,</title><link href="http://blog.sitongpeng.com/posts/dear-toronto.html" rel="alternate"></link><published>2016-01-08T12:00:00-08:00</published><updated>2016-01-08T12:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2016-01-08:/posts/dear-toronto.html</id><summary type="html">&lt;p&gt;A letter to the people I met in Toronto&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have a few things to say to the people I met in a city I wasn't sure I would like.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Toronto at night" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/toronto.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the pakistani man who makes butter chicken roti at your strangely NYC themed restaurant, who passably decorated it by throwing up old LIFE magazine covers on the walls, who has family trouble in California and a cousin doing a stint in our penal system.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the pupusa lady that gave me an extra tamale on the house after I had such a hard time deciding which pupusas and tamale flavors I wanted to try, who then laughed when I immediately came back to order the fried plantains, which I saw while waiting for my order (they weren't on the menu I agonized over).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the guy bumping to &lt;em&gt;Hotline Bling&lt;/em&gt; outside your car that I grooved with, but politely had to decline your offer of a cigarette, because I had gone through D.A.R.E. three times as a kid.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the roommate who was once a kingpin of street fighter arcade sticks as well as an elite Canadian memory champion, who is unfazed by face transplant images that made me jump out of my chair, who upon learning I was leaving Toronto without seeing Niagara Falls rented a car and drove us out there at midnight.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the roommate who is a sound mixing engineer that did a tour of duty in Nashville but somehow managed to work on rock instead of country, who showed me the process for modern sound mixing using Britney Spears’ &lt;em&gt;I'm a Slave For You&lt;/em&gt; (dozens of vocal tracks!), who stood in the hallway with me until 3am because we had delved too deep into our opinions about movies &amp;amp; games for sleep to matter anymore.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the roommate who is polyglot that’s lived in many different countries, who works harder to balancing work and school than most anyone I've met, who still had the energy to unabashedly start dancing the one time I casually panned you into my snapchat video.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the girl with an excitement that is palpable, contagious, and hard to forget, who unquestioningly shared your hopes and dreams to a complete stranger who slid into your DMs, who despite living there your whole life, seemed somehow less familiar with directions in Toronto than me.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You&lt;/strong&gt;, the guy who has not ventured out of Montreal for over 35 years, but gave me change for the bus and humored me while I chatted you up about how your city's bagels had ruined me for life.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;You all made me feel odd, like I was leaving a place that had become a home.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Sincerely,&lt;/p&gt;
+&lt;p&gt;Confused in California.&lt;/p&gt;</content><category term="travel"></category><category term="toronto"></category></entry><entry><title>Coming up in 2016</title><link href="http://blog.sitongpeng.com/posts/coming-up-in-2016.html" rel="alternate"></link><published>2016-01-06T20:00:00-08:00</published><updated>2016-01-06T20:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2016-01-06:/posts/coming-up-in-2016.html</id><summary type="html">&lt;p&gt;My plans for what is coming up in 2016&lt;/p&gt;</summary><content type="html">&lt;p&gt;It’s been a few years since I’ve done this &lt;a href="/posts/programming-resolutions.html"&gt;publicly&lt;/a&gt;, but I’d like to bring this tradition back. Learning from past experiences, I’m keeping this list concise and specific. Life can sometimes get in the way but here’s what I’m agreeing to in 2016:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Ship something in virtual reality.&lt;/li&gt;
+&lt;li&gt;Write 8 posts worthy of reading.&lt;/li&gt;
+&lt;li&gt;Hike at two national parks, preferably new.&lt;/li&gt;
+&lt;li&gt;Live in a foreign country that's new to me.&lt;/li&gt;
+&lt;li&gt;Develop a fluidity in the kitchen so most dishes I make are served on time.&lt;/li&gt;
+&lt;li&gt;Be able to name all common herbs &amp;amp; spices by sight &amp;amp; smell.&lt;/li&gt;
+&lt;li&gt;Accomplish at least two physical goals for surfing, snowboarding, skiing, or weightlifting.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Time's ticking.&lt;/p&gt;</content><category term="resolutions"></category><category term="2016"></category></entry><entry><title>Refocusing</title><link href="http://blog.sitongpeng.com/posts/refocusing.html" rel="alternate"></link><published>2016-01-06T01:00:00-08:00</published><updated>2016-01-06T01:00:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2016-01-06:/posts/refocusing.html</id><summary type="html">&lt;p&gt;Going over my 2013 resolutions&lt;/p&gt;</summary><content type="html">&lt;p&gt;Before I release the 2016 ones, here are my last set of resolutions from &lt;a href="/posts/programming-resolutions.html"&gt;2013&lt;/a&gt;:&lt;/p&gt;
+&lt;p class="quote"&gt;"100 posts about programming things I’ve encountered and want to share"&lt;/p&gt;
+
+&lt;p&gt;Rode the new years train a bit too hard on this one. Even without life getting in the way, this would have been a tough one to keep, but glad I managed even 14 posts even if 13 came in the first half of the year.&lt;/p&gt;
+&lt;p class="quote"&gt;"Contribute a couple patches or a bug fix to an open source project."&lt;/p&gt;
+
+&lt;p&gt;To my credit, I did make a very small contribution to Django REST Framework as well as other smaller repositories. Work and personal projects have always gotten the best of me. I’ve since forked projects and made features I’ve needed but I’ve always been too lazy to properly submit pull requests with tests.&lt;/p&gt;
+&lt;p class="quote"&gt;"Do a weekend project and get it on the front page of HN"&lt;/p&gt;
+
+&lt;p&gt;In retrospect, it seems silly to make a project with the explicit intention of making the HN front page. No wonder this is the resolution I remember making the least. I suspect many developers have fallen into the same trap, but I have numerous projects that are anywhere from 50% to 80% complete. Shipping products is an art.&lt;/p&gt;
+&lt;p class="quote"&gt;“Read more books: I need to expand my knowledge beyond just reading the news and blogs"&lt;/p&gt;
+
+&lt;p&gt;By my count, I’ve read around 18 books since then. Paltry, to be sure, but not nothing.&lt;/p&gt;</content><category term="resolutions"></category></entry><entry><title>A little about push</title><link href="http://blog.sitongpeng.com/posts/a-little-about-push.html" rel="alternate"></link><published>2014-02-02T23:30:00-08:00</published><updated>2014-02-02T23:30:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2014-02-02:/posts/a-little-about-push.html</id><summary type="html">&lt;p&gt;A little about iOS push notifications.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last year I had the chance to take some time and get a better understanding of how push notifications work for iOS applications. But before I talk about that, it helps to understand why push notifications exist in the first place.&lt;/p&gt;
+&lt;p&gt;Apple developed iOS as a closed platform operating system. The source code is mostly closed except for the publicly available portions that developers use in networking programming or to interface with the camera or all the other fancy things that apps do. One of the most important design decisions made at Apple was to heavily restrict the capabilities of daemonized apps (apps running in the background). In fact, Apple's guidelines explicitly state that only apps such as music players, VoIP clients, and GPS navigation systems are allowed to run background tasks. That essentially means that once a user leaves your app, you're dead in the water until the user decides to tap your lovely retina icon again... at least that would have been the case if it weren't for push notifications.&lt;/p&gt;
+&lt;p&gt;Push notifications exist for the express purpose of letting applications pull users back into their experience. They're basically shouting "Hey, look at me, I have something to show you!"&lt;/p&gt;
+&lt;p&gt;The life of a push notification starts on an application. The application will ask iOS for a unique device token that identifies the device, sort of like an IP address. As you'd imagine, it's pretty important to know the address of the device you want to send something to. The operating system doesn't have this information regularly, it actually makes a request to the Apple Push Notification Service (APNS), which divulges a unique token for that specific iOS build on that specific device. The application should then pass the token to its backend server (this is the thing that I've been working on at &lt;a href="https://www.myeatclub.com"&gt;EAT Club&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Once you want to send a push notification to a specific user (for instance, a "Your food is ready for pickup!" notification that we send to users who have ordered a meal that day), just pluck that device token out of your database table and pass it to your push server to fire off to APNS. There are also third parties that exist as the middle man push server between your backend servers and APNS (see UrbanAirship). While it would be awesome if we could build servers that directly sent out pushes to iOS devices, Apple unfortunately maintains ultimate gatekeeper status and all your push notification requests must be routed through APNS. Such is the plight of developing on a closed source platform.&lt;/p&gt;
+&lt;p&gt;Then if all is fine and dandy, APNS will send your push to the user's device - along with a custom sound (i.e. the Gmail app), custom alert text, and even let you specify where the user lands when they open the notification (i.e. opening up the Twitter app and immediately dropping you on the tweet that just mentioned your handle).&lt;/p&gt;</content><category term="iOS"></category><category term="APNS"></category></entry><entry><title>The Self Aware Python Function</title><link href="http://blog.sitongpeng.com/posts/the-self-aware-python-function.html" rel="alternate"></link><published>2014-01-18T08:30:00-08:00</published><updated>2014-01-18T08:30:00-08:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2014-01-18:/posts/the-self-aware-python-function.html</id><summary type="html">&lt;p&gt;How would you write a function in Python that knows how many times it's been invoked?&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've been using Python for over a year now. It's what I learned to program with. About half a year ago, a fellow coder (friend of a friend) posed the following riddle upon learning that it was my language of choice:&lt;/p&gt;
+&lt;p class="quote"&gt;"How would you write a function in Python that knows how many times it's been invoked?"&lt;/p&gt;
+
+&lt;p&gt;Let's consider this for a moment. A function that knows how many times it has been invoked is one that would need some access to a scope outside of it's own. Functions are generally pretty transient &amp;mdash; they do their thing and then wait until they are told to do it again. There isn't a middling dormant state where they consider how many times they've been told to execute their (probably) menial task.&lt;/p&gt;
+&lt;p&gt;As a first stab, we might consider a global counter, as in the following setup:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;This is my first time doing this&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;I have done this {} times now.&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Those familiar with Python are up in arms right now, and rightfully so. Here's what you get when invoking &lt;code&gt;self_aware_function&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;UnboundLocalError: &lt;span class="nb"&gt;local&lt;/span&gt; variable &lt;span class="s1"&gt;&amp;#39;count&amp;#39;&lt;/span&gt; referenced before assignment
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In Python, when you are in a function and assign a value to an immutable type variable (such as our int &lt;code&gt;count&lt;/code&gt;), you end up shadowing the global variable with one local to the function's scope. So when &lt;code&gt;count += 1&lt;/code&gt; is evaluated (remember this is expanded to &lt;code&gt;count = count + 1&lt;/code&gt;), Python cannot find the value for &lt;code&gt;count&lt;/code&gt; in the expression to the right of the &lt;code&gt;=&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Okay, local variables won't work, how about we use the &lt;code&gt;global&lt;/code&gt; keyword or mutable variables?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# global keyword&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;global&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="c1"&gt;# Now we force the use of the global count&lt;/span&gt;
+    &lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# using a list&lt;/span&gt;
+&lt;span class="n"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;These both work and globals were my first idea for a solution. However, when I asked if this was acceptable, I was met with opposition.&lt;/p&gt;
+&lt;p class="quote"&gt;"You are only allowed to write code within the function, not outside of it."&lt;/p&gt;
+
+&lt;p&gt;That's rough. How do you become self aware of an outside world/scope that you can't even interact with?&lt;/p&gt;
+&lt;p&gt;Turns out, the answer lies within a popular Python &lt;a href="http://effbot.org/zone/default-values.html"&gt;gotcha&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Self-awareness&lt;/h2&gt;
+&lt;p&gt;Here's how you define a default parameter in Python:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In Python, default parameters are evaluated ONLY once &amp;mdash; when the function is defined. That means the default parameter is "the same" for all invocations of the function. I say "the same" because normally the default parameter will have the same value across multiple function invocations, but if your default parameter is mutable then you change it! And then you can do some really special things.&lt;/p&gt;
+&lt;p&gt;Case in point, self-awareness:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]):&lt;/span&gt;
+    &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;This is my first time doing this&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Who are you to tell me what to do???&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;I have done this {} times now.&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;self_aware_function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;count&lt;/code&gt; is evaluated at function definition to be a mutable list with one integer element.&lt;/li&gt;
+&lt;li&gt;Each invocation of our &lt;code&gt;self_aware_function&lt;/code&gt; adds another tick to our mutable &lt;code&gt;count&lt;/code&gt; parameter.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And we have our cheeky, self aware function!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python aware.py
+This is my first &lt;span class="nb"&gt;time&lt;/span&gt; doing this
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;4&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;6&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;7&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;8&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+I have &lt;span class="k"&gt;done&lt;/span&gt; this &lt;span class="m"&gt;9&lt;/span&gt; &lt;span class="nb"&gt;times&lt;/span&gt; now.
+Who are you to tell me what to &lt;span class="k"&gt;do&lt;/span&gt;???
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;span class="note"&gt;If you're wondering, mutable default arguments was the answer I gave after a good amount of thought. I believe there are other solutions and I invite you to share them in the comments :)&lt;/span&gt;&lt;/p&gt;</content><category term="python"></category></entry><entry><title>I moved your stuff but don't freak out cuz I left behind a symlink</title><link href="http://blog.sitongpeng.com/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="alternate"></link><published>2013-06-29T23:00:00-07:00</published><updated>2013-06-29T23:00:00-07:00</updated><author><name>Sitong Peng</name></author><id>tag:blog.sitongpeng.com,2013-06-29:/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html</id><summary type="html">&lt;p&gt;Dotfiles and symlinks otherwise known as cleaning $HOME&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span id="note"&gt;Learning new &lt;em&gt;nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about &lt;/em&gt;nix-craft.&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;I'm not sure when I first heard of &lt;a href="http://en.wikipedia.org/wiki/Symbolic_link"&gt;symlinking&lt;/a&gt;, but the first time it hit me as "something I should get acquainted with" was while I was reading &lt;a href="http://dotfiles.github.io/"&gt;dotfiles.github.io&lt;/a&gt;. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.&lt;/p&gt;
 &lt;p&gt;So, as I had endeavored to clean my virtual &lt;code&gt;$HOME&lt;/code&gt; of dotfiles, it became apparent that I needed to get familiar with symlinks.&lt;/p&gt;
 &lt;h2&gt;Leaving a note&lt;/h2&gt;

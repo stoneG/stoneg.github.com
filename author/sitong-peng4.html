@@ -4,19 +4,19 @@
         <title>Writing - Articles by Sitong Peng</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
+                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,7 +24,7 @@
 
     <header id="sidebar">
         <div class="bounds">
-                        <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
             <h1><a href="/">Writing</a></h1>
             <p>My thoughts, shared</p>
                 <ul>
@@ -34,174 +34,280 @@
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                                                                        <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
-                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
-                                                            </ul>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                            <li><a href="https:/github.com/stoneG">Github</a></li>
+                </ul>
         </div>
     </header>
 
     <section id="main">
-            
-                <header>
-            <h1><a href="../posts/the-self-aware-python-function.html" rel="bookmark"
-                   title="Permalink to The Self Aware Python Function">The Self Aware Python Function</a></h1>
-        <p class="date">Saturday, January 18, 2014</p>        </header>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
+                   title="Permalink to The case for base cases">The case for base cases</a></h1>
+<p class="date">Monday, January 28, 2013</p>        </header>
         <article>
-            <p>I've been using Python for over a year now. It's what I learned to program with. About half a year ago, a fellow coder (friend of a friend) posed the following riddle upon learning that it was my language of choice:</p>
-<p class="quote">"How would you write a function in Python that knows how many times it's been invoked?"</p>
+            <p>You have a complicated problem to solve. How do you start tackling it?</p>
+<p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
+<h2>Tower of Hanoi</h2>
+<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
+<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg"></p>
+<p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
+<ol>
+<li>Only one disk may be moved at a time.  </li>
+<li>Each move consists of taking the top-most disk from one of the rods and sliding it onto another rod, on top of the other disks that may already be present on that rod.  </li>
+<li>No disk may be placed on top of a disk smaller than it.</li>
+</ol>
+<p>Seems straightforward enough, but let's solve this for N disks. How should we start?</p>
+<h2>Let's start with the base cases</h2>
+<p>N=1</p>
+<div class="highlight"><pre><span></span>    |         |         |
+    |         |         |
+   -|-        |         |
+========= ========= =========
+    A         B         C
 
-<p>Let's consider this for a moment. A function that knows how many times it has been invoked is one that would need some access to a scope outside of it's own. Functions are generally pretty transient &mdash; they do their thing and then wait until they are told to do it again. There isn't a middling dormant state where they consider how many times they've been told to execute their (probably) menial task.</p>
-<p>As a first stab, we might consider a global counter, as in the following setup:</p>
-<div class="codehilite"><pre><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+1.  -----------------&gt; -|-
+Done.
 
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">self_aware_function</span><span class="p">()</span>
+So we solve N=1 with one move of -|-.
 </pre></div>
 
 
-<p>Those familiar with Python are up in arms right now, and rightfully so. Here's what you get when invoking <code>self_aware_function</code>:</p>
-<div class="codehilite"><pre><span class="n">UnboundLocalError</span><span class="o">:</span> <span class="n">local</span> <span class="n">variable</span> <span class="s1">&#39;count&#39;</span> <span class="n">referenced</span> <span class="n">before</span> <span class="n">assignment</span>
+<p>N=2</p>
+<div class="highlight"><pre><span></span>    |         |         |
+   -|-        |         |
+  --|--       |         |
+========= ========= =========
+    A         B         C
+
+1.  -------&gt; -|-
+
+    |         |         |
+    |         |         |
+  --|--      -|-        |
+========= ========= =========
+    A         B         C
+
+2.  ----------------&gt; --|--
+3.            -------&gt; -|-
+Done.
+
+Let&#39;s take a closer look at these moves:
+1. Exactly like solving N=1, except A-&gt;B instead of A-&gt;C.
+2. The second step places the largest disc at the base of C.
+3. Also solves N=1, only B-&gt;C instead of A-&gt;C.
+Done.
+
+Let&#39;s rewrite our steps like this:
+1. Solve N=1, except A-&gt;B
+2. Move --|-- from A-&gt;C
+3. Solve N=1, except B-&gt;C
+Done.
 </pre></div>
 
 
-<p>In Python, when you are in a function and assign a value to an immutable type variable (such as our int <code>count</code>), you end up shadowing the global variable with one local to the function's scope. So when <code>count += 1</code> is evaluated (remember this is expanded to <code>count = count + 1</code>), Python cannot find the value for <code>count</code> in the expression to the right of the <code>=</code>.</p>
-<h2>Okay, local variables won't work, how about we use the <code>global</code> keyword or mutable variables?</h2>
-<div class="codehilite"><pre><span class="c"># global keyword</span>
+<p>N=3</p>
+<div class="highlight"><pre><span></span>   -|-        |         |
+  --|--       |         |
+ ---|---      |         |
+========= ========= =========
+    A         B         C
 
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">count</span> <span class="c"># Now we force the use of the global count</span>
-    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c"># ...</span>
+1.  -----------------&gt; -|-
+2.  ------&gt; --|--
+3.           -|- &lt;-------
+
+    |         |         |
+    |        -|-        |
+ ---|---    --|--       |
+========= ========= =========
+    A         B         C
+
+4.  ---------------&gt; ---|---
+5. -|- &lt;-------
+6.            ------&gt; --|--
+7.  -----------------&gt; -|-
+Done.
+
+Notice how steps 1-3 solve N=2 and places it at B. Rewrite?
+1. Solve N=2, except A-&gt;B
+2. Move ---|--- from A-&gt;C
+3. Solve N=2, except B-&gt;C
+Done.
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="c"># using a list</span>
-<span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">():</span>
-    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c"># ...</span>
+<p>Interesting. Looks like we have a formula.</p>
+<div class="highlight"><pre><span></span>N=n
+1. Solve N=(n-1), except A-&gt;B
+2. Move largest disc from A-&gt;C
+3. Solve N=(n-1), except B-&gt;C
 </pre></div>
 
 
-<p>These both work and globals were my first idea for a solution. However, when I asked if this was acceptable, I was met with opposition.</p>
-<p class="quote">"You are only allowed to write code within the function, not outside of it."</p>
-
-<p>That's rough. How do you become self aware of an outside world/scope that you can't even interact with?</p>
-<p>Turns out, the answer lies within a popular Python <a href="http://effbot.org/zone/default-values.html">gotcha</a>.</p>
-<h2>Self-awareness</h2>
-<p>Here's how you define a default parameter in Python:</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">default</span>
+<p>I was pretty excited when I saw this pattern, as it meant I could code up a solution in very few lines of code. Here it is in Python, using a list as a stack:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">C</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+    <span class="n">solve_hanoi</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 </pre></div>
 
 
-<p>In Python, default parameters are evaluated ONLY once &mdash; when the function is defined. That means the default parameter is "the same" for all invocations of the function. I say "the same" because normally the default parameter will have the same value across multiple function invocations, but if your default parameter is mutable then you change it! And then you can do some really special things.</p>
-<p>Case in point, self-awareness:</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">self_aware_function</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">if</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;This is my first time doing this&#39;</span>
-    <span class="k">elif</span> <span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&quot;Who are you to tell me what to do???&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span> <span class="s">&#39;I have done this {} times now.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">self_aware_function</span><span class="p">()</span>
-</pre></div>
-
-
-<ul>
-<li><code>count</code> is evaluated at function definition to be a mutable list with one integer element.</li>
-<li>Each invocation of our <code>self_aware_function</code> adds another tick to our mutable <code>count</code> parameter.</li>
-</ul>
-<p>And we have our cheeky, self aware function!</p>
-<div class="codehilite"><pre><span class="nv">$ </span>python aware.py
-This is my first <span class="nb">time </span>doing this
-I have <span class="k">done </span>this 2 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 3 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 4 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 5 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 6 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 7 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 8 <span class="nb">times </span>now.
-I have <span class="k">done </span>this 9 <span class="nb">times </span>now.
-Who are you to tell me what to <span class="k">do</span>???
-</pre></div>
-
-
-<p><span class="note">If you're wondering, mutable default arguments was the answer I gave after a good amount of thought. I believe there are other solutions and I invite you to share them in the comments :)</span></p>
-                <p class="comments">
-        <a href="../posts/the-self-aware-python-function.html#disqus_thread"></a>.
+<p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
+<p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
+<iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/python.html">[python]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
+            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
+            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
+    </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/travelling-salesman.html" rel="bookmark"
-                   title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
-        <p class="date">Friday, February 01, 2013</p>        </header>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html" rel="bookmark"
+                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
+<p class="date">Wednesday, January 23, 2013</p>        </header>
         <article>
-            <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
-<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
-<p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
-<h2>Finding a "short" path</h2>
-<p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
-<ol>
-<li>Starting at A, traverse through each node and make note of which path is the shortest.</li>
-<li>Take the shortest path (let's say to B) and mark A visited.</li>
-<li>Repeat step 1 and 2 until all nodes are visited.</li>
-</ol>
-<p>When might this be the shortest path? Imagine the cities laid out in a line like so:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="p">(</span><span class="n">J</span><span class="p">)</span>
+            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c1"># if we are in the child process</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 
-<p>Using the "short" path algorithm, we can see that we'll just sequentially step left to right and that would certainly find us the shortest path.</p>
-<p>When might this be a long path? Try the following:</p>
-<div class="codehilite"><pre><span class="p">(</span><span class="n">J</span><span class="p">)</span>   <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="p">(</span><span class="n">H</span><span class="p">)</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<h2>A little background</h2>
+<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
+<h2>Result</h2>
+<div class="highlight"><pre><span></span>&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
+&gt; 0.844421851525
 </pre></div>
 
 
-<p>In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.</p>
-<p>The problem with this "short" path algorithm is that we are considering too few paths.</p>
-<h2>Exhaustive search</h2>
-<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
-<p>Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.</p>
-<ol>
-<li>Starting at A, move to next unvisited node, note distance and mark A as visited.</li>
-<li>Repeat step 1 until all nodes visited, then you should have some array of all distances travelled. That is your distance path.</li>
-<li>Now traverse back up your path until you have the option of visiting a different node. Visit that and dig deeper down until you also have that path complete. (in this case, traversing back up the path is done by finishing the innermost loop and moving on to the next node of the immediate outer loop)</li>
-<li>Eventually you will visit every path and document the distances.</li>
-</ol>
-<p>We end up with <code>(N-1)!</code> paths which is pretty terrible in terms of computation time (Note this is not <code>N!</code> because we are actually only visiting <code>N-1</code> nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!</p>
-<h2>So what about large N?</h2>
-<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
-<p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
-                <p class="comments">
-        <a href="../posts/travelling-salesman.html#disqus_thread"></a>.
+<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
+<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
+<h2>Solution</h2>
+<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">time</span>                      <span class="c1">##### ADDED THIS LINE ######</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c1">##### ADDED THIS LINE ######</span>
+        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Randomness restored.</p>
+<p><span id="update">Update</span><br>
+My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
+<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/unexpected-random-number-generation.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/algorithms.html">[algorithms]</a>
-                    <a href="../tag/graph.html">[graph]</a>
-                    <a href="../tag/shortest-path.html">[shortest path]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/random.html">[random]</a>
+            <a href="http://blog.sitongpeng.com/tag/random-numbers.html">[random numbers]</a>
+            <a href="http://blog.sitongpeng.com/tag/processes.html">[processes]</a>
+            <a href="http://blog.sitongpeng.com/tag/forking.html">[forking]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/whiskey.html">[whiskey]</a>
+    </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/trying-out-the-static-blog-thing.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/play-sweeper.html" rel="bookmark"
+                   title="Permalink to Play sweeper">Play sweeper</a></h1>
+<p class="date">Thursday, January 17, 2013</p>        </header>
+        <article>
+            <p>Been working on this for the last couple days. It's my first, real foray into writing in Javascript since I don't count the couple of functions I've written for my websites. It uses a bit of JQuery. A lot of learning went into the creation of this game so I might write more about that business later. But yeah, for now.. Play <a href="http://stoneg.github.com/sweeper/sweeper.html">sweeper</a>.</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/play-sweeper.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/sweeper.html">[sweeper]</a>
+            <a href="http://blog.sitongpeng.com/tag/javascript.html">[javascript]</a>
+            <a href="http://blog.sitongpeng.com/tag/programming-challenge.html">[programming challenge]</a>
+            <a href="http://blog.sitongpeng.com/tag/game.html">[game]</a>
+            <a href="http://blog.sitongpeng.com/tag/minesweeper.html">[minesweeper]</a>
+    </p>
+        </article>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/i-am-a-real-vim-user-today.html" rel="bookmark"
+                   title="Permalink to I am a real Vim user today">I am a real Vim user today</a></h1>
+<p class="date">Thursday, January 10, 2013</p>        </header>
+        <article>
+            <p>There comes a point, usually after you've been using something for awhile, when you realize you are no longer just using it casually. <strong><em>And no, I'm not talking about drugs.</em></strong>I'm talking about defining my first shortcut key in my <code>.vimrc</code>.</p>
+<h2>A little background</h2>
+<p>I was first introduced to <a href="http://www.vim.org/">Vim</a> by my <a href="http://www.hackerschool.com">Hacker School</a> buddy <a href="http://www.jamesshieh.com">James</a>. For those of you who don't know, Vim is a very peculiar text editor. It is an "improved" version of <a href="http://ex-vi.sourceforge.net/">Vi</a>, the de facto Unix editor. Vim allows for a very efficient coding experience in which your hands generally never have to leave their main resting positions on the keyboard. And unlike editors (see <a href="http://www.gnu.org/software/emacs/">Emacs</a>), Vim makes heavy usage of different input modes to separate document navigation, inserting content, and text selection. This makes for a steep initial learning curve, as the default mode in Vim is mostly navigational, which is a farcry from the style of most word processors (hjkl actually mean hjkl, not left down up right).</p>
+<h2>Word Wrap</h2>
+<p>So I was excited to be able to write these blog posts using Vim since I've gotten quite good and fast at using it. However, I quickly realized that a text editor that primarily displays lines of code needs a bit of work to properly display words and sentences.</p>
+<p>For instance, here's what I was seeing everytime I wrote a paragraph of text:</p>
+<div class="highlight"><pre><span></span>This is a medium paragraph of text. Everything is all fine and dandy until you
+ get to the end of the line. Then, whatever text you just wrote gets cut off p
+recisely when you reach the column width of your Vim window. This leads to awk
+ward and hard to read paragraphs!
+</pre></div>
+
+
+<p>So, after a bit of research, I threw this into my <code>.vimrc</code> file.</p>
+<div class="highlight"><pre><span></span><span class="c">&quot; F5 word wrap mode (great for writing blog posts!)</span>
+<span class="k">set</span> <span class="nb">wrap</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">linebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+<span class="nb">nnoremap</span> <span class="p">&lt;</span>C<span class="p">-</span>F5<span class="p">&gt;</span> :<span class="k">set</span> <span class="nb">nolinebreak</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>
+</pre></div>
+
+
+<p>The first line turns the <code>wrap</code> option on. The second line binds <code>:set linebreak&lt;CR&gt;</code> to <code>F5</code> in normal mode. The last line binds the reverse to <code>Ctrl</code> + <code>F5</code>. <code>&lt;CR&gt;</code> is a carriage return, otherwise known as the <code>enter</code> or <code>return</code> button.</p>
+<p>So hitting <code>F5</code> in normal mode effectively types out <code>:set linebreak</code> then hits <code>enter</code> for you, rendering much more readable text for when you are not just writing code!</p>
+<div class="highlight"><pre><span></span>This is a medium paragraph of text. Everything is all fine and dandy until
+you get to the end of the line. Then, whatever text you just wrote gets cut
+off precisely when you reach the column width of your Vim window. This
+leads to awkward and hard to read paragraphs!
+</pre></div>
+
+
+<p><span id="note">For those of you that are curious, Vim will automatically break the line as soon as it encounters any of these characters <code>^I !@*-+;:,./?</code>. You can change that default by redefining the <code>breakat</code> option. See <a href="http://vim.wikia.com/wiki/Word_wrap_without_line_breaks">here</a> for details.</span></p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/i-am-a-real-vim-user-today.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/vim.html">[vim]</a>
+            <a href="http://blog.sitongpeng.com/tag/vimrc.html">[vimrc]</a>
+            <a href="http://blog.sitongpeng.com/tag/shortcut.html">[shortcut]</a>
+            <a href="http://blog.sitongpeng.com/tag/emacs.html">[emacs]</a>
+            <a href="http://blog.sitongpeng.com/tag/word-wrap.html">[word wrap]</a>
+            <a href="http://blog.sitongpeng.com/tag/blog.html">[blog]</a>
+            <a href="http://blog.sitongpeng.com/tag/hacker-school.html">[hacker school]</a>
+    </p>
+        </article>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/trying-out-the-static-blog-thing.html" rel="bookmark"
                    title="Permalink to Trying out the static blog thing">Trying out the static blog thing</a></h1>
-        <p class="date">Tuesday, January 08, 2013</p>        </header>
+<p class="date">Tuesday, January 08, 2013</p>        </header>
         <article>
             <p>Since I started actively programming a few months ago, I've learned much about what technology I take for granted. In order to help me appreciate the many abstractions that our lives are built upon, I've made it my goal to be more technologically self-sufficent. The first step was to revamp my <a href="http://www.sitongpeng.com">personal website</a>. Next up was to move my code blog from Tumblr to my own domain, and then rebuild it on top of a static site/blog generator. That way, I would have complete ownership and control over my own posts.</p>
 <h2>Static what nots?</h2>
@@ -210,9 +316,9 @@ Who are you to tell me what to <span class="k">do</span>???
 <p>You should certainly consult the <a href="https://pelican.readthedocs.org">Pelican docs</a> for the full guide, but here's my general guide on how to get started.</p>
 <p>Pelican is written in Python (major selling point for me), so install it and it's dependencies using virtualenv and pip. Pelican only supports <a href="http://docutils.sourceforge.net/rst.html">reST</a> out of the box but provides <a href="http://daringfireball.net/projects/markdown/">Markdown</a> support upon installation of the <a href="http://packages.python.org/Markdown/">Python-Markdown</a> library. I use Markdown for my posts.</p>
 <p>Then, you'll want to make a <code>settings.py</code> file somewhere in your project folder. This file will hold the global variables you set for Pelican. The important ones include:</p>
-<div class="codehilite"><pre><span class="n">AUTHOR</span> <span class="p">=</span> <span class="s">&#39;YOUR NAME&#39;</span>
-<span class="n">SITENAME</span> <span class="p">=</span> <span class="s">&#39;YOUR SITE NAME&#39;</span>
-<span class="n">SITEURL</span> <span class="p">=</span> <span class="s">&#39;http://your-site.com&#39;</span>
+<div class="highlight"><pre><span></span>AUTHOR = &#39;YOUR NAME&#39;
+SITENAME = &#39;YOUR SITE NAME&#39;
+SITEURL = &#39;http://your-site.com&#39;
 </pre></div>
 
 
@@ -223,10 +329,10 @@ Who are you to tell me what to <span class="k">do</span>???
 <p>You'll need some familiarity with <a href="http://jinja.pocoo.org/docs/">Jinja2</a> templates. At the minimum, you should read about the conditionals/loop syntax (especially loop attributes) and template inheritance (include and block). I believe Jinja2's templating system is similar to Django's, so you should feel at home if that's your forte.</p>
 <p>Pelican is specific about what file structure it wants in a custom theme. The <a href="http://docs.getpelican.com/en/3.1.1/themes.html">documentation</a> outlines the structure, but doesn't give you adequate information on what attributes you can access from variable objects. If you need specific functionality beyond what objects and object attributes others have done in the sample themes, you'll probably just need to read through the Pelican source or ask some questions in their IRC channel.</p>
 <p>I ended up starting with the default theme (called: notmyidea) templates and stripping it of everything I didn't want to use. For instance, I had no need for the category and author functionalities. I don't want to categorize posts and I'll be the only author on this blog, therefore, I did not supply:</p>
-<div class="codehilite"><pre><span class="n">categories</span><span class="p">.</span><span class="n">html</span>
-<span class="n">category</span><span class="p">.</span><span class="n">html</span>
-<span class="n">author</span><span class="p">.</span><span class="n">html</span>
-<span class="n">authors</span><span class="p">.</span><span class="n">html</span>
+<div class="highlight"><pre><span></span>categories.html
+category.html
+author.html
+authors.html
 </pre></div>
 
 
@@ -237,17 +343,17 @@ Who are you to tell me what to <span class="k">do</span>???
 <h2>Workflow</h2>
 <p>So once you have your theme, you're ready to create content! I host my pages on <a href="http://pages.github.com/">Github Pages</a>, but you choose your own host.</p>
 <p>Let's go through how I am publishing this post. First I write it (in vim!) and save it in my content folder, which stores all my posts for this year.</p>
-<div class="codehilite"><pre><span class="n">content</span><span class="o">/</span>2013<span class="o">/</span><span class="n">trying</span><span class="o">-</span><span class="n">out</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">static</span><span class="o">-</span><span class="n">blog</span><span class="o">-</span><span class="n">thing</span><span class="p">.</span><span class="n">md</span>
+<div class="highlight"><pre><span></span>content/2013/trying-out-the-static-blog-thing.md
 </pre></div>
 
 
 <p>I like to move out to the root of my Blog folder, then run Pelican to update all my static pages.</p>
-<div class="codehilite"><pre>$ <span class="n">pelican</span> <span class="n">content</span><span class="o">/</span>2013<span class="o">/</span> <span class="o">-</span><span class="n">s</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">settings</span><span class="p">.</span><span class="n">py</span>
+<div class="highlight"><pre><span></span>$ pelican content/2013/ -s path/to/settings.py
 </pre></div>
 
 
 <p>The new static pages will be placed in</p>
-<div class="codehilite"><pre><span class="n">output</span><span class="o">/</span>
+<div class="highlight"><pre><span></span>output/
 </pre></div>
 
 
@@ -255,239 +361,82 @@ Who are you to tell me what to <span class="k">do</span>???
 <p>Then I simply <code>$ git add .</code> in my output folder, throw on a commit message, then push it to Github.</p>
 <h2>Final thoughts</h2>
 <p>The entire set up process takes a bit of time, especially if you're making your own theme, but it's always nice to have ownership over your own content. That's just something you don't get on Tumblr or other browser based blogs. Pelican is an awesome option for anyone looking for a static blog generator and wanting to work in Python, I heartily recommend it.</p>
-                <p class="comments">
-        <a href="../posts/trying-out-the-static-blog-thing.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/trying-out-the-static-blog-thing.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/static-blog.html">[static blog]</a>
-                    <a href="../tag/pelican.html">[pelican]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/the-architect.html">[the architect]</a>
-                    <a href="../tag/jinja2.html">[jinja2]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/static-blog.html">[static blog]</a>
+            <a href="http://blog.sitongpeng.com/tag/pelican.html">[pelican]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/the-architect.html">[the architect]</a>
+            <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
+    </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/understanding-heaps.html" rel="bookmark"
-                   title="Permalink to Understanding heaps">Understanding heaps</a></h1>
-        <p class="date">Saturday, February 02, 2013</p>        </header>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/on-to-better-things.html" rel="bookmark"
+                   title="Permalink to On to better things">On to better things</a></h1>
+<p class="date">Sunday, January 06, 2013</p>        </header>
         <article>
-            <p>I'm spending this weekend filling in some of the holes in my programming background, data structures in particular. As part of the learning process, I want to share my new understanding of heaps.</p>
-<h2>What is it?</h2>
-<p>A heap is a type of <a href="http://en.wikipedia.org/wiki/Priority_queue">priority queue</a>, which is just a queue where dequeued elements are primarily selected based on their "priority" and secondarily selected based on the "first in first out" principle. A heap prioritizes by key values of objects it stores, which leads to the two flavors of heaps: the max heap and min heap. The max heap will dequeue the objects with the highest keys first. If there are multiple maxes, the heap will dequeue by order of insertion. As you'd expect, the min heap is the same except it dequeues objects with the lowest keys first.</p>
-<h2>Introducing the max heap</h2>
-<p>Although a heap is technically a priority queue, and although we are going to implement it as an array, heaps are commonly represented as a binary tree. Here is the max heap we're going to work with:</p>
-<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
-<p>There are two conditions that must be met for a binary tree to be a max heap.</p>
-<ol>
-<li>Every parent node must be at least as large as either child nodes. This means the max key will always be at the top of the tree.</li>
-<li>The tree must be complete at all levels except the deepest. The deepest level must be populated from the left. This means if the above tree had another node, it would be the left child of the node 8.</li>
-</ol>
-<p>We're going to implement this heap as an array. This boils down to extracting nodes left to right, top to bottom. Here's what it will look like:</p>
-<div class="codehilite"><pre><span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-</pre></div>
-
-
-<p><span id="note">Normally heaps hold objects with the keys we are showing in the tree and array representation. For simplicity, we'll just assume the objects and keys are one and the same.</span></p>
-<p>We also need to keep track of the parent and children of any given node. That's pretty natural for binary trees but how is that implemented in arrays? Turns out it's pretty simple with one-indexing, due to the way we are pulling elements off the tree.</p>
-<div class="codehilite"><pre>  <span class="m">1</span>  <span class="m">2</span>  <span class="m">3</span>  <span class="m">4</span>  <span class="m">5</span>  <span class="o">&lt;--</span> One<span class="o">-</span>indexing
-<span class="p">[</span><span class="m">11</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">8</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]</span>
-                             EXAMPLE:
-parent<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> floor<span class="p">(</span>i<span class="o">/</span><span class="m">2</span><span class="p">)</span>            parent<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">1</span>
-left_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span>           left_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">4</span>
-right_child<span class="p">(</span>i<span class="p">)</span> <span class="o">=</span> i<span class="o">*</span><span class="m">2</span> <span class="o">+</span> <span class="m">1</span>     right_child<span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">=</span> <span class="m">5</span>
-</pre></div>
-
-
-<p>Let's code up what we have. I prefer to have zero-indexing so the math on the parent/children calculation will have to compensate.</p>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MaxHeap</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
-
-    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span>
-</pre></div>
-
-
-<p>Now, a heap has two basic operations: insert and extract_max (extract_min). These are guaranteed to run in <code>O(logN)</code> time, or in other words, the height of the binary tree.</p>
-<h2>Insert</h2>
-<p>What does an insert look like in our binary tree model? Following the conditions of a binary heap, we have to insert the new object at the deepest level, moving in from the left. That corresponds to the node marked X below:</p>
-<p><img alt="Insert at X" src="http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Heap_add_step1.svg/500px-Heap_add_step1.svg.png" /></p>
-<p>It should be pretty obvious that the object we insert could break the heap property of this tree. Whatever key we end up with, we first need to compare it with its parent node. The parent node's key is 8, so if we insert an object with <code>key &lt;= 8</code> then we wouldn't have to do anything further. But what if the key is something higher like 15? Then our insertion would break heap condition #2.</p>
-<p>In this situation, the next step is to swap our inserted node with it's parent node. </p>
-<p><img alt="Swap with parent" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Heap_add_step2.svg/500px-Heap_add_step2.svg.png" /></p>
-<p>Cool. But now when we check 15 against its new parent, the root, we notice we're still in trouble. So we swap again. These swap acts are also known as "bubbling up" or "heapifying up", as the inserted object is promoted levels due to its priority.</p>
-<p><img alt="Promoted to root" src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Heap_add_step3.svg/500px-Heap_add_step3.svg.png" /></p>
-<p>Now that 15 has made it's way up to the root node, we can stop. As you can see, the new tree follows all conditions to be classified as a max heap. Here's the code for the insert operation.</p>
-<div class="codehilite"><pre>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">parent</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">parent</span><span class="p">:</span>
-                <span class="n">i</span> <span class="o">=</span> <span class="n">parent</span>
-                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span> <span class="c"># parent is root</span>
-                <span class="k">break</span>
-</pre></div>
-
-
-<p>As you can see, we first insert to the end of the array, then while the inserted key is larger than its parent, we swap it upward until it finds its place.</p>
-<h2>Extract Max</h2>
-<p>I believe this is also known as Delete Max, but in either case, this operation removes the max from the heap. And because we're working with a heap, we know the max is the root of the tree (or first element of the array), so we certainly don't need to traverse through the entire structure to determine it.</p>
-<p><img alt="Binary max heap" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Heap_delete_step0.svg/500px-Heap_delete_step0.svg.png" /></p>
-<p>Now, as mentioned before, the first step is to remove the root node. That leaves us with a tricky situation. What node will replace the root?</p>
-<p>Let's go through our options.</p>
+            <p>Pretty odd to have committed to writing 100 meaningful blog posts this year, and then promptly not post until Jan 6th. But as you can tell, my excuse is that I was spending all weekend building my new blog. Well I'm glad to say, <em><a href="http://blog.sitongpeng.com">here it is</a></em>.  </p>
+<p>I'm now running on the static site generator, <a href="http://docs.getpelican.com/">Pelican</a>. It's awesome because it is actively developed (version 3.1.1 as of 12/4/12) and it is written in Python, which means I didn't have to default to <a href="http://jekyllrb.com/">Jekyll</a>. It's not that I'm averse to Jekyll, I'd just rather work in the language I'm most comfortable in (<em>not Ruby</em>). Anyways, things I'm most excited about:</p>
 <ul>
-<li>Pull up the 5. Well, now we fail both conditions. The root is now less than the right child, and more importantly we have an incomplete binary tree.</li>
-<li>Pull up the 8. Cool, our root is the max, but now we have an entire empty branch on the right. That seems like a big problem and we can't just fix it by pulling from an entirely separate branch.</li>
-<li>Pull up the 3. Breaks the complete tree again.</li>
-<li>Pull up the 4. We still have a complete tree (in terms of a heap at least). We have a bad root but maybe we can shift that node back down.</li>
+<li>Writing all my posts in Markdown</li>
+<li>Being hosted on Github Pages</li>
+<li>Having all my posts saved on my Dropbox</li>
+<li>New syntax highlighting color scheme</li>
+<li>Actually using my own domain</li>
 </ul>
-<p>So the general solution seems to be, promote the last element of the tree/array.</p>
-<p><img alt="Big promotion here" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Heap_remove_step1.svg/500px-Heap_remove_step1.svg.png" /></p>
-<p>So now the new root is no longer the max. We need to swap it with one of its children. If we swap with 5, we'll still have the same problem. We'll need to swap with 8. This should lead us to the realization that we'll always want to swap with the higher of the two children, otherwise we'll just be making more of a mess of things.</p>
-<p><img alt="Back to normalcy" src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Heap_remove_step2.svg/500px-Heap_remove_step2.svg.png" /></p>
-<p>Now we have our max extracted heap!</p>
-<p>Here's the code:</p>
-<div class="codehilite"><pre>    <span class="k">def</span> <span class="nf">extract_max</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span> <span class="c"># if right exists, so does left</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="n">left</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="n">right</span>
-                <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span> <span class="c"># we have a heap again</span>
-                <span class="k">return</span>
-        <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">):</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
-</pre></div>
-
-
-<p><span id="note">I'm not actually returning the max here, but you can build that in pretty easily.</span></p>
-<p><code>extract_max</code> is a bit more complicated than <code>insert</code>. Swapping the new root down takes a few more comparision steps as we have to decide which child to swap with. We're still within <code>O(logN)</code> time though, since we will never need to swap more than the height of the binary tree.</p>
-<h2>So what are heaps good for?</h2>
-<p>In general, when you constantly need to access the min or max of some data, heaps are a logical choice, as you just need to pluck it from the top of the tree/front of the array and do a little rearranging. This means they are useful for tasks like managing bandwith on a router (always send the prioritized traffic first) or handling asynchronous event processing (firing off shortest tasks first).</p>
-<p>Heaps are also useful in speeding up certain algorithms that require multiple min or max computations. One example is Dijkstra's shortest path algorithm, where you are constantly computing the minimum path for each node.</p>
-<p>So, hopefully you've now got a solid understanding of heaps. Next time you're working on something and you find yourself repeatedly taking minimums or maximums, you should give them a try. They will make your life easier.</p>
-                <p class="comments">
-        <a href="../posts/understanding-heaps.html#disqus_thread"></a>.
+<p>I'm planning on writing about my experience building this blog in a post later this week. Stay tuned.</p>
+<p>(find old posts on my <a href="http://hellositong.tumblr.com">tumblr</a>)</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/on-to-better-things.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/heaps.html">[heaps]</a>
-                    <a href="../tag/data-structures.html">[data structures]</a>
-                    <a href="../tag/python.html">[python]</a>
-            </p>
-        </article>
-            
-                <header>
-            <h1><a href="../posts/unexpected-random-number-generation.html" rel="bookmark"
-                   title="Permalink to Unexpected random number generation">Unexpected random number generation</a></h1>
-        <p class="date">Wednesday, January 23, 2013</p>        </header>
-        <article>
-            <p>So, last month, I was working on building test applications for <a href="https://github.com/stoneG/whiskey">Whiskey</a>, my Python WSGI server implementation. I wanted to ensure Whiskey was robust enough to keep going, even if it was serving applications that met critical, program-killing exceptions. To that end, I wrote a random exception throwing application to test with Whiskey. Here's the code, simplified and stripped down to its core.</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="c"># if we are in the child process</span>
-        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<h2>A little background</h2>
-<p>Whiskey handles concurrent client requests by forking new child processes. Calling <code>os.fork()</code> splits the current process into two, the parent and child. The child process will have a process identifier (pid) of 0. Recall that a forked child process has a copy of the same memory space/environment of its parent.</p>
-<h2>Result</h2>
-<div class="codehilite"><pre><span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-<span class="o">&gt;</span> 0<span class="p">.</span>844421851525
-</pre></div>
-
-
-<p>You might not be surprised since you've already come into this post with some suspicion, but remember that this is the stripped down code. What I actually ran into, was an application that either always failed or never failed. So, what's going on?</p>
-<p>Well, every client request leads to a forked child process that handles the request. However, each child process ends up having the same random seed, since it is always forked from the same parent process (or more specifically, a parent process which never changes its random seed). This results in a pesky situation where you unexpectedly have an expected random number.</p>
-<h2>Solution</h2>
-<p>We need to reset the random seed for each forked process. One way is to set the seed to the time of the request.</p>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">time</span>                      <span class="c">##### ADDED THIS LINE ######</span>
-
-<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">fork</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="c">##### ADDED THIS LINE ######</span>
-        <span class="k">print</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Randomness restored.</p>
-<p><span id="update">Update</span><br />
-My friend <a href="https://twitter.com/geofflee">Geoff</a> mentioned that for real applications, you wouldn't want to use <code>time.time()</code> as your seed. Besides you leaving yourself open to the chance of two requests spawning processes at the same time, any PRNG (pseudo random number generator) is unsuitable for security reasons. Instead using <code>/dev/random</code> (UNIX) or <code>CryptGenRandom</code> (Windows) is preferable, since you'd have true randomness then. For the Python implementation, you'd want to make a call to <code>os.urandom()</code> to access your OS's random file. You can find the documentation on that, <a href="http://docs.python.org/2/library/os.html#os.urandom">here</a>.</p>
-<p><span id="note">I wish I could say I ran into this recently, but I've unfortunately been too busy applying to jobs instead of working on personal projects. I actually talked about this subject for a Hacker School weekly presentation on December 6th, 2012.</span></p>
-                <p class="comments">
-        <a href="../posts/unexpected-random-number-generation.html#disqus_thread"></a>.
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/pelican.html">[pelican]</a>
+            <a href="http://blog.sitongpeng.com/tag/new.html">[new]</a>
+            <a href="http://blog.sitongpeng.com/tag/github-pages.html">[github pages]</a>
+            <a href="http://blog.sitongpeng.com/tag/jinja2.html">[jinja2]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/tumblr.html">[tumblr]</a>
     </p>
-                <p class="tags">
-                    <a href="../tag/random.html">[random]</a>
-                    <a href="../tag/random-numbers.html">[random numbers]</a>
-                    <a href="../tag/processes.html">[processes]</a>
-                    <a href="../tag/forking.html">[forking]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/whiskey.html">[whiskey]</a>
-            </p>
         </article>
-            
-                <header>
-            <h1><a href="../posts/whats-coming-up-2017.html" rel="bookmark"
-                   title="Permalink to What's coming up 2017">What's coming up 2017</a></h1>
-        <p class="date">Tuesday, January 03, 2017</p>        </header>
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/programming-resolutions.html" rel="bookmark"
+                   title="Permalink to Programming Resolutions">Programming Resolutions</a></h1>
+<p class="date">Wednesday, January 02, 2013</p>        </header>
         <article>
-            <ol>
-<li>Read 18 books, at least 3 nonfiction.<br />
-<span class="note">I’ve always averaged 5 books/year but I’d like to make reading more of a priority this year.</span></li>
-<li>Commit to a longer side project (At least 3 months).<br />
-<span class="note">I have at least one in mind :)</span></li>
-<li>Accomplish two physical milestones.<br />
-<span class="note">Potential examples: train for another run or swim or bike race, complete a major hike/trek, do a muscle up, etc...</span></li>
-<li>Accomplish two creative milestones.<br />
-<span class="note">Potential examples: getting better at freestyle hip hop, art, music, or even food composition/plating.</span></li>
+            <p>Last year was the first year in a long time that I did not make any
+resolutions over the year. I’d like to get back to it this year, with a
+few that I should be able to keep.</p>
+</p><ol class="arabic simple">
+<li>Articulation: 100 posts about programming things I’ve encountered and want to share.</li>
+<li>Get involved: Contribute a couple patches or a bug fix to an open source project.</li>
+<li>Push myself: Do a weekend project and get it on the front page of HN.</li>
+<li>Read more books: I need to expand my knowledge beyond just reading the news and blogs.</li>
 </ol>
-<p>Can't wait.</p>
-                <p class="comments">
-        <a href="../posts/whats-coming-up-2017.html#disqus_thread"></a>.
+</p><p>Here’s to a great 2013!</p>
+</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/programming-resolutions.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/resolutions.html">[resolutions]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/resolutions.html">[resolutions]</a>
+            <a href="http://blog.sitongpeng.com/tag/2013.html">[2013]</a>
+            <a href="http://blog.sitongpeng.com/tag/2012.html">[2012]</a>
+            <a href="http://blog.sitongpeng.com/tag/programming.html">[programming]</a>
+            <a href="http://blog.sitongpeng.com/tag/open-source.html">[open source]</a>
+            <a href="http://blog.sitongpeng.com/tag/blog.html">[blog]</a>
+            <a href="http://blog.sitongpeng.com/tag/weekend-project.html">[weekend project]</a>
+            <a href="http://blog.sitongpeng.com/tag/hacker-news.html">[hacker news]</a>
+    </p>
         </article>
-                                    <p class="paginator">
-                        <a href="../author/sitong-peng3.html">&lt;&lt;</a>
-                Page 4 / 4
-    </p>
-                                <footer>
+<p class="paginator">
+            <a href="http://blog.sitongpeng.com/author/sitong-peng3.html">&lt;&lt;</a>
+    Page 4 / 4
+</p>
+        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>

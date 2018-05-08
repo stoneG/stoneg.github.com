@@ -4,19 +4,19 @@
         <title>Writing - functions</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-                <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
-                        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
                 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie.css"/>
-                <script src="../js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
+                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="../css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -24,7 +24,7 @@
 
     <header id="sidebar">
         <div class="bounds">
-                        <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
+            <a href="https://twitter.com/stoneG_" target="_blank"><img class="face" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/face.jpg"></a>
             <h1><a href="/">Writing</a></h1>
             <p>My thoughts, shared</p>
                 <ul>
@@ -34,82 +34,82 @@
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                                                                        <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
-                                                    <li><a href="https:/github.com/stoneG">Github</a></li>
-                                                            </ul>
+                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                            <li><a href="https:/github.com/stoneG">Github</a></li>
+                </ul>
         </div>
     </header>
 
     <section id="main">
-            
-                <header>
-            <h1><a href="../posts/objects-attributes-functions-and-methods.html" rel="bookmark"
+
+        <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/objects-attributes-functions-and-methods.html" rel="bookmark"
                    title="Permalink to Objects, attributes, functions, and methods">Objects, attributes, functions, and methods</a></h1>
-        <p class="date">Sunday, April 07, 2013</p>        </header>
+<p class="date">Sunday, April 07, 2013</p>        </header>
         <article>
             <p>I set some time out to open the box on some <a href="http://www.python.org">Python</a> fundamentals this weekend. I have a few topics to write about but, for today, let's talk a little about objects.</p>
 <h2>Objects</h2>
 <p>Objects are a big deal in Python. And rightfully so, as most developers use Python in an object oriented manner, though you can certainly write imperatively or pseudo-functionally too. In fact, some people subscribe to the thought that <a href="http://www.diveintopython.net/getting_to_know_python/everything_is_an_object.html">everything in Python is an object</a>. I'm not going to argue about whether that's true or not so we'll just tip-toe around it and state that there are an <strong>awful lot of objects</strong>.</p>
 <p>So what is an object? Let's use <a href="http://en.wikipedia.org/wiki/Object_(computer_science)#Properties_of_an_object">Wikipedia</a>'s definition. Objects are characterized by these properties:</p>
 <h4>Identity (Objects are unique from each other)</h4>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Trivial</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Trivial</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="n">obj</span><span class="p">,</span> <span class="n">diff_obj</span> <span class="o">=</span> <span class="n">Trivial</span><span class="p">(),</span> <span class="n">Trivial</span><span class="p">()</span>
 
-<span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c"># 25851216</span>
-<span class="nb">id</span><span class="p">(</span><span class="n">diff_obj</span><span class="p">)</span> <span class="c"># 26133840</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c1"># 25851216</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">diff_obj</span><span class="p">)</span> <span class="c1"># 26133840</span>
 </pre></div>
 
 
 <h4>State (Can store data in object)</h4>
-<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">os</span> <span class="c"># modules are objects</span>
-<span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="o">=</span> <span class="s">&#39;arbitrary&#39;</span>
-<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="c"># arbitrary</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span> <span class="c1"># modules are objects</span>
+<span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="o">=</span> <span class="s1">&#39;arbitrary&#39;</span>
+<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">my_data</span> <span class="c1"># arbitrary</span>
 </pre></div>
 
 
 <h4>Behavior (Can manipulate the object)</h4>
-<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;strings&#39;</span><span class="p">,</span> <span class="s">&#39;are&#39;</span><span class="p">,</span> <span class="s">&#39;objects&#39;</span><span class="p">,</span> <span class="s">&#39;with&#39;</span><span class="p">,</span> <span class="s">&#39;methods&#39;</span><span class="p">])</span>
-<span class="c"># strings are objects with methods</span>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;strings&#39;</span><span class="p">,</span> <span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;objects&#39;</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="s1">&#39;methods&#39;</span><span class="p">])</span>
+<span class="c1"># strings are objects with methods</span>
 </pre></div>
 
 
 <h2>Attributes and Methods</h2>
 <p>You're probably familiar with setting object attributes to static data or writing simple methods if you've worked with objects in the past.</p>
-<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Lannister</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Lannister</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="nf">say_family_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&#39;{} says: &quot;Hear Me Roar!&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s1">&#39;{} says: &quot;Hear Me Roar!&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <span class="n">tyrion</span> <span class="o">=</span> <span class="n">Lannister</span><span class="p">()</span>
 
 <span class="k">print</span> <span class="n">tyrion</span><span class="o">.</span><span class="n">name</span>
-<span class="c"># Tyrion Lannister</span>
+<span class="c1"># Tyrion Lannister</span>
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
+<span class="c1"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
 </pre></div>
 
 
 <p>But you're actually not limited to such trivial behavior. For instance, since functions are first class objects in Python, you could easily do the following too.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">():</span>
-    <span class="k">print</span> <span class="s">&#39;A Lannister Always Pays His Debts.&#39;</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s1">&#39;A Lannister Always Pays His Debts.&#39;</span>
 
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
 
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">()</span>
-<span class="c"># A Lannister Always Pays His Debts.</span>
+<span class="c1"># A Lannister Always Pays His Debts.</span>
 </pre></div>
 
 
 <p>As you can see, we've set the <code>.say_common_motto</code> attribute to the function object <code>say_common_motto</code>, then invoked the attribute.</p>
 <p>Before we continue, we should make a distinction between <code>.say_common_motto</code> and <code>.say_family_motto</code>.</p>
-<div class="codehilite"><pre><span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;function&#39;&gt;</span>
+<div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">)</span>
+<span class="c1"># &lt;type &#39;function&#39;&gt;</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">)</span>
-<span class="c"># &lt;type &#39;instancemethod&#39;&gt;</span>
+<span class="c1"># &lt;type &#39;instancemethod&#39;&gt;</span>
 </pre></div>
 
 
@@ -117,31 +117,31 @@
 <p>You can think of a method as a function with a unique difference. A method always takes the object it's associated with as it's first argument. You don't have a choice on the matter.</p>
 <p>Under the hood, when Python sees <code>tyrion.say_family_motto()</code>, it first looks for a <code>.say_family_motto</code> attribute in <code>tyrion</code> (this means you can override an object method by writing to an object attribute with the same name). When it doesn't find that, the interpreter will jump up to the class level and look for <code>say_family_motto</code> function defined at the class level. Once found, it will invoke the function as a method - namely, by attaching the <code>tyrion</code> object to the head of the argument list. That's also why a method definition always includes a positional argument placeholder first (traditionally called <code>self</code> in Python).</p>
 <p>Methods are really just a shortcut though. You can actually just define your own function with an argument placeholder for an object and attach the function to the object attribute. An example makes this clearer. Suppose we rewrote the <code>say_common_motto</code> function to make it equivalent to a method.</p>
-<div class="codehilite"><pre><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s">&#39;{} says: &quot;A Lannister Always Pays His Debts.&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">say_common_motto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;{} says: &quot;A Lannister Always Pays His Debts.&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span> <span class="o">=</span> <span class="n">say_common_motto</span>
 
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_common_motto</span><span class="p">(</span><span class="n">tyrion</span><span class="p">)</span>
-<span class="c"># Tyrion Lannister says: &quot;A Lannister Always Pays His Debts.&quot;</span>
+<span class="c1"># Tyrion Lannister says: &quot;A Lannister Always Pays His Debts.&quot;</span>
 
 <span class="n">tyrion</span><span class="o">.</span><span class="n">say_family_motto</span><span class="p">()</span>
-<span class="c"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
+<span class="c1"># Tyrion Lannister says: &quot;Hear Me Roar!&quot;</span>
 </pre></div>
 
 
 <p>As you can see, defining a method in the class is a lot cleaner than attaching a function to the instance object. But both styles get you to the same resolution eventually. </p>
 <p>Anyways, hopefully you know a little more about Python objects now.</p>
-                <p class="comments">
-        <a href="../posts/objects-attributes-functions-and-methods.html#disqus_thread"></a>.
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/objects-attributes-functions-and-methods.html#disqus_thread"></a>.
     </p>
-                <p class="tags">
-                    <a href="../tag/objects.html">[objects]</a>
-                    <a href="../tag/python.html">[python]</a>
-                    <a href="../tag/functions.html">[functions]</a>
-            </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/objects.html">[objects]</a>
+            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
+            <a href="http://blog.sitongpeng.com/tag/functions.html">[functions]</a>
+    </p>
         </article>
-                                        <footer>
+        <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
