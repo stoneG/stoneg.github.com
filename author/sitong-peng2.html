@@ -43,6 +43,33 @@
     <section id="main">
 
         <header>
+            <h1><a href="http://blog.sitongpeng.com/posts/dear-toronto.html" rel="bookmark"
+                   title="Permalink to Dear Toronto,">Dear Toronto,</a></h1>
+<p class="date">Friday, January 08, 2016</p>        </header>
+        <article>
+            <p>I have a few things to say to the people I met in a city I wasn't sure I would like.</p>
+<p><img alt="Toronto at night" src="https://raw.github.com/stoneG/stoneg.github.com/master/images/toronto.jpg"></p>
+<p><strong>You</strong>, the pakistani man who makes butter chicken roti at your strangely NYC themed restaurant, who passably decorated it by throwing up old LIFE magazine covers on the walls, who has family trouble in California and a cousin doing a stint in our penal system.</p>
+<p><strong>You</strong>, the pupusa lady that gave me an extra tamale on the house after I had such a hard time deciding which pupusas and tamale flavors I wanted to try, who then laughed when I immediately came back to order the fried plantains, which I saw while waiting for my order (they weren't on the menu I agonized over).</p>
+<p><strong>You</strong>, the guy bumping to <em>Hotline Bling</em> outside your car that I grooved with, but politely had to decline your offer of a cigarette, because I had gone through D.A.R.E. three times as a kid.</p>
+<p><strong>You</strong>, the roommate who was once a kingpin of street fighter arcade sticks as well as an elite Canadian memory champion, who is unfazed by face transplant images that made me jump out of my chair, who upon learning I was leaving Toronto without seeing Niagara Falls rented a car and drove us out there at midnight.</p>
+<p><strong>You</strong>, the roommate who is a sound mixing engineer that did a tour of duty in Nashville but somehow managed to work on rock instead of country, who showed me the process for modern sound mixing using Britney Spears’ <em>I'm a Slave For You</em> (dozens of vocal tracks!), who stood in the hallway with me until 3am because we had delved too deep into our opinions about movies &amp; games for sleep to matter anymore.</p>
+<p><strong>You</strong>, the roommate who is polyglot that’s lived in many different countries, who works harder to balancing work and school than most anyone I've met, who still had the energy to unabashedly start dancing the one time I casually panned you into my snapchat video.</p>
+<p><strong>You</strong>, the girl with an excitement that is palpable, contagious, and hard to forget, who unquestioningly shared your hopes and dreams to a complete stranger who slid into your DMs, who despite living there your whole life, seemed somehow less familiar with directions in Toronto than me.</p>
+<p><strong>You</strong>, the guy who has not ventured out of Montreal for over 35 years, but gave me change for the bus and humored me while I chatted you up about how your city's bagels had ruined me for life.</p>
+<p><strong>You all made me feel odd, like I was leaving a place that had become a home.</strong></p>
+<p>Sincerely,</p>
+<p>Confused in California.</p>
+    <p class="comments">
+        <a href="http://blog.sitongpeng.com/posts/dear-toronto.html#disqus_thread"></a>.
+    </p>
+    <p class="tags">
+            <a href="http://blog.sitongpeng.com/tag/travel.html">[travel]</a>
+            <a href="http://blog.sitongpeng.com/tag/toronto.html">[toronto]</a>
+    </p>
+        </article>
+
+        <header>
             <h1><a href="http://blog.sitongpeng.com/posts/coming-up-in-2016.html" rel="bookmark"
                    title="Permalink to Coming up in 2016">Coming up in 2016</a></h1>
 <p class="date">Wednesday, January 06, 2016</p>        </header>
@@ -217,53 +244,9 @@ Who are you to tell me what to <span class="k">do</span>???
             <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
     </p>
         </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html" rel="bookmark"
-                   title="Permalink to I moved your stuff but don't freak out cuz I left behind a symlink">I moved your stuff but don't freak out cuz I left behind a symlink</a></h1>
-<p class="date">Saturday, June 29, 2013</p>        </header>
-        <article>
-            <p><span id="note">Learning new <em>nix-craft is kinda like being handed shiny new electronics. You're instantly intrigued with what new stuff you can do with it. This entry is the first in a series about </em>nix-craft.</span></p>
-<p>I'm not sure when I first heard of <a href="http://en.wikipedia.org/wiki/Symbolic_link">symlinking</a>, but the first time it hit me as "something I should get acquainted with" was while I was reading <a href="http://dotfiles.github.io/">dotfiles.github.io</a>. Context clues provided me with the idea that to symlink was to leave a little note to your OS about where you moved the file it expected to find there.</p>
-<p>So, as I had endeavored to clean my virtual <code>$HOME</code> of dotfiles, it became apparent that I needed to get familiar with symlinks.</p>
-<h2>Leaving a note</h2>
-<p>To create a symlink, you'd type this into your terminal:</p>
-<div class="highlight"><pre><span></span>ln -s path/to/target path/to/link
-</pre></div>
-
-
-<p>In English, this reads as:
-Create a symlink at <code>path/to/link</code> that redirects to <code>path/to/target</code>.</p>
-<h2>Reading the note</h2>
-<p>Most programs play nicely with <code>symlinks</code>. For instance, if you were to symlink your <code>~/.vimrc</code> to <code>~/dotfiles/vim/.vimrc</code>, Vim would access <code>~/.vimrc</code> but would end up reading from <code>~/dotfiles/vim/.vimrc</code> instead. It's kind of like a HTTP 302 that redirects you to another URI, or in our case, another path on your filesystem. Microsoft Windows users might find symlinks to be similar to shortcuts. They're essentially the same thing with the caveat that Windows programs would unfortunately get cranky if you tried to pass the shortcut file as an executable file. In *nix systems, symlinks in place of the actual file is okay for the most part!</p>
-<p>It's also helpful to know what path your existing symlinks are pointing to. A simple <code>ls</code> doesn't list out your symlinks. You'll want to run <code>ls -l</code>, and symlinks will look something like the second entry below:</p>
-<div class="highlight"><pre><span></span>-rw-------   1 sitong  staff    28054 Jun 29 17:52 .viminfo
-lrwxr-xr-x   1 sitong  staff       33 Jun 29 16:57 .vimrc -&gt; /Users/sitong/dotfiles/vim/.vimrc
-</pre></div>
-
-
-<p><span id="note">I actually ran <code>ls -al</code> since the symlinks in my <code>$HOME</code> are all dotfiles.</span>  </p>
-<h2>Removing the note</h2>
-<p>Removing the symlink is just an <code>rm</code> to the symlink. For instance:</p>
-<div class="highlight"><pre><span></span>rm ~/.vimrc
-</pre></div>
-
-
-<h2>A little bonus</h2>
-<p>So we saw that <code>ln -s</code> is the command for symlinks but what if you passed a naked <code>ln</code> command to your terminal?</p>
-<p>You would actually be creating a <a href="http://en.wikipedia.org/wiki/Hard_link">hard link</a>. Hard links point directly to a file's memory space instead of a filesystem path as with symlinks. This means you can move or rename the target file and the hard link will still resolve to that original target file. If you were to move or rename your symlinked target file then when some program tries to resolve the symlink, it won't find anything at that path. Try it out yourself!</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/i-moved-your-stuff-but-dont-freak-out-cuz-i-left-behind-a-symlink.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/nix-craft.html">[*nix-craft]</a>
-            <a href="http://blog.sitongpeng.com/tag/dotfiles.html">[dotfiles]</a>
-            <a href="http://blog.sitongpeng.com/tag/shellscript.html">[shellscript]</a>
-    </p>
-        </article>
 <p class="paginator">
             <a href="http://blog.sitongpeng.com/author/sitong-peng.html">&lt;&lt;</a>
-    Page 2 / 4
+    Page 2 / 5
         <a href="http://blog.sitongpeng.com/author/sitong-peng3.html">&gt;&gt;</a>
 </p>
         <footer>

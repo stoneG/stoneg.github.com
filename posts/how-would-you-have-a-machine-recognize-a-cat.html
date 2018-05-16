@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>Writing</title>
+        <title>How would you have a machine recognize a cat?</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
         <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
@@ -41,13 +41,11 @@
     </header>
 
     <section id="main">
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/how-would-you-have-a-machine-recognize-a-cat.html" rel="bookmark"
-                   title="Permalink to How would you have a machine recognize a cat?">How would you have a machine recognize a cat?</a></h1>
-<p class="date">Wednesday, May 16, 2018</p>        </header>
-        <article>
-            <p>I wrote my first computer program in college. It was, surprisingly, not “Hello World”, but typing the number “6” into a Scheme interpreter prompt. You can see how Scheme responded below.</p>
+<article>
+    <header>
+        <h1><a href="http://blog.sitongpeng.com/posts/how-would-you-have-a-machine-recognize-a-cat.html" rel="bookmark" title="Permalink to How would you have a machine recognize a cat?">How would you have a machine recognize a cat?</a></h1>
+<p class="date">Wednesday, May 16, 2018</p>    </header>
+    <p>I wrote my first computer program in college. It was, surprisingly, not “Hello World”, but typing the number “6” into a Scheme interpreter prompt. You can see how Scheme responded below.</p>
 <div class="highlight"><pre><span></span>&gt; 6
 6
 </pre></div>
@@ -70,58 +68,22 @@
 <p>This approach to programming is machine learning in a nutshell (specifically supervised learning). The programmer can push the responsibility of domain knowledge to the machine, and instead focus on providing tools (data) and instructions on how to use these tools. This is a powerful idea because it means we’ll be able to leverage machines to accomplish tasks we don’t have the resources/training to do ourselves.</p>
 <p>My first machine learning program was a cat classifier (this is the “Hello World” equivalent for machine learning). Essentially the program receives possible cat images and, using nothing but the RGB values of each pixel of it image, the program decides whether the photo contains a cat. It ended up having an 80% success rate on a test data set I used. Now, while it’s true that I could probably get at least a 99% success rate in classifying cat photos (accounting for some misclicks), I’m certain any explicit program I might write would operate at much worse than 80% accuracy. I wouldn’t even know where to start. A cat has pointy ears, but what are pointy ears, in fact, how do I describe what an ear looks like? How are pointy cat ears different from pointy mouse ears? Imagine having to describe what a cat looks like to a baby. You’d probably end up pointing out cats in real life until the baby learned itself through recognizing the patterns, a remarkably similar strategy to how we implement machine learning :).</p>
 <p><span class="note">Now, you might be wondering how exactly a machine learns without a human explicitly teaching it how to do the task. Stick around, that’ll be the topic of an upcoming post :).</span></p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/how-would-you-have-a-machine-recognize-a-cat.html#disqus_thread"></a>.
-    </p>
     <p class="tags">
             <a href="http://blog.sitongpeng.com/tag/machine-learning.html">[machine-learning]</a>
             <a href="http://blog.sitongpeng.com/tag/deep-learning.html">[deep-learning]</a>
     </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/ai-ml-dl-whats-the-difference.html" rel="bookmark"
-                   title="Permalink to Artificial Intelligence, Machine Learning, and Deep Learning - What's the difference?">Artificial Intelligence, Machine Learning, and Deep Learning - What's the difference?</a></h1>
-<p class="date">Tuesday, May 08, 2018</p>        </header>
-        <article>
-            <p>This is the first question I had when I first started exploring these subjects a month ago. I have a better grasp on the terms now, so let's delve in.</p>
-<h2>Artificial Intelligence</h2>
-<p>I think generally when people think about Artificial Intelligence (AI), they think of Artificial General Intelligence (AGI), or the ability of a non-biological entity to be able to successfully perform a wide variety of tasks at a human level (or better) proficiency. This contrasts with narrow AI, which can perform specific tasks at human proficiency. We already have examples of narrow AI in everyday life, like in our personal phone or home assistants, self driving cars, or AlphaGo. We don’t, however, have any examples of AGI yet and there is no consensus as to when that might occur, but the holy grail of AI research is toward the development of human level AGI, with the possibility that super intelligent AI wouldn’t be very far behind.</p>
-<h2>Machine Learning</h2>
-<p>Machine learning is a field in which machines are trained to develop algorithms to perform a task. This field flies in the face of traditional programming, in which humans assemble the algorithms and program machines to compute them. In machine learning, humans provide the training data (inputs that lead to certain outcomes) and program machines to determine how certain inputs will lead to certain outcomes. This is a powerful paradigm because it frees humans from needing to know how to get to the outcomes themselves, they just need to provide enough training data for a machine to figure out how a certain combination of inputs can lead to an outcome. For instance, if the task at hand is to catch a fish, traditional programming would teach a machine how to use a fishing rod - how to hold the rod, how to release the spool, how to cast a line. Machine learning would give a machine a library of videos showing people succeeding or failing to catch fish, leaving it up to the machine to go through each video and determine/learn how to catch a fish . Perhaps certain casting techniques are better than others, or maybe the weather plays a big role, the machine might pick up on patterns a human doesn't even think consider.</p>
-<h2>Deep Learning</h2>
-<p>Deep learning is subset of machine learning in which the machine’s learning style is loosely based on the neural wirings of a biological brain. That is, the machine is programmed to replicate how brains learn, via an artificial neural network. I’ll talk about that further in a subsequent post, but these neural networks will have many layers of "neurons" that explore many possible pathways for a set of inputs to end up as a set of outcomes. What's fascinating is that it's very hard to analyze these neural nets since they are essentially a jumble of weights that calculate patterns in input data. Take an artificial neural net (ANN) that can recognize if a cat is in a photo. For humans, we identify cats via features we deem catlike (pointed ear, furry bodies, whiskers). An ANN might notice that some group of pixels relates to some other group of pixels in a way that suggests a cat is there, but to a human this just looks like a bunch of math and data. For all we know, the ANN may come up with a more precise way to recognize cats that no human has ever thought of, some subtle pattern that renders simple feature recognition (it has a cheezburger?) obsolete.</p>
-<p>Anyways it's all pretty exciting stuff and I'm looking forward to breaking past my surface level knowledge of deep learning, machine learning, and AI. One question answered, many more to go.</p>
-<h2>Spelling Bee Tldr;</h2>
-<p><p class="quote">Deep learning is a technique in the field of machine learning that advances us closer to creating artificial general intelligence.</p></p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/ai-ml-dl-whats-the-difference.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/machine-learning.html">[machine-learning]</a>
-            <a href="http://blog.sitongpeng.com/tag/ai.html">[ai]</a>
-            <a href="http://blog.sitongpeng.com/tag/deep-learning.html">[deep-learning]</a>
-    </p>
-        </article>
-
-        <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/back-to-the-learning-grind.html" rel="bookmark"
-                   title="Permalink to Back to the learning grind">Back to the learning grind</a></h1>
-<p class="date">Monday, May 07, 2018</p>        </header>
-        <article>
-            <p>It’s been a long time coming, but I’m finally getting around to learning about machine learning. I’m hoping to get a better idea of what artificial general intelligence (AGI) could look like in the future and how that might affect the life I know.</p>
-<p>As a first step I’m currently working through Andrew Ng’s <a href="https://www.coursera.org/specializations/deep-learning">Deep Learning</a> course to get my feet wet with some of the technical challenges of machine learning as well as reading Max Tegmark’s <a href="https://www.amazon.com/Life-3-0-Being-Artificial-Intelligence/dp/1101946598/">Life 3.0: Being Human in the Age of Artificial Intelligence</a> to get a grasp on potential big picture ideas about machine learning.</p>
-<p>It’s my plan to keep a weekly log of things I’m learning as a way of organizing my thoughts. Wish me luck!</p>
-    <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/back-to-the-learning-grind.html#disqus_thread"></a>.
-    </p>
-    <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/machine-learning.html">[machine-learning]</a>
-    </p>
-        </article>
-<p class="paginator">
-    Page 1 / 1
-</p>
+        <div class="comments">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_identifier = "posts/how-would-you-have-a-machine-recognize-a-cat.html";
+                (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://sitong-blog.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        </div>
+</article>
         <footer>
         Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
