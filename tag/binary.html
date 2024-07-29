@@ -4,19 +4,19 @@
         <title>Writing - binary</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="https://stoneg.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+                <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
-                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="https://stoneg.github.io/css/ie.css"/>
+                <script src="https://stoneg.github.io/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="https://stoneg.github.io/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -29,12 +29,12 @@
             <p>My thoughts, shared</p>
                 <ul>
                     <li><a href="/index.html">Home</a></li>
-                    <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
+                    <li><a href="https:///about.html">About</a></li>
                     <li><a href="/archives.html">Archives</a></li>
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                            <li><a href="https://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -43,7 +43,7 @@
     <section id="main">
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
+            <h1><a href="https://stoneg.github.io/posts/bit-manipulation-fun.html" rel="bookmark"
                    title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
 <p class="date">Wednesday, January 30, 2013</p>        </header>
         <article>
@@ -79,7 +79,7 @@
 
 <p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
 <h2>Powerful twos</h2>
-<p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
+<p>If you work on <a href="https://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
@@ -153,7 +153,7 @@ x ^= y
 </pre></div>
 
 
-<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
+<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="https://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
 <div class="highlight"><pre><span></span><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
 <span class="gh">=============================================================================</span>
 x ^= y  -&gt;  x = x^y
@@ -163,21 +163,21 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 
 
 <p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
-<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
+<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="https://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
 <p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
+        <a href="https://stoneg.github.io/posts/bit-manipulation-fun.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
-            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
-            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="https://stoneg.github.io/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="https://stoneg.github.io/tag/binary.html">[binary]</a>
+            <a href="https://stoneg.github.io/tag/tricks.html">[tricks]</a>
+            <a href="https://stoneg.github.io/tag/python.html">[python]</a>
+            <a href="https://stoneg.github.io/tag/algorithms.html">[algorithms]</a>
     </p>
         </article>
         <footer>
-        Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
+        Awesomeness powered by <a href="https://getpelican.com/">Pelican</a> and <a href="https://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
 
@@ -187,7 +187,7 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
     _gaq.push(['_trackPageview']);
     (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'https://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
@@ -196,7 +196,7 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
     (function () {
         var s = document.createElement('script'); s.async = true;
         s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>

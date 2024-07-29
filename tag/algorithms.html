@@ -4,19 +4,19 @@
         <title>Writing - algorithms</title>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-        <link href="http://blog.sitongpeng.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
-        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
+        <link href="https://stoneg.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Writing Atom Feed" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic,700italic|Droid+Sans+Mono|Merriweather:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/theme/css/highlight.css">
 
         <!--[if IE]>
-                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+                <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
         <!--[if lte IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie.css"/>
-                <script src="http://blog.sitongpeng.com/js/IE8.js" type="text/javascript"></script><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="https://stoneg.github.io/css/ie.css"/>
+                <script src="https://stoneg.github.io/js/IE8.js" type="text/javascript"></script><![endif]-->
 
         <!--[if lt IE 7]>
-                <link rel="stylesheet" type="text/css" media="all" href="http://blog.sitongpeng.com/css/ie6.css"/><![endif]-->
+                <link rel="stylesheet" type="text/css" media="all" href="https://stoneg.github.io/css/ie6.css"/><![endif]-->
 
 </head>
 
@@ -29,12 +29,12 @@
             <p>My thoughts, shared</p>
                 <ul>
                     <li><a href="/index.html">Home</a></li>
-                    <li><a href="http://www.sitongpeng.com/about.html">About</a></li>
+                    <li><a href="https:///about.html">About</a></li>
                     <li><a href="/archives.html">Archives</a></li>
                     <li><a href="/tags.html">Tags</a></li>
                     <li><a href="/feeds/all.atom.xml">Atom</a></li>
                     <li></li>
-                            <li><a href="http://twitter.com/stoneG_">Twitter</a></li>
+                            <li><a href="https://twitter.com/stoneG_">Twitter</a></li>
                             <li><a href="https:/github.com/stoneG">Github</a></li>
                 </ul>
         </div>
@@ -43,12 +43,12 @@
     <section id="main">
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/travelling-salesman.html" rel="bookmark"
+            <h1><a href="https://stoneg.github.io/posts/travelling-salesman.html" rel="bookmark"
                    title="Permalink to Travelling Salesman">Travelling Salesman</a></h1>
 <p class="date">Friday, February 01, 2013</p>        </header>
         <article>
             <p>This is a challenging problem about a travelling salesman that wants to visit a number of cities efficiently. He needs to sell his product in all the cities so he needs to plot out the shortest path to visit all cities but each city only once. I'm not sure why he can't return to any cities but let's assume his tradecraft is in less agreeable goods.</p>
-<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="http://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
+<p>We'll work through the quirks of the travelling salesman problem. The map can be modelled as a <a href="https://en.wikipedia.org/wiki/Graph_theory">graph</a> where nodes are cities. Also each node is connected to every other node, you can travel in either direction along any edge, and edge lengths are the distances between cities. In other words, you could refer to this graph as complete, undirected, and weighted.</p>
 <p>Let's say there are 10 node cities: A to J. The salesman starts at node A.</p>
 <h2>Finding a "short" path</h2>
 <p>There's a simple way to find a "short" path. I say "short" but this could also lead us to a very long path in certain cases.</p>
@@ -71,7 +71,7 @@
 <p>In this case, we would visit J last, but clearly it would be faster to visit J first, then the rest of the nodes.</p>
 <p>The problem with this "short" path algorithm is that we are considering too few paths.</p>
 <h2>Exhaustive search</h2>
-<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
+<p>One way to ensure that we have the shortest path is to simply construct all paths (try all permutations) and pick the shortest. This, however, can be prohibitively expensive as the number of cities increases (see <a href="https://en.wikipedia.org/wiki/Combinatorial_explosion">combinatorial explosion</a>). For less busy salesmen though, this is a viable option.</p>
 <p>Essentially this search is brute force. It can be implemented as breadth first or depth first. They should take the same time since you'll need to search the entire graph in either case. However, usually it is easier to implement depth first search, so we can do that.</p>
 <ol>
 <li>Starting at A, move to next unvisited node, note distance and mark A as visited.</li>
@@ -81,20 +81,20 @@
 </ol>
 <p>We end up with <code>(N-1)!</code> paths which is pretty terrible in terms of computation time (Note this is not <code>N!</code> because we are actually only visiting <code>N-1</code> nodes since we have defined a start node and we don't return to it). But on the bright side, we know we have the shortest path because we calculated them all!</p>
 <h2>So what about large N?</h2>
-<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="http://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
+<p>Well I wish I could give a solid answer here, but this is a heavily studied academic problem that is beyond my current capabilities. I'll leave you with this Stack Overflow <a href="https://stackoverflow.com/questions/7159259/optimized-tsp-algorithms">link</a> though, which I plan to study a bit further. I'll be sure to share my findings in an upcoming post, so stay tuned.</p>
 <p><span id="note">Shoot me an email or write a comment if you have any suggested material you think I should peruse. I'd love to learn more about this.</span></p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/travelling-salesman.html#disqus_thread"></a>.
+        <a href="https://stoneg.github.io/posts/travelling-salesman.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
-            <a href="http://blog.sitongpeng.com/tag/graph.html">[graph]</a>
-            <a href="http://blog.sitongpeng.com/tag/shortest-path.html">[shortest path]</a>
+            <a href="https://stoneg.github.io/tag/algorithms.html">[algorithms]</a>
+            <a href="https://stoneg.github.io/tag/graph.html">[graph]</a>
+            <a href="https://stoneg.github.io/tag/shortest-path.html">[shortest path]</a>
     </p>
         </article>
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html" rel="bookmark"
+            <h1><a href="https://stoneg.github.io/posts/bit-manipulation-fun.html" rel="bookmark"
                    title="Permalink to Bit manipulation fun">Bit manipulation fun</a></h1>
 <p class="date">Wednesday, January 30, 2013</p>        </header>
         <article>
@@ -130,7 +130,7 @@
 
 <p>This ends up being the same amount of typing but it's interesting that we have this second option of writing the <code>is_even</code> function.</p>
 <h2>Powerful twos</h2>
-<p>If you work on <a href="http://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
+<p>If you work on <a href="https://projecteuler.net/">Project Euler</a> problems frequently, the following shortcut might be beneficial to keep in mind. Here's a function that checks if <code>x</code> is a power of two.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_power_of_two</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">power_of_two</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="k">while</span> <span class="n">power_of_two</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
@@ -204,7 +204,7 @@ x ^= y
 </pre></div>
 
 
-<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
+<p>To understand what's happening, you should recall that <code>XOR</code> is commutative, <code>x^x</code> is 0, and <code>x^0</code> is <code>x</code>. Let's break down the <a href="https://en.wikipedia.org/wiki/XOR_swap_algorithm">XOR Swap Algorithm</a> again.</p>
 <div class="highlight"><pre><span></span><span class="gh">start   -&gt;  breaking down  -&gt;  commuting      -&gt;  cancelling -&gt;  removing 0&#39;s</span>
 <span class="gh">=============================================================================</span>
 x ^= y  -&gt;  x = x^y
@@ -214,30 +214,30 @@ x ^= y  -&gt;  x = x^y^y^x^y  -&gt;  x = x^x^y^y^y  -&gt;  x = 0^y^0  -&gt;  x =
 
 
 <p>That's pretty cool but I'll stick to Python's easy swap. It is nice, however, to see how binary manipulation can be used to our advantage in languages that don't have an in-place swap.</p>
-<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="http://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
+<p>Now for the disclaimer. While the XOR swap is pretty nifty, it doesn't have much practical use. If you actually plan on using it in the real world, hopefully your application fits in one of <a href="https://en.wikipedia.org/wiki/XOR_swap_algorithm#Reasons_for_use_in_practice">these</a> buckets. Turns out, optimizing compilers tend to make temporary variable swaps pretty efficient, often faster than this XOR swap.</p>
 <p><span id="note">Have any more bit manipulation tricks you'd like to share? Leave me a comment, I'd love to see more in action.</span></p>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/bit-manipulation-fun.html#disqus_thread"></a>.
+        <a href="https://stoneg.github.io/posts/bit-manipulation-fun.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/bit-manipulation.html">[bit manipulation]</a>
-            <a href="http://blog.sitongpeng.com/tag/binary.html">[binary]</a>
-            <a href="http://blog.sitongpeng.com/tag/tricks.html">[tricks]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
+            <a href="https://stoneg.github.io/tag/bit-manipulation.html">[bit manipulation]</a>
+            <a href="https://stoneg.github.io/tag/binary.html">[binary]</a>
+            <a href="https://stoneg.github.io/tag/tricks.html">[tricks]</a>
+            <a href="https://stoneg.github.io/tag/python.html">[python]</a>
+            <a href="https://stoneg.github.io/tag/algorithms.html">[algorithms]</a>
     </p>
         </article>
 
         <header>
-            <h1><a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html" rel="bookmark"
+            <h1><a href="https://stoneg.github.io/posts/the-case-for-base-cases.html" rel="bookmark"
                    title="Permalink to The case for base cases">The case for base cases</a></h1>
 <p class="date">Monday, January 28, 2013</p>        </header>
         <article>
             <p>You have a complicated problem to solve. How do you start tackling it?</p>
 <p>One of the most tried and tested methods of problem solving is nothing more than implementing some noise control. In other words, can you peel back the complexity of the problem and make it simpler?</p>
 <h2>Tower of Hanoi</h2>
-<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="http://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
-<p><img alt="Tower of Hanoi, from Wikipedia" src="http://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg"></p>
+<p>I finally sat down and tried solving this problem two days ago. For those of you unfamiliar, the <a href="https://en.wikipedia.org/wiki/Tower_of_Hanoi">Tower of Hanoi</a> is an old puzzle that has been mostly re-appropriated as a classic example of algorithmic thought. Here's a version of it:</p>
+<p><img alt="Tower of Hanoi, from Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Tower_of_Hanoi.jpeg"></p>
 <p>There are three rods and a number of different sized disks that can slide onto any rod. The puzzle starts with the disks in a neat stack, ascending by size, on the first rod. The objective of the puzzle is to move the entire stack to the last rod, obeying the following rules:  </p>
 <ol>
 <li>Only one disk may be moved at a time.  </li>
@@ -344,24 +344,24 @@ Done.
 
 <p>The trick is to redefine the rods for each recursive <code>n-1</code> call. What's more is you really only need to think about which rod you're starting and ending at. The odd rod out is just the buffer.</p>
 <p>I'd show you the code in action but all the computation is behind the scenes and not very interesting. Luckily a quick search on Youtube yielded a visual solution for N=6. Notice how there is a point of symmetry in the middle as the 5 smaller disks sit at B and the largest disk migrates over to C. Utterly awesome!</p>
-<iframe style="margin-top:20px;" width="560" height="315" src="http://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
+<iframe style="margin-top:20px;" width="560" height="315" src="https://www.youtube.com/embed/JqC_LsF1iWg" frameborder="0" allowfullscreen></iframe>
     <p class="comments">
-        <a href="http://blog.sitongpeng.com/posts/the-case-for-base-cases.html#disqus_thread"></a>.
+        <a href="https://stoneg.github.io/posts/the-case-for-base-cases.html#disqus_thread"></a>.
     </p>
     <p class="tags">
-            <a href="http://blog.sitongpeng.com/tag/base-case.html">[base case]</a>
-            <a href="http://blog.sitongpeng.com/tag/python.html">[python]</a>
-            <a href="http://blog.sitongpeng.com/tag/tower-of-hanoi.html">[tower of hanoi]</a>
-            <a href="http://blog.sitongpeng.com/tag/algorithms.html">[algorithms]</a>
-            <a href="http://blog.sitongpeng.com/tag/recursion.html">[recursion]</a>
-            <a href="http://blog.sitongpeng.com/tag/youtube.html">[youtube]</a>
+            <a href="https://stoneg.github.io/tag/base-case.html">[base case]</a>
+            <a href="https://stoneg.github.io/tag/python.html">[python]</a>
+            <a href="https://stoneg.github.io/tag/tower-of-hanoi.html">[tower of hanoi]</a>
+            <a href="https://stoneg.github.io/tag/algorithms.html">[algorithms]</a>
+            <a href="https://stoneg.github.io/tag/recursion.html">[recursion]</a>
+            <a href="https://stoneg.github.io/tag/youtube.html">[youtube]</a>
     </p>
         </article>
 <p class="paginator">
     Page 1 / 1
 </p>
         <footer>
-        Awesomeness powered by <a href="http://getpelican.com/">Pelican</a> and <a href="http://jinja.pocoo.org/docs/">Jinja2</a>.
+        Awesomeness powered by <a href="https://getpelican.com/">Pelican</a> and <a href="https://jinja.pocoo.org/docs/">Jinja2</a>.
         </footer>
     </section>
 
@@ -371,7 +371,7 @@ Done.
     _gaq.push(['_trackPageview']);
     (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'https://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
     </script>
@@ -380,7 +380,7 @@ Done.
     (function () {
         var s = document.createElement('script'); s.async = true;
         s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
